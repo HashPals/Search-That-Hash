@@ -3,6 +3,8 @@
 
 More of a project to aid Ciphey than a project in of itself.
 
+Work in progress. Not released yet!
+
 # ToDo
 * Use HashID to find possible hashes and mode of hash
 * Use only APIs that match these possible hashes
