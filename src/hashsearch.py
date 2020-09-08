@@ -7,6 +7,7 @@ import sys
 def main(text):
     hash_identifier = hashid.HashID()
     result = hash_identifier.identifyHash(text)
+    possible_hash_types = set(result.keys())
     print(hashid.writeResult(result))
 
 if __name__ == '__main__':
