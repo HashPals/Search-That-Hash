@@ -7,8 +7,7 @@ import sys
 def main(text):
     hash_identifier = hashid.HashID()
     result = hash_identifier.identifyHash(text)
-    hashid.writeResult(result, sys.stdout)
-    print(result)
+    print(hashid.writeResult(result))
 
 if __name__ == '__main__':
     main()

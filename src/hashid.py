@@ -764,23 +764,19 @@ class HashID(object):
                     yield mode
 
 
-def writeResult(identified_modes, outfile, hashcatMode=False, johnFormat=False, extended=False):
+def writeResult(identified_modes, hashcatMode=False, johnFormat=False, extended=True):
     """Write human readable output from identifyHash"""
-    count = 0
-    hashTypes = ""
+    hashTypes = {}
     for mode in identified_modes:
-        if not mode.extended or extended:
-            count += 1
-            hashTypes += u"[+] {0} ".format(mode.name)
-            if hashcatMode and mode.hashcat is not None:
-                hashTypes += "[Hashcat Mode: {0}]".format(mode.hashcat)
-            if johnFormat and mode.john is not None:
-                hashTypes += "[JtR Format: {0}]".format(mode.john)
-            hashTypes += "\n"
-    outfile.write(hashTypes)
-    if count == 0:
-        outfile.write(u"[+] Unknown hash\n")
-    return (count > 0)
+        name = u"{0}".format(mode.name)
+        hashTypes[name] = {}
+        if mode.hashcat is not None:
+            hashTypes[name]["Hashcat Mode"] =  "{0}".format(mode.hashcat)
+        if mode.john is not None:
+            hashTypes[name]["John The Ripper Format"] = "{0}".format(mode.john)
+    if hashTypes == {}:
+        raise "Unknown hash type"
+    return hashTypes
 
 
 def main():
