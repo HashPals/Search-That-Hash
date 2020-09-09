@@ -11,6 +11,11 @@ import toml
 # from googlesearch.googlesearch import GoogleSearch
 # this isnt
 
+# The set of popular hashes
+# These have priority over any other hash.
+# If one hash can be MD5 or MD2, it will pick MD5 first and then MD2.
+popular_hashes = set("MD5", "SHA1", "SHA256", "SHA384", "SHA512")
+
 
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash")
