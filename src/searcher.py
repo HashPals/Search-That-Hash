@@ -8,12 +8,18 @@ class Searcher:
 
     def __init__(config):
         searchers = [hashtoolkit(), nitrxgen(), md5crypt()]
-        
-
+        results = {}
+        for hash in config["hashes"]:
+            for search in searchers:
+                if any(config["types"] in search.supports):
+                    result = search.crack()
+                    if result != False:
+                        # remove hash from list and add to dict of results
+                        results["hash"] = result
+                        config["hashes"].pop(hash)
+        return config["results"] = results
+                    
     
-
-    
-
 
 def google_search():
     # searches google
@@ -24,7 +30,7 @@ class hashtoolkit:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set("md5", "sha1", "sha256", "sha384", "sha512")
 
-    def crack(hashvalue, hashtype=None, api_key=None):
+    def crack(config):
         response = requests.get(
             "https://hashtoolkit.com/reverse-hash/?hash=" + hashvalue
         ).text
@@ -39,7 +45,7 @@ class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set("md5")
 
-    def crack(hashvalue, hashtype=None, api_key=None):
+    def crack(config):
         response = requests.get(
             "https://www.nitrxgen.net/md5db/" + hashvalue, verify=False
         ).text
@@ -53,7 +59,7 @@ class md5crypt:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set("md5", "sha1", "sha256", "sha384", "sha512")
 
-    def crack(hashvalue, hashtype=None, api_key=None):
+    def crack(config):
         response = requests.get(
             "https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
             % (hashvalue, hashtype)
@@ -238,8 +244,8 @@ class hashes_dot_org:
         "RUBY",
         "AUTHME",
     )
-    def crack(hashvalue, hashtype=None, apikey=None):
-        if apikey is None:
+    def crack(config):
+        if apikey is "":
             return False
         response = requests.get("https://hashes.org/api.php?key={apikey}&query={hashvalue}").json()
         res = response["result"][hashvalue]
