@@ -6,10 +6,15 @@ More of a project to aid Ciphey than a project in of itself.
 Work in progress. Not released yet!
 
 # ToDo
-* Use HashID to find possible hashes and mode of hash
+- [x] Use HashID to find possible hashes and mode of hash
 * Use only APIs that match these possible hashes
 * Add functions of providers
 * Add config file so users can input their API keys (if they need them)
 * Include Google search parsing (parse HASH:plaintext)
 
 * Call Hashcat (Default with mode) or John with the mode.
+
+# MVP 1
+Import config file as dict
+Pass dict to search_and_crack
+search for hashes

@@ -63,8 +63,16 @@ optional = false
 python-versions = "*"
 version = "1.9.6"
 
+[[package]]
+category = "main"
+description = "Python Library for Tom's Obvious, Minimal Language"
+name = "toml"
+optional = false
+python-versions = "*"
+version = "0.10.1"
+
 [metadata]
-content-hash = "667b248bff8876411a8bc54a845a97892773885dce2b0f57e7a8909510b13176"
+content-hash = "cc7b52b617df5f65fbd718ba0fa0d7671d706209d7d8db30c62bdd787c46c6e1"
 lock-version = "1.0"
 python-versions = "^3.5"
 
@@ -121,4 +129,8 @@ lxml = [
 soupsieve = [
     {file = "soupsieve-1.9.6-py2.py3-none-any.whl", hash = "sha256:feb1e937fa26a69e08436aad4a9037cd7e1d4c7212909502ba30701247ff8abd"},
     {file = "soupsieve-1.9.6.tar.gz", hash = "sha256:7985bacc98c34923a439967c1a602dc4f1e15f923b6fcf02344184f86cc7efaa"},
+]
+toml = [
+    {file = "toml-0.10.1-py2.py3-none-any.whl", hash = "sha256:bda89d5935c2eac546d648028b9901107a595863cb36bae0c73ac804a9b4ce88"},
+    {file = "toml-0.10.1.tar.gz", hash = "sha256:926b612be1e5ce0634a2ca03470f95169cf16f939018233a670519cb4ac58b0f"},
 ]

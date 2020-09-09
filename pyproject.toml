@@ -9,6 +9,7 @@ python = "^3.5"
 click = "^7.1.2"
 google-search = "^1.0.2"
 appdirs = "^1.4.4"
+toml = "^0.10.1"
 
 [tool.poetry.dev-dependencies]
 
