@@ -6,22 +6,28 @@ class Searcher:
     Searches APIs and Google for your hash
     """
 
-    def __init__(config):
+    def __init__(self, config):
         searchers = [hashtoolkit(), nitrxgen(), md5crypt()]
         results = {}
         for hash in config["hashes"]:
             print(hash)
             for search in searchers:
-                print(search)
-                if any(config["types"] in search.supports):
+                # gets hash types
+                keys = hash[next(iter(hash.keys()))].keys()
+                # converts to lowercase
+                keys = [x.lower() for x in keys]
+                # places True in list if it matches
+                to_check = [True for i in keys if i in search.supports]
+                # Returns True if any of the possible hash types is something the searcher supports
+                if any(to_check):
                     print("Types match")
-                    result = search.crack()
+                    """result = search.crack()
                     print(result)
                     if result != False:
                         # remove hash from list and add to dict of results
                         results["hash"] = result
                         config["hashes"].pop(hash)
-        return config["results"] = results
+        return config["results"] = results"""
                     
     
 
@@ -249,7 +255,7 @@ class hashes_dot_org:
         "AUTHME",
     ])
     def crack(config):
-        if apikey is "":
+        if apikey == "":
             return False
         response = requests.get("https://hashes.org/api.php?key={apikey}&query={hashvalue}").json()
         res = response["result"][hashvalue]

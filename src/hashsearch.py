@@ -1,5 +1,5 @@
 import hashid
-
+import searcher
 
 import click
 import sys
@@ -77,7 +77,8 @@ def main(**kwargs):
     config["wordlist"] = kwargs["wordlist"]
     config["hashcat"] = kwargs["hashcat"]
 
-    print(config)
+    config = searcher.Searcher(config)
+
 
 def create_hash_config(config):
     # Returns the hashing config 
