@@ -10,9 +10,13 @@ class Searcher:
         searchers = [hashtoolkit(), nitrxgen(), md5crypt()]
         results = {}
         for hash in config["hashes"]:
+            print(hash)
             for search in searchers:
+                print(search)
                 if any(config["types"] in search.supports):
+                    print("Types match")
                     result = search.crack()
+                    print(result)
                     if result != False:
                         # remove hash from list and add to dict of results
                         results["hash"] = result
@@ -28,7 +32,7 @@ def google_search():
 
 class hashtoolkit:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set("md5", "sha1", "sha256", "sha384", "sha512")
+    supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
     def crack(config):
         response = requests.get(
@@ -43,7 +47,7 @@ class hashtoolkit:
 
 class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set("md5")
+    supports = set(["md5"])
 
     def crack(config):
         response = requests.get(
@@ -57,7 +61,7 @@ class nitrxgen:
 
 class md5crypt:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set("md5", "sha1", "sha256", "sha384", "sha512")
+    supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
     def crack(config):
         response = requests.get(
@@ -71,7 +75,7 @@ class md5crypt:
 
 
 class hashes_dot_org:
-    supports = set(
+    supports = set([
         "SHA1BCRYPT-CUSTOM",
         "WORDPRESS",
         "PHPBB3",
@@ -243,7 +247,7 @@ class hashes_dot_org:
         "ARMORGAMES",
         "RUBY",
         "AUTHME",
-    )
+    ])
     def crack(config):
         if apikey is "":
             return False
