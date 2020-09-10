@@ -17,12 +17,17 @@ class Searcher:
                 # converts to lowercase
                 keys = [x.lower() for x in keys]
                 # places True in list if it matches
+                for type in keys:
+                    if type in search.supports:
+                        print("types match")
+                        result = search.crack()
                 to_check = [True for i in keys if i in search.supports]
                 # Returns True if any of the possible hash types is something the searcher supports
                 if any(to_check):
                     print("Types match")
-                    """result = search.crack()
+                    result = search.crack()
                     print(result)
+                    """
                     if result != False:
                         # remove hash from list and add to dict of results
                         results["hash"] = result
