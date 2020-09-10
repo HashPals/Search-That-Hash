@@ -1,5 +1,5 @@
 import requests
-
+import re
 
 class Searcher:
     """
@@ -10,23 +10,26 @@ class Searcher:
         searchers = [hashtoolkit(), nitrxgen(), md5crypt()]
         results = {}
         for hash in config["hashes"]:
+            print("\n\n\n\n")
             print(hash)
+            hash_ctext = next(iter(hash.keys()))
+            print("\n", hash_ctext)
+            
             for search in searchers:
                 # gets hash types
                 keys = hash[next(iter(hash.keys()))].keys()
                 # converts to lowercase
                 keys = [x.lower() for x in keys]
+
                 # places True in list if it matches
-                for type in keys:
-                    if type in search.supports:
+                for hashtype in keys:
+                    if hashtype in search.supports:
                         print("types match")
-                        result = search.crack()
-                to_check = [True for i in keys if i in search.supports]
-                # Returns True if any of the possible hash types is something the searcher supports
-                if any(to_check):
-                    print("Types match")
-                    result = search.crack()
-                    print(result)
+                        result = search.crack(hash_ctext, hashtype, config)
+                    else:
+                        result = None
+                    results = {hash_ctext: [{"hash_type": "None", "plaintext": str(result)}, keys]}
+  \
                     """
                     if result != False:
                         # remove hash from list and add to dict of results
@@ -45,7 +48,7 @@ class hashtoolkit:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
-    def crack(config):
+    def crack(self, hashvalue, hashtype, config):
         response = requests.get(
             "https://hashtoolkit.com/reverse-hash/?hash=" + hashvalue
         ).text
@@ -60,7 +63,7 @@ class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5"])
 
-    def crack(config):
+    def crack(self, hashvalue, hashtype, config):
         response = requests.get(
             "https://www.nitrxgen.net/md5db/" + hashvalue, verify=False
         ).text
@@ -74,7 +77,7 @@ class md5crypt:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
-    def crack(config):
+    def crack(self, hashvalue, hashtype, config):
         response = requests.get(
             "https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
             % (hashvalue, hashtype)
@@ -259,7 +262,7 @@ class hashes_dot_org:
         "RUBY",
         "AUTHME",
     ])
-    def crack(config):
+    def crack(self, hashvalue, hashtype, config):
         if apikey == "":
             return False
         response = requests.get("https://hashes.org/api.php?key={apikey}&query={hashvalue}").json()

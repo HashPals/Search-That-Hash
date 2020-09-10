@@ -77,6 +77,8 @@ def main(**kwargs):
     config["wordlist"] = kwargs["wordlist"]
     config["hashcat"] = kwargs["hashcat"]
 
+    print(config)
+
     config = searcher.Searcher(config)
 
 
@@ -151,3 +153,4 @@ def crack_hashes(list):
 
 if __name__ == "__main__":
     main()
+
