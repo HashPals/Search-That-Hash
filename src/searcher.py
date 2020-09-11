@@ -1,6 +1,7 @@
 import requests
 import re
 import concurrent.futures
+from collections import namedtuple
 
 class Searcher:
     """
@@ -8,7 +9,9 @@ class Searcher:
     """
 
     def __init__(self, config):
-        searchers = [hashtoolkit(), nitrxgen(), md5crypt()]
+        searchers = [hashtoolkit()]
+        # , nitrxgen(), md5crypt()
+        Hash_input = namedtuple("Hash_input", "text hash_type api_keys")
         futures = []
         results = {}
         for hash in config["hashes"]:
@@ -26,12 +29,17 @@ class Searcher:
                 # places True in list if it matches
                 for hashtype in keys:
                     if hashtype in search.supports:
-                        futures.append[hash_ctext, hashtype, config]
+                        self.threaded_search(Hash_input(hash_ctext, hashtype, config))
+                        futures.append()
+                print("\n\n\n\n\n")
+                print(futures[0])
+                
+                
 
-    def threaded_search(futures):
+    def threaded_search(self, futures):
         processes = []
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            processes.append(executor.map(search.crack(future), futures))
+            processes.append(executor.map(search.crack(future), self.searchers))
         for _ in concurrent.futures.as_completed(processes):
             print('Result: ', _.result())
 
@@ -41,9 +49,7 @@ class Searcher:
                     else:
                         result = None
                     results = {hash_ctext: [{"hash_type": "None", "plaintext": str(result)}, keys]}
-                    """
-  
-                    """
+     
                     if result != False:
                         # remove hash from list and add to dict of results
                         results["hash"] = result
@@ -61,10 +67,9 @@ class hashtoolkit:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
-    def crack(self, hashvalue, hashtype, config):
+    def crack(self, hash_obj):
         response = requests.get(
-            "https://hashtoolkit.com/reverse-hash/?hash=" + hashvalue
-        ).text
+            "https://hashtoolkit.com/reverse-hash/?hash=" + hash_obj.hash, timeout=3).text
         match = re.search(r'/generate-hash/?text=.*?"', response)
         if match:
             return match.group(1)
@@ -78,7 +83,7 @@ class nitrxgen:
 
     def crack(self, hashvalue, hashtype, config):
         response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + hashvalue, verify=False
+            "https://www.nitrxgen.net/md5db/" + hashvalue, verify=False, timeout=3
         ).text
         if response:
             return response
@@ -93,7 +98,7 @@ class md5crypt:
     def crack(self, hashvalue, hashtype, config):
         response = requests.get(
             "https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
-            % (hashvalue, hashtype)
+            % (hashvalue, hashtype), timeout=3
         ).text
         if len(response) != 0:
             return response
@@ -278,7 +283,7 @@ class hashes_dot_org:
     def crack(self, hashvalue, hashtype, config):
         if apikey == "":
             return False
-        response = requests.get("https://hashes.org/api.php?key={apikey}&query={hashvalue}").json()
+        response = requests.get("https://hashes.org/api.php?key={apikey}&query={hashvalue}", timeout=3).json()
         res = response["result"][hashvalue]
         if res == "null":
             return False

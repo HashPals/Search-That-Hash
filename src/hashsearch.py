@@ -87,7 +87,11 @@ def create_hash_config(config):
     # [{hash: {hash_types}}, {hash: {hash_types}}]
     result = []
     for hash in config["hashes"]:
-        result.append({hash: get_hashid(hash)})
+        try:
+            result.append({hash: get_hashid(hash)})
+        except Exception as e:
+            print(f"{hash} is an unknown hash type.")
+            continue
     return result
 
 def get_hashid(hash):
