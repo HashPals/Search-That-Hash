@@ -83,7 +83,7 @@ def main(**kwargs):
 
 
 def create_hash_config(config):
-    # Returns the hashing config 
+    # Returns the hashing config
     # [{hash: {hash_types}}, {hash: {hash_types}}]
     result = []
     for hash in config["hashes"]:
@@ -94,12 +94,12 @@ def create_hash_config(config):
             continue
     return result
 
+
 def get_hashid(hash):
     hash_identifier = hashid.HashID()
     return hashid.writeResult(
-        hash_identifier.identifyHash(hash) # , None, True, True, True
+        hash_identifier.identifyHash(hash)  # , None, True, True, True
     )
-
 
 
 def read_config_file():
@@ -157,4 +157,3 @@ def crack_hashes(list):
 
 if __name__ == "__main__":
     main()
-
