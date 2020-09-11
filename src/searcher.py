@@ -1,5 +1,6 @@
 import requests
 import re
+import concurrent.futures
 
 class Searcher:
     """
@@ -8,6 +9,7 @@ class Searcher:
 
     def __init__(self, config):
         searchers = [hashtoolkit(), nitrxgen(), md5crypt()]
+        futures = []
         results = {}
         for hash in config["hashes"]:
             print("\n\n\n\n")
@@ -24,12 +26,23 @@ class Searcher:
                 # places True in list if it matches
                 for hashtype in keys:
                     if hashtype in search.supports:
+                        futures.append[hash_ctext, hashtype, config]
+
+    def threaded_search(futures):
+        processes = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            processes.append(executor.map(search.crack(future), futures))
+        for _ in concurrent.futures.as_completed(processes):
+            print('Result: ', _.result())
+
+        """
                         print("types match")
                         result = search.crack(hash_ctext, hashtype, config)
                     else:
                         result = None
                     results = {hash_ctext: [{"hash_type": "None", "plaintext": str(result)}, keys]}
-  \
+                    """
+  
                     """
                     if result != False:
                         # remove hash from list and add to dict of results

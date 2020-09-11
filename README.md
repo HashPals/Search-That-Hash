@@ -18,6 +18,7 @@ Work in progress. Not released yet!
 - [ ] Multi thread the search calls
 - [ ] Design README
 - [ ] Build more documentation
+- [ ] https://www.digitalocean.com/community/tutorials/how-to-use-threadpoolexecutor-in-python-3
 
 # MVP 1
 Import config file as dict
