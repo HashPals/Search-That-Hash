@@ -11,14 +11,14 @@ Work in progress. Not released yet!
 - [x] Add argument parsing
 - [x] Use only APIs that match these possible hashes
 - [x] Add functions of providers
-* Add config file so users can input their API keys (if they need them)
-* Include Google search parsing (parse HASH:plaintext)
-* If popular hash in set, do that one first
-* Call Hashcat (Default with mode) or John with the mode.
-- [ ] Multi thread the search calls
+- [x] Multi thread the search calls
 - [ ] Design README
 - [ ] Build more documentation
-- [ ] https://www.digitalocean.com/community/tutorials/how-to-use-threadpoolexecutor-in-python-3
+- [x] https://www.digitalocean.com/community/tutorials/how-to-use-threadpoolexecutor-in-python-3
+- [ ] Add config file so users can input their API keys (if they need them)
+- [ ] Include Google search parsing (parse HASH:plaintext)
+- [ ] If popular hash in set, do that one first
+- [ ] Call Hashcat (Default with mode) or John with the mode.
 
 # MVP 1
 Import config file as dict
