@@ -1,4 +1,6 @@
-![img](Pictures/logo.gif)
+<p align="center">
+<img src="Pictures/logo.gif">
+</p>
 
 # HashSearch
 🔎Searches Hash APIs and Google to crack your hash quickly🔎
