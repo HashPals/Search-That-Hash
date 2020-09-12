@@ -10,16 +10,13 @@ class Searcher:
     """
 
     def __init__(self, config):
-        searchers = [hashtoolkit()]
+        searchers = [hashtoolkit(), nitrxgen(), md5crypt()]
         # , nitrxgen(), md5crypt()
         Hash_input = namedtuple("Hash_input", "text hash_type api_keys")
         futures = []
         results = {}
         for hash in config["hashes"]:
-            print("\n\n\n\n")
-            print(hash)
             hash_ctext = next(iter(hash.keys()))
-            print("\n", hash_ctext)
 
             for search in searchers:
                 # gets hash types
@@ -30,30 +27,34 @@ class Searcher:
                 supported_searchers = []
 
                 # places True in list if it matches
+                types = []
                 for hashtype in keys:
                     if hashtype in search.supports:
                         supported_searchers.append(search)
-                future = Hash_input(hash_ctext, keys, config)
-                # self.threaded_search(Hash_input(hash_ctext, hashtype, config), supported_searchers)
-                # futures.append()
-                print("\n\n\n\n\n")
-                print()
-                print("\n\n\n")
-                print(supported_searchers)
+                        types.append(hashtype) 
+
+                future = Hash_input(hash_ctext, types, keys)
+
                 self.threaded_search(future, supported_searchers)
 
     def threaded_search(self, future, supported_searchers):
 
         processes = []
-        with ThreadPoolExecutor() as executor:
+        with ThreadPoolExecutor(max_workers=4) as executor:
             running_tasks = [
-                executor.submit(search.crack(future)) for search in supported_searchers
+                executor.submit(self.call_searcher(search, future)) for search in supported_searchers
             ]
         # for _ in concurrent.futures.as_completed(processes):
         #   print('Result: ', _.result())
 
         # from concurrent.futures import ThreadPoolExecutor
 
+    def call_searcher(self, search, future):
+        try:
+            search.crack(future)
+        except Exception as e:
+            print(f"Error. Searcher {type(search).__name__} is down.")
+            return False
 
 def google_search():
     # searches google
@@ -65,8 +66,6 @@ class hashtoolkit:
     supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
     def crack(self, hash_obj):
-        print("I am in here")
-        print(hash_obj)
         response = requests.get(
             "https://hashtoolkit.com/reverse-hash/?hash=" + hash_obj.text, timeout=3
         ).text
@@ -81,9 +80,9 @@ class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5"])
 
-    def crack(self, hashvalue, hashtype, config):
+    def crack(self, hash_obj):
         response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + hashvalue, verify=False, timeout=3
+            "https://www.nitrxgen.net/md5db/" + hash_obj.text, verify=False, timeout=1
         ).text
         if response:
             return response
@@ -95,12 +94,19 @@ class md5crypt:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
-    def crack(self, hashvalue, hashtype, config):
+    def crack(self, hash_obj):
+        for t in hash_obj.hash_type:
+            res = search_one_type(hash_obj, t)
+            if res != False:
+                return res
+        return False
+
+    def search_one_type(self, hash_obj, type):
         response = requests.get(
             "https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
-            % (hashvalue, hashtype),
+            % (hash_obj.text, t),
             timeout=3,
-        ).text
+        ).text 
         if len(response) != 0:
             return response
         else:
@@ -284,7 +290,7 @@ class hashes_dot_org:
         ]
     )
 
-    def crack(self, hashvalue, hashtype, config):
+    def crack(self, hash_obj):
         if apikey == "":
             return False
         response = requests.get(
