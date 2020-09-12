@@ -2,6 +2,8 @@
 <img src="Pictures/logo.gif">
 </p>
 
+# Work in progress. Not released yet!
+
 # HashSearch
 🔎Searches Hash APIs and Google to crack your hash quickly🔎
 
@@ -12,11 +14,13 @@ If your hash is not found via Google or APIs, it will automatically detect the t
 # Features
 * API first. Built for Ciphey, easy to use API.
 * Use your own API keys or use free API services.
-* Don't spend time 
+* Google search for single hashes.
+* Automatic identification of hashes.
+* Pipes into John / HashCat if hashes are not found in APIs.
+* Caching technology. Have the same hash twice in the file? You won't need to crack it twice.
+* Multi threaded, of course.
 
 More of a project to aid Ciphey than a project in of itself.
-
-Work in progress. Not released yet!
 
 # ToDo
 - [x] Use HashID to find possible hashes and mode of hash
@@ -32,8 +36,3 @@ Work in progress. Not released yet!
 - [ ] Include Google search parsing (parse HASH:plaintext)
 - [ ] If popular hash in set, do that one first
 - [ ] Call Hashcat (Default with mode) or John with the mode.
-
-# MVP 1
-Import config file as dict
-Pass dict to search_and_crack
-search for hashes

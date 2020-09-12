@@ -108,13 +108,15 @@ def read_config_file():
 
 def find_appdirs_location():
     # TODO make this OS independent the "/" makes it Windows specific
-    return user_data_dir("HashSearch", "Bee-san") + "/config.toml"
+    print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
+    return user_config_dir("HashSearch", "Bee-san") + "/config.toml"
 
 
 def read_and_parse_config_file(file):
     config_to_parse = read_file(file)
 
     if config_to_parse == None:
+        print("its none")
         return config_to_parse
     else:
         try:
@@ -133,7 +135,6 @@ def read_file(file):
 
 def hashcat():
     Pass
-
 
 def John():
     Pass
