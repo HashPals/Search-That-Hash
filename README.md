@@ -30,9 +30,12 @@ More of a project to aid Ciphey than a project in of itself.
 - [x] Add functions of providers
 - [x] Multi thread the search calls
 - [ ] Design README
+  - [ ] gifs (terminalizer)
+  - [ ] features
+  - [ ] Speed
 - [ ] Build more documentation
 - [x] https://www.digitalocean.com/community/tutorials/how-to-use-threadpoolexecutor-in-python-3
-- [ ] Add config file so users can input their API keys (if they need them)
+- [X] Add config file so users can input their API keys (if they need them)
 - [ ] Include Google search parsing (parse HASH:plaintext)
 - [ ] If popular hash in set, do that one first
 - [ ] Call Hashcat (Default with mode) or John with the mode.

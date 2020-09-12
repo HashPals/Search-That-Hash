@@ -38,7 +38,7 @@ class Searcher:
 
                 future = self.Hash_input(hash_ctext, types, config["api_keys"])
 
-            self.threaded_search(future, supported_searchers)
+            self.threaded_search(future, supported_searchers) 
 
     def threaded_search(self, future, supported_searchers):
 
@@ -48,8 +48,9 @@ class Searcher:
                 executor.submit(self.call_searcher(search, future))
                 for search in supported_searchers
             ]
-        # for _ in concurrent.futures.as_completed(processes):
-        #   print('Result: ', _.result())
+        print(running_tasks)
+            for _ in concurrent.futures.as_completed(processes):
+                print('Result: ', _.result())
 
         # from concurrent.futures import ThreadPoolExecutor
 
