@@ -77,8 +77,6 @@ def main(**kwargs):
     config["wordlist"] = kwargs["wordlist"]
     config["hashcat"] = kwargs["hashcat"]
 
-    print(config)
-
     config = searcher.Searcher(config)
 
 
