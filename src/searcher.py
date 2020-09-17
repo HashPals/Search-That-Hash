@@ -1,8 +1,9 @@
 import requests
 import re
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import namedtuple
 from functools import lru_cache
+from multiprocessing.dummy import Pool as ThreadPool
 
 class Searcher:
     """
@@ -11,7 +12,9 @@ class Searcher:
 
     def __init__(self, config):
         self.searchers = [hashtoolkit(), nitrxgen(), md5crypt(), hashes_dot_org(), hashes_dot_org()]
+        # 
         self.Hash_input = namedtuple("Hash_input", "text hash_type api_keys")
+        
         self.perform_search(config)
 
 
@@ -35,6 +38,7 @@ class Searcher:
                     if hashtype in search.supports:
                         supported_searchers.append(search)
                         types.append(hashtype)
+                print(supported_searchers)
 
                 future = self.Hash_input(hash_ctext, types, config["api_keys"])
 
@@ -43,24 +47,39 @@ class Searcher:
     def threaded_search(self, future, supported_searchers):
 
         processes = []
+        for search in supported_searchers:
+            print(self.call_searcher(search, future))
+
         with ThreadPoolExecutor(max_workers=4) as executor:
-            running_tasks = [
-                executor.submit(self.call_searcher(search, future))
-                for search in supported_searchers
-            ]
+            running_tasks = []
+            for search in supported_searchers:
+                running_tasks.append(executor.submit(self.call_searcher(search, future)))
+        for i in running_tasks:
+            # Sometimes the APIs get really funny and return nonsense
+            # this is a catchall for that specific thing
+            try:
+                type(i.result())
+            except:
+                continue
+        exit(0)
+
+
+
+            #for out in as_completed(running_tasks):
+             #   print(out.result())
         print(running_tasks)
-            for _ in concurrent.futures.as_completed(processes):
-                print('Result: ', _.result())
+        #[r.result() for r in running_tasks]
 
         # from concurrent.futures import ThreadPoolExecutor
 
     def call_searcher(self, search, future):
-        try:
-            search.crack(future)
+     #   try:
+        return search.crack(future)
+        """
         except Exception as e:
             print(e)
             print(f"Error. Searcher {type(search).__name__} is down.")
-            return False
+            return False"""
 
 
 def google_search():
@@ -71,8 +90,8 @@ def google_search():
 class hashtoolkit:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
-    @lru_cache
     def crack(self, hash_obj):
+        print("hashtoolkit")
         response = requests.get(
             "https://hashtoolkit.com/reverse-hash/?hash=" + hash_obj.text, timeout=3
         ).text
@@ -86,7 +105,7 @@ class hashtoolkit:
 class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5"])
-    @lru_cache
+
     def crack(self, hash_obj):
         response = requests.get(
             "https://www.nitrxgen.net/md5db/" + hash_obj.text, verify=False, timeout=1
@@ -100,14 +119,14 @@ class nitrxgen:
 class md5crypt:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
-    @lru_cache
+
     def crack(self, hash_obj):
         for t in hash_obj.hash_type:
             res = self.search_one_type(hash_obj, t)
             if res != False:
                 return res
         return False
-    @lru_cache
+
     def search_one_type(self, hash_obj, type):
         response = requests.get(
             "https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
