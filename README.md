@@ -7,6 +7,9 @@
 # HashSearch
 🔎Searches Hash APIs and Google to crack your hash quickly🔎
 
+1. Searches Google & Hash APIs
+2. If not found, detects type and cracks with John the Ripper or HashCat
+
 Don't spend time cracking simple hashes which are found via APIs. Only crack the ones that aren't found!
 
 If your hash is not found via Google or APIs, it will automatically detect the type and crack it.
