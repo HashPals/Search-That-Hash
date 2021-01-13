@@ -1,9 +1,6 @@
 <p align="center">
 <img src="Pictures/logo.gif">
 </p>
-
-# Work in progress. Not released yet!
-
 # HashSearch
 🔎Searches Hash APIs and Google to crack your hash quickly🔎
 
@@ -24,21 +21,3 @@ If your hash is not found via Google or APIs, it will automatically detect the t
 * Multi threaded, of course.
 
 More of a project to aid Ciphey than a project in of itself.
-
-# ToDo
-- [x] Use HashID to find possible hashes and mode of hash
-- [x] Add config file
-- [x] Add argument parsing
-- [x] Use only APIs that match these possible hashes
-- [x] Add functions of providers
-- [x] Multi thread the search calls
-- [ ] Design README
-  - [ ] gifs (terminalizer)
-  - [ ] features
-  - [ ] Speed
-- [ ] Build more documentation
-- [x] https://www.digitalocean.com/community/tutorials/how-to-use-threadpoolexecutor-in-python-3
-- [X] Add config file so users can input their API keys (if they need them)
-- [ ] Include Google search parsing (parse HASH:plaintext)
-- [ ] If popular hash in set, do that one first
-- [ ] Call Hashcat (Default with mode) or John with the mode.
