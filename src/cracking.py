@@ -24,20 +24,20 @@ class Searcher:
 		for hash in config["hashes"]:
 
 			hash_ctext = next(iter(hash.keys()))
-			types = [x.lower() for x in hash[next(iter(hash.keys()))].keys()]
+			keys = [x.lower() for x in hash[next(iter(hash.keys()))].keys()]
 			supported_searchers = []
+			types = []
 
 			if config["offline"]:
 				pass
 
-			for searchers in self.searchers_online:
-				
-				if any(key in searchers.supports for key in types):
-					supported_searchers.append(searchers)
+			for search in self.searchers_online:
+				for hashtype in keys:
+					if hashtype in search.supports:
+						supported_searchers.append(search)
+						types.append(hashtype)
 
-				future = self.Hash_input(hash_ctext, types, config["api_keys"])
-
-				pass
+			future = self.Hash_input(hash_ctext, types, config["api_keys"])
 
 			self.threaded_search(future, supported_searchers) 
 
@@ -76,7 +76,7 @@ class Searcher:
 		'''
 	
 	def call_searcher(self, search, future):
-	 	try:
+		try:
 			return search.crack(future)
 		except Exception as e:
 			print(e)
@@ -113,7 +113,7 @@ class hashtoolkit:
 
 class hashsorg:
 
-	supports = set(["", "", ""])
+	supports = set(["md5", "NTLM", "SHA-1"])
 	moduels = ["requests"]
 	offline = False
 
@@ -221,76 +221,77 @@ class LmRainbowTabels:
 
 	# Ok so bug for this one, it doesnt like any word longer then 7 charcters :*(
 
+	supports = set(["lm"])
+	
 	def crack(self, hash):
 
-		supports = set(["lm"])
 		url = "http://rainbowtables.it64.com:80/p3.php"
 
 		payload = f"hashe={hash}&ifik=+Submit+&forma=tak"
 		headers = {
 
-	    "Origin": "http://rainbowtables.it64.com", 
-	    "Cookie": "PHPSESSID=; __gads=", 
-	    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
-	    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", 
-	    "Referer": "http://rainbowtables.it64.com/p3.php", 
-	    "Connection": "close", 
-	    "Host": "rainbowtables.it64.com", 
-	    "Accept-Encoding": "gzip, deflate", 
-    	"Cache-Control": "max-age=0", 
-	    "Upgrade-Insecure-Requests": "1", 
-	    "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8", 
-	    "Content-Length": "46", 
-	    "Content-Type": "application/x-www-form-urlencoded"
+		"Origin": "http://rainbowtables.it64.com", 
+		"Cookie": "PHPSESSID=; __gads=", 
+		"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
+		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", 
+		"Referer": "http://rainbowtables.it64.com/p3.php", 
+		"Connection": "close", 
+		"Host": "rainbowtables.it64.com", 
+		"Accept-Encoding": "gzip, deflate", 
+		"Cache-Control": "max-age=0", 
+		"Upgrade-Insecure-Requests": "1", 
+		"Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8", 
+		"Content-Length": "46", 
+		"Content-Type": "application/x-www-form-urlencoded"
 
 		}
 
 		response = requests.request("POST", url, data=payload, headers=headers).text.split('&nbsp;')
 
 		if "CRACKED" in response[3]:
-		    return(response[5])
+			return(response[5])
 
 		if "Not yet in database" in response[3]:
-		    print("Failed")
+			print("Failed")
 
 		if "Uncrackable with this charset" in response[3]:
-   			print("Failed")
+			print("Failed")
 
 class md5crypt:
-    # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
+	# From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
+	supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
 
-    def crack(self, hash_obj):
-        for t in hash_obj.hash_type:
-            res = self.search_one_type(hash_obj, t)
-            if res != False:
-                return res
-        return False
+	def crack(self, hash_obj):
+		for t in hash_obj.hash_type:
+			res = self.search_one_type(hash_obj, t)
+			if res != False:
+				return res
+		return False
 
-    def search_one_type(self, hash_obj, type):
-        response = requests.get(
-            "https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
-            % (hash_obj.text, t),
-            timeout=3,
-        ).text
-        if len(response) != 0:
-            return response
-        else:
-            return False
+	def search_one_type(self, hash_obj, type):
+		response = requests.get(
+			"https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
+			% (hash_obj.text, t),
+			timeout=3,
+		).text
+		if len(response) != 0:
+			return response
+		else:
+			return False
 
 
 class nitrxgen:
-    # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set(["md5"])
+	# From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
+	supports = set(["md5"])
 
-    def crack(self, hash_obj):
-        response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + hash_obj.text, verify=False, timeout=1
-        ).text
-        if response:
-            return response
-        else:
-            return False
+	def crack(self, hash_obj):
+		response = requests.get(
+			"https://www.nitrxgen.net/md5db/" + hash_obj.text, verify=False, timeout=1
+		).text
+		if response:
+			return response
+		else:
+			return False
 
 
 
