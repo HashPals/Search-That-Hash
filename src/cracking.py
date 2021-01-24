@@ -22,7 +22,7 @@ class Searcher:
 
 	def __init__(self, config):
 		self.searchers_offline = [] # Temp disabled until I get the IDs format
-		self.searchers_online = [hashtoolkit(), hashsorg(), LmRainbowTabels(), nitrxgen()] # md5cryp() takes ~ 3 seconds to do
+		self.searchers_online = [hashsorg(), LmRainbowTabels(), nitrxgen()] # md5cryp() takes ~ 3 seconds to do
 		self.Hash_input = namedtuple("Hash_input", ["text", "types", "api_keys"])
 		
 		self.perform_search(config)
