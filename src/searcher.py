@@ -1,329 +1,149 @@
-import requests
-import re
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from collections import namedtuple
-from functools import lru_cache
-from multiprocessing.dummy import Pool as ThreadPool
+import searcher
+import json
+from name_that_hash import runner
 
-class Searcher:
-    """
-    Searches APIs and Google for your hash
-    """
+import click
+import sys
+from appdirs import *
+from googlesearch import search
+import toml
+import cracking
 
-    def __init__(self, config):
-        self.searchers = [hashtoolkit(), nitrxgen(), md5crypt(), hashes_dot_org(), hashes_dot_org()]
-        # 
-        self.Hash_input = namedtuple("Hash_input", "text hash_type api_keys")
-        
-        self.perform_search(config)
+# import google
+# from googlesearch.googlesearch import GoogleSearch
+# this isnt
+
+# The set of popular hashes
+# These have priority over any other hash.
+# If one hash can be MD5 or MD2, it will pick MD5 first and then MD2.
+popular_hashes = set(["md5", "sha1", "sha256", "sha384", "sha512", "ntlm"])
 
 
-    def perform_search(self, config):
-        futures = []
-        results = {}
-        for hash in config["hashes"]:
-            hash_ctext = next(iter(hash.keys()))
+@click.command()
+@click.option("--timeout", type=int, help="Choose timeout time in second")
+@click.option("--text", "-t", type=str, help="Crack a single hash")
+@click.option(
+    "--offline",
+    "-o",
+    is_flag=True,
+    default=False,
+    type=bool,
+    help="Use offline mode. Does not search for hashes.",
+)
+@click.option(
+    "-f",
+    "--file",
+    type=click.File("rb"),
+    required=False,
+    help="The file of hashes, seperated by newlines.",
+)
+@click.option(
+    "-w", "--wordlist", type=click.File("rb"), required=False, help="The wordlist."
+)
+@click.option(
+    "--config", type=click.File("rb"), required=False, help="File of API keys."
+)
+@click.option("--hashcat", is_flag=True, help="Runs Hashcat instead of John")
+@click.option("--where", is_flag=True, help="Prints config file location")
+def main(**kwargs):
+    '''HashSearch - Search Hash APIs before automatically cracking them
 
-            for search in self.searchers:
-                # gets hash types
-                keys = hash[next(iter(hash.keys()))].keys()
-                # converts to lowercase
-                keys = [x.lower() for x in keys]
+    '''
 
-                supported_searchers = []
-
-                # places True in list if it matches
-                types = []
-                for hashtype in keys:
-                    if hashtype in search.supports:
-                        supported_searchers.append(search)
-                        types.append(hashtype)
-                print(supported_searchers)
-
-                future = self.Hash_input(hash_ctext, types, config["api_keys"])
-
-            self.threaded_search(future, supported_searchers) 
-
-    def threaded_search(self, future, supported_searchers):
-
-        processes = []
-        for search in supported_searchers:
-            print(self.call_searcher(search, future))
-
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            running_tasks = []
-            for search in supported_searchers:
-                running_tasks.append(executor.submit(self.call_searcher(search, future)))
-        for i in running_tasks:
-            # Sometimes the APIs get really funny and return nonsense
-            # this is a catchall for that specific thing
-            try:
-                type(i.result())
-            except:
-                continue
+    if kwargs["where"] == True:
+        #print(find_appdirs_location())
         exit(0)
 
+    config = {}
+
+    if kwargs["config"] != None:
+        try:
+            config["api_keys"] = toml.loads(kwargs["config"])
+        except:
+            config["api_keys"] = None
+    else:
+        # if no config is manually provided
+        # check to see if one exists at appdirs
+        # if it doesn't, it'll result to None
+        config["api_keys"] = read_config_file()
+
+    if kwargs["text"] != None:
+        config["hashes"] = [kwargs["text"]]
+    elif kwargs["file"] != None:
+        config["hashes"] = kwargs["file"].split("\n")
+    else:
+        print("Error. No hashes were inputted. Use the help menu --help")
+
+    config["hashes"] = create_hash_config(config)
+
+    config["offline"] = kwargs["offline"]
+    config["wordlist"] = kwargs["wordlist"]
+    config["hashcat"] = kwargs["hashcat"]
+    config["timeout"] = kwargs["timeout"]
+    
+    cracking.Searcher(config)
+
+def create_hash_config(config):
+    try:
+        return json.loads(runner.api_return_hashes_as_json(config["hashes"]))
+    except:
+        print("Invalid hash type") ; exit(0)
+
+def get_ids(hash):
+    JSON = runner.api_return_hashes_as_json([hash])
+
+def read_config_file():
+    return read_and_parse_config_file(find_appdirs_location())
 
 
-            #for out in as_completed(running_tasks):
-             #   print(out.result())
-        print(running_tasks)
-        #[r.result() for r in running_tasks]
-
-        # from concurrent.futures import ThreadPoolExecutor
-
-    def call_searcher(self, search, future):
-     #   try:
-        return search.crack(future)
-        """
-        except Exception as e:
-            print(e)
-            print(f"Error. Searcher {type(search).__name__} is down.")
-            return False"""
+def find_appdirs_location():
+    # TODO make this OS independent the "/" makes it Windows specific
+    #print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
+    return user_config_dir("HashSearch", "Bee-san") + "/config.toml"
 
 
-def google_search():
-    # searches google
+def read_and_parse_config_file(file):
+    config_to_parse = read_file(file)
+
+    if config_to_parse == None:
+        #print("its none")
+        return config_to_parse
+    else:
+        try:
+            return toml.loads(config_to_parse)
+        except:
+            return None
+
+
+def read_file(file):
+    try:
+        with open(file, "r") as out:
+            return out.read()
+    except:
+        return None
+
+
+def hashcat():
+    Pass
+
+def John():
+    Pass
+
+
+def search_and_crack_hashes(config):
+    '''Searches hashes in APIs and then cracks the ones not found
+
+    Args:
+        list ([string]): [hashes as strings]
+
+    Returns:
+        [list]: [Plaintext of hashes]
+    return None
+    '''
+                
+def crack_hashes(list):
     pass
 
 
-class hashtoolkit:
-    # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
-    def crack(self, hash_obj):
-        print("hashtoolkit")
-        response = requests.get(
-            "https://hashtoolkit.com/reverse-hash/?hash=" + hash_obj.text, timeout=3
-        ).text
-        match = re.search(r'/generate-hash/?text=.*?"', response)
-        if match:
-            return match.group(1)
-        else:
-            return False
-
-
-class nitrxgen:
-    # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set(["md5"])
-
-    def crack(self, hash_obj):
-        response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + hash_obj.text, verify=False, timeout=1
-        ).text
-        if response:
-            return response
-        else:
-            return False
-
-
-class md5crypt:
-    # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set(["md5", "sha1", "sha256", "sha384", "sha512"])
-
-    def crack(self, hash_obj):
-        for t in hash_obj.hash_type:
-            res = self.search_one_type(hash_obj, t)
-            if res != False:
-                return res
-        return False
-
-    def search_one_type(self, hash_obj, type):
-        response = requests.get(
-            "https://md5decrypt.net/Api/api.php?hash=%s&hash_type=%s&email=deanna_abshire@proxymail.eu&code=1152464b80a61728"
-            % (hash_obj.text, t),
-            timeout=3,
-        ).text
-        if len(response) != 0:
-            return response
-        else:
-            return False
-
-
-class hashes_dot_org:
-    supports = set(
-        [
-            "bcad-md5",
-            "mysql3",
-            "haval160-4",
-            "crc32b",
-            "bmw512",
-            "armorgames",
-            "hesk-sha1",
-            "hamsi256",
-            "luffa384",
-            "sha1lsb32",
-            "smf",
-            "mysql5lc",
-            "vbulletin",
-            "sha3-384",
-            "md5crypt",
-            "wrl",
-            "skein512",
-            "gost-crypto",
-            "sha384",
-            "haval224-5",
-            "tiger128-3",
-            "rhalfmd5",
-            "hesk-sha256",
-            "has-160",
-            "halfmd5",
-            "blake512",
-            "cube256",
-            "keccak256",
-            "fugue384",
-            "ruby",
-            "sha256",
-            "crc32",
-            "shalinkedin",
-            "skein224",
-            "wrl0",
-            "keccak-shake256",
-            "edon512",
-            "shavite384",
-            "keccak384",
-            "simd256",
-            "phpbb3",
-            "jh224",
-            "sha1lsb35",
-            "ripemd320",
-            "mysql5lctot",
-            "cube384",
-            "blake256",
-            "oscommerce",
-            "blake224",
-            "tth",
-            "hmacripemd160",
-            "sha512",
-            "wordpress",
-            "jh512",
-            "daniweb",
-            "echo384",
-            "ripemd160",
-            "tiger160-4",
-            "snefru256",
-            "shavite256",
-            "hum",
-            "luffa224",
-            "fugue224",
-            "sha1bcrypt-custom",
-            "descrypt",
-            "cube512",
-            "djangosha1",
-            "sha3-256",
-            "hmacmd5",
-            "tiger2",
-            "haval128-4",
-            "md4",
-            "haval224-4",
-            "md5apr1",
-            "raw",
-            "drupal7",
-            "snefru0",
-            "hmacsha1",
-            "jh384",
-            "hamsi384",
-            "haval224-3",
-            "ipb",
-            "simd384",
-            "wrl1",
-            "shabal256",
-            "haval192-3",
-            "keccak224",
-            "echo256",
-            "groestl384",
-            "hamsi512",
-            "sha1",
-            "simd224",
-            "tiger160-3",
-            "radmin2",
-            "luffa512",
-            "hesk-md5",
-            "shavite512",
-            "wattpad",
-            "radiogatun64",
-            "haval128-5",
-            "radiogatun32",
-            "skein256",
-            "mysql5",
-            "echo224",
-            "tiger192-4",
-            "haval192-5",
-            "tth-hex",
-            "jh256",
-            "haval256-3",
-            "panama",
-            "echo512",
-            "lm",
-            "trunc18",
-            "ntlm",
-            "haval256-4",
-            "pbkdf2",
-            "haval128-3",
-            "tiger128-4",
-            "authme",
-            "ro13",
-            "luffa256",
-            "tiger192-3",
-            "gost",
-            "shabal384",
-            "md2",
-            "adler32",
-            "groestl256",
-            "bmw256",
-            "crc32a",
-            "hamsi224",
-            "nsldap",
-            "bcrypt",
-            "bmw224",
-            "skein384",
-            "base64",
-            "sha512xorwrl",
-            "hmacsaltripemd160",
-            "fugue256",
-            "shabal224",
-            "fugue512",
-            "haval160-3",
-            "cdab-md5",
-            "ripemd128",
-            "groestl224",
-            "md5",
-            "ripemd256",
-            "edon256",
-            "bmw384",
-            "simd512",
-            "keccak-shake512",
-            "shavite224",
-            "cube224",
-            "sha3-512",
-            "shabal512",
-            "haval192-4",
-            "keccak512",
-            "joomla",
-            "sha1dash",
-            "shabal192",
-            "sha512crypt",
-            "mybb",
-            "blake384",
-            "haval256-5",
-            "groestl512",
-            "rhum",
-            "dcab-md5",
-            "sha224",
-            "haval160-5",
-            "mysql5tot",
-            "sha3-224",
-            "sha256crypt",
-        ]
-    )
-
-    def crack(self, hash_obj):
-        if hash_obj.api_keys == None:
-            return False
-        response = requests.get(
-            "https://hashes.org/api.php?key={hash_obj.api_keys['hashes_dot_org']}&query={hash_obj.text}", timeout=3
-        ).json()
-        res = response["result"][hashvalue]
-        if res == "null":
-            return False
-        else:
-            return res["plain"]
+if __name__ == "__main__":
+    main()
