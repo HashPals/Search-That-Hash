@@ -37,7 +37,7 @@ https://twitter.com/Jayy_2004 [/bold underline blue]""")
             console.print(f"\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]\n")
             console.print("\n[bold underline #2ec4b6]Results[/bold underline #2ec4b6]\n")
             for name, result in results.items():
-                console.print(f"[#E71D36]{name}[/#E71D36] : {result}")
+                console.print(f"[#E71D36]{name}[/#E71D36] : [#46AF73]{result}[/#46AF73].")
             console.print("\n[bold underline #2ec4b6]Types[/bold underline #2ec4b6]\n")
             types = [type["name"].lower() for type in types]
             for i in range(len(types)):
