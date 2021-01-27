@@ -1,11 +1,13 @@
-import hashid
-import searcher
+import json
+from name_that_hash import runner
 
 import click
 import sys
 from appdirs import *
-from googlesearch import search
+#from googlesearch import search
 import toml
+import cracking
+import printing
 
 # import google
 # from googlesearch.googlesearch import GoogleSearch
@@ -14,10 +16,9 @@ import toml
 # The set of popular hashes
 # These have priority over any other hash.
 # If one hash can be MD5 or MD2, it will pick MD5 first and then MD2.
-popular_hashes = set(["md5", "sha1", "sha256", "sha384", "sha512", "ntlm"])
-
 
 @click.command()
+@click.option("--timeout", type=int, help="Choose timeout time in second")
 @click.option("--text", "-t", type=str, help="Crack a single hash")
 @click.option(
     "--offline",
@@ -43,16 +44,16 @@ popular_hashes = set(["md5", "sha1", "sha256", "sha384", "sha512", "ntlm"])
 @click.option("--hashcat", is_flag=True, help="Runs Hashcat instead of John")
 @click.option("--where", is_flag=True, help="Prints config file location")
 def main(**kwargs):
-    """HashSearch - Search Hash APIs before automatically cracking them
+    '''HashSearch - Search Hash APIs before automatically cracking them
 
-    """
+    '''
 
     if kwargs["where"] == True:
-        print(find_appdirs_location())
+        #print(find_appdirs_location())
         exit(0)
 
     config = {}
-
+    
     if kwargs["config"] != None:
         try:
             config["api_keys"] = toml.loads(kwargs["config"])
@@ -76,29 +77,20 @@ def main(**kwargs):
     config["offline"] = kwargs["offline"]
     config["wordlist"] = kwargs["wordlist"]
     config["hashcat"] = kwargs["hashcat"]
-
-    config = searcher.Searcher(config)
-
-
+    config["timeout"] = kwargs["timeout"]
+    
+    results = (cracking.Searcher(config))
+    print(results)
+    #printing.Prettifier(cracking.Searcher(config), config)
+    
 def create_hash_config(config):
-    # Returns the hashing config
-    # [{hash: {hash_types}}, {hash: {hash_types}}]
-    result = []
-    for hash in config["hashes"]:
-        try:
-            result.append({hash: get_hashid(hash)})
-        except Exception as e:
-            print(f"{hash} is an unknown hash type.")
-            continue
-    return result
+    try:
+        return json.loads(runner.api_return_hashes_as_json(config["hashes"]))
+    except:
+        print("Invalid hash type") ; exit(0)
 
-
-def get_hashid(hash):
-    hash_identifier = hashid.HashID()
-    return hashid.writeResult(
-        hash_identifier.identifyHash(hash)  # , None, True, True, True
-    )
-
+def get_ids(hash):
+    JSON = runner.api_return_hashes_as_json([hash])
 
 def read_config_file():
     return read_and_parse_config_file(find_appdirs_location())
@@ -106,7 +98,7 @@ def read_config_file():
 
 def find_appdirs_location():
     # TODO make this OS independent the "/" makes it Windows specific
-    print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
+    #print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
     return user_config_dir("HashSearch", "Bee-san") + "/config.toml"
 
 
@@ -114,7 +106,7 @@ def read_and_parse_config_file(file):
     config_to_parse = read_file(file)
 
     if config_to_parse == None:
-        print("its none")
+        #print("its none")
         return config_to_parse
     else:
         try:
@@ -139,17 +131,16 @@ def John():
 
 
 def search_and_crack_hashes(config):
-    """Searches hashes in APIs and then cracks the ones not found
+    '''Searches hashes in APIs and then cracks the ones not found
 
     Args:
         list ([string]): [hashes as strings]
 
     Returns:
         [list]: [Plaintext of hashes]
-    """
     return None
-
-
+    '''
+                
 def crack_hashes(list):
     pass
 
