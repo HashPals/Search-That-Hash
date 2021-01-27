@@ -33,17 +33,24 @@ https://github.com/HashPals/Name-That-Hash
 https://twitter.com/Jayy_2004 [/bold underline blue]""")
 
     def pretty_print(self, results, config):
-        for hash, types in config["hashes"].items():
+        for hash, result in results:
+            '''
             console.print(f"\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]\n")
             console.print("\n[bold underline #2ec4b6]Results[/bold underline #2ec4b6]\n")
+            print("Done")
+
             for name, result in results.items():
-                console.print(f"[#E71D36]{name}[/#E71D36] : [#46AF73]{result}[/#46AF73].")
+                console.print(f"[#E71D36]{name}[/#E71D36] : [#CCFF66]{result}[/#CCFF66].")
+            '''
+            print(hash)
+            '''
             console.print("\n[bold underline #2ec4b6]Types[/bold underline #2ec4b6]\n")
             types = [type["name"].lower() for type in types]
             for i in range(len(types)):
                 console.print(f"[#E71D36]{types[i]}[/#E71D36]", end=", ")
                 if i == 5:
                     break
+            '''
         console.print(f"\n\n")
                 
     
