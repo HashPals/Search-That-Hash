@@ -2,7 +2,6 @@ import warnings as logger
 from collections import namedtuple
 from concurrent.futures import ThreadPoolExecutor
 import requests
-import cloudscraper
 from rich.console import Console
 
 console = Console()
@@ -14,10 +13,13 @@ logger.filterwarnings("ignore")
 # Get logru warnings
 #
 
-
 class Searcher:
+
     def __init__(self, config):
-        self.searchers_offline = [hashcat()]  # Temp disabled until I get the IDs format
+        self.config = config
+        self.searchers_offline = [
+            hashcat()
+        ]  
         self.searchers_online = [
             hashsorg(),
             LmRainbowTabels(),
@@ -25,24 +27,25 @@ class Searcher:
             md5crypt(),
             cmd5(),
             md5_addr(),
+            md5_grom(),
+            sha1_grom()
         ]
         self.Hash_input = namedtuple(
             "Hash_input", ["text", "types", "hashcats", "api_keys", "timeout"]
         )
 
-    def __new__(self, config):
-        return Searcher.perform_search(self, config) 
+    def main(self):
+
+        return(self.perform_search(self.config))
 
     def perform_search(self, config):
 
-        print("Called perform serach")
-
         if not config["timeout"]:
             config["timeout"] = 1
+
         # print(config["timeout"])
 
         for hash, types in config["hashes"].items():
-
             hash_ctext = hash
 
             keys = [type["name"].lower() for type in types]
@@ -147,7 +150,6 @@ class hashcat:
     # How do we implement the types?? (IDs) and wordlist??
 
     def crack(self, hash):
-        print(hash)
         return False
         for possible_type in range(len(hash[2])):
             command = f"hashcat64.exe -a 0 -m {ids[possible_type]} {hash[0]} {wordlist}"  # >> Can change for better optimization etc.....
@@ -343,7 +345,7 @@ class cmd5:
             "__EVENTARGUMENT": "",
             "__VIEWSTATE": "tu3WNlNyUoktOeZhTvcpBgoQNoH8wLOeqDzVGEU8XUzmvViF7uaTr0g08l0kUf5lk3qITzThnkc2nUW1yLwFIjQ47H1XJ0OGnrfH/bM7kxSAW+uqvNVB0XvbJzA7l8DxDZt9HphWM+ettS5HAmW1L2a8tdflHF4/YkDL9ZHzu78ZpQwFoo8R8S7uSLVj2rOlV68Tprep6JyNStYF5JyKlbyrIZbJgwmRl9Y1KY2qQHTRgEmYA/CUveeY2AK+AAbOBM0STCWbdvMwaGwCKR5lXpdbmWUCBhi2cFzG7blTzkUWTaorAvUNqldJ9Jrr1XB7EsbsSgQwLvif70ztu3/M0FptuoUCbuMlEOWYh1YE+im3RripucSN9SKxwO4TRfk7Y46bm2asXHDsHXDa/uWr/301DHVRiii0Rnd7XXg2TNtyuhUt+VOlye6ZQBSuQ75L8tFKMpCnWs6xMUNGxz1IICxDmbHxPBx6NUdis9RYjh1cd+xcF1I+84jz8F2nwTpEN51D+eWLKMB5ZFrb4tExNZhNtRJ6vKbX9ntv+N9Ktg0Hmq3mu43FlGRP5H7pWdhdO3a8HdyX1vs1fF8izfMidpN/Sh4jcozbUAIbXtJDjnCMo8P2vCOS8MvNntcA1pHakoDEZIaVKkD8Q9XK9Az76kgJEFG9f4mV1/3xdQDHZZOnTymz09CrB7VKb+yd1Y2jCkHPger5mYNrKdtFrnFzFNeTycln/mybXwHIXLLv/VUHUPv+m15IlomAvQggWcjOXyTGjlNRE4V+1Jn6Fsr8QdG8qV6zC8lDM0GU2++MKOxLgOfxX/TjnycruULcAbYCgfY6FCdfqXBuNp1OK+CCNvI3emhA+olMzsykpONescFHlmKuH/UUvvx5CtVw4T8aYfhpLduzMi7smG41BcPw9xjKvFCACOVGM6aa5WrHOzdWgZJd+Cpa5BUdoOfiwHZyzuvtWBbwbaWafqjsxisXhEWMODkrdN+kChxX93KGU6I5bxRIQZHJge540/Cv1mElRimxNo8IyrzFK/ek5Pezjj/TWY63ERN82kastXX/SYLGu1KkSSaUsIus8WTI+hxjhFvks8vX9IyxBsm3iWKKFomyx/BK7GeWEn9x6H+RgDpN9crDnaqc8aL/bWK5lKhglMhxOPxR0Cf0f9Mi1bi8VwzuZSpFIIbZYvNngJhz7kqGgZTwdeWhCx0WLd0T3Q74IevoMo1kj819Qgzb3XN9LfDiOkoznj3Ae8uh+HZWVRDjubd9e9PnKrsMmB39VP3LbY2qyTyUWHHNN+GXsX/nxVUrRoXkUe71Q1espbbry+lHN/dc5e/+qR8C8oGLjQ5UhCEAMDRcoXNDWLFLPcyWL2A5Kh/VCPbMUqluJw==",
             "__VIEWSTATEGENERATOR": "CA0B0334",
-            "ctl00$ContentPlaceHolder1$TextBoxInput": hash,
+            "ctl00$ContentPlaceHolder1$TextBoxInput": hash[0],
             "ctl00$ContentPlaceHolder1$InputHashType": "md5",
             "ctl00$ContentPlaceHolder1$Button1": "decrypt",
             "ctl00$ContentPlaceHolder1$HiddenField1": "",
@@ -352,7 +354,7 @@ class cmd5:
 
         try:
             text = requests.post(
-                burp0_url, headers=burp0_headers, cookies=burp0_cookies, data=burp0_data
+                burp0_url, headers=burp0_headers, cookies=burp0_cookies, data=burp0_data, timeout = hash[3]
             ).text
             return "".join(
                 text.split(
@@ -382,11 +384,11 @@ class md5_addr:
             "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
             "Connection": "close",
         }
-        burp0_data = {"md5": hash, "x": "13", "y": "10"}
+        burp0_data = {"md5": hash[0], "x": "13", "y": "10"}
 
         try:
             text = requests.post(
-                burp0_url, headers=burp0_headers, cookies=burp0_cookies, data=burp0_data
+                burp0_url, headers=burp0_headers, cookies=burp0_cookies, data=burp0_data, timeout = hash[3]
             ).text
             return "".join(
                 text.split(
@@ -396,5 +398,32 @@ class md5_addr:
         except:
             return "Failed to crack or couldn't connect"
 
+class md5_grom:
 
+    supports = set(["md5"])
+
+    def crack(self, hash):
+        try:
+            out = requests.get(f"https://md5.gromweb.com/?md5={hash[0]}", timeout = hash[3]).text
+            text = "".join(out.split('<input class="field" id="form_string_to_hash_string" type="search" name="string" value="')[1]).split('"')[0]
+            if not text:
+                return("Failed to crack")
+            return(text)
+        except:
+            return("Failed to connect")
+
+class sha1_grom:
+
+    supports = set(["sha-1"])
+
+    def crack(self, hash):
+        try:
+            out = requests.get(f"https://sha1.gromweb.com/?hash={hash[0]}", timeout = hash[3]).text
+            text = "".join(out.split('<input class="field" id="form_string_to_hash_string" type="search" name="string" value="')[1]).split('"')[0]
+            if not text:
+                return("Failed to crack")
+            return(text)
+        except:
+            return("Failed to connect / Couldn't connect")        
+    
 # Will try and multi-thread later
