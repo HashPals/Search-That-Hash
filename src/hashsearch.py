@@ -79,9 +79,10 @@ def main(**kwargs):
     config["hashcat"] = kwargs["hashcat"]
     config["timeout"] = kwargs["timeout"]
     
-    results = (cracking.Searcher(config))
-    print(results)
-    #printing.Prettifier(cracking.Searcher(config), config)
+    searcher = cracking.Searcher(config)
+    results = cracking.Searcher.main(searcher)
+    
+    printing.Prettifier(results, config)
     
 def create_hash_config(config):
     try:
