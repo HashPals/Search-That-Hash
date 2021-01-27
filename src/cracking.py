@@ -22,24 +22,33 @@ class Searcher:
             hashsorg(),
             LmRainbowTabels(),
             nitrxgen(),
-        ]  # md5cryp() takes ~ 3 seconds to do
+            md5crypt(),
+            cmd5(),
+            md5_addr(),
+        ]
         self.Hash_input = namedtuple(
             "Hash_input", ["text", "types", "hashcats", "api_keys", "timeout"]
         )
 
-        self.perform_search(config)
+    def __new__(self, config):
+        return Searcher.perform_search(self, config) 
 
     def perform_search(self, config):
-        
+
+        print("Called perform serach")
+
         if not config["timeout"]:
             config["timeout"] = 1
-        #print(config["timeout"])    
-        
+        # print(config["timeout"])
+
         for hash, types in config["hashes"].items():
+
             hash_ctext = hash
 
             keys = [type["name"].lower() for type in types]
             hashcats = [type["hashcat"] for type in types]
+
+            # print(keys)
 
             supported_searchers = []
             types = []
@@ -63,12 +72,7 @@ class Searcher:
                 hash_ctext, types, hashcats, config["api_keys"], config["timeout"]
             )
 
-            #print(future, supported_searchers) ; exit(0) 
-            
-            results = self.threaded_search(future, supported_searchers)
-            
-            for k, v in results.items():
-                console.print(f"[bold blue] {k} : [bold red] {v}")
+            return(self.threaded_search(future, supported_searchers))
 
     def threaded_search(self, future, supported_searchers):
 
@@ -116,10 +120,10 @@ class hashsorg:
 
         if "null" in request:
             logger.warn("Couldnt connect to hashesorg")
-            return False
+            return "Couldnt connect"
         if not request:
             logger.warn("Hash seems to be a plain???")
-            return False
+            return "Hash seems to be a plain'"
 
         output = request.split('":"')[2].split('","')[0]
 
@@ -239,24 +243,24 @@ class LmRainbowTabels:
             ).text.split("&nbsp;")
         except:
             logger.warn("Couldn't connect to LM rainbow tabels")
-            return False
+            return "Couldn't connect"
 
         if "CRACKED" in response[3]:
             return response[5]
 
         if "Not yet in database" in response[3]:
             logger.warn("LmRainbowTabels couldnt crack hash")
-            return False
+            return "Hash not in database"
 
         if "Uncrackable with this charset" in response[3]:
             logger.warn("This isnt an LM hash.")
-            return False
+            return "Charset not supported"
 
 
 # OPTIMIZATIONNNNN
 class md5crypt:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
-    supports = set(["md5", "sha1", "sha256", "sha384", "sha512", "ntlm"])
+    supports = set(["md5", "sha1a-", "sha-256", "sha384", "sha512", "ntlm"])
 
     def crack(self, hash):
         for type in hash[1]:
@@ -297,12 +301,100 @@ class nitrxgen:
                 return bytearray.fromhex(
                     response[5 : len(response) - 1]
                 ).decode()  # Partions it so that it only contains hex and then decodes it into ASCII
-            
+
             return response
 
         else:
             logger.warn("Couldn't connect to nitrxegen or couldnt find a hash")
-            return False
+            return "Couldn't crack or connect"
+
+
+class cmd5:
+
+    supports = set(["md5", "ntlm", "sha-1", "sha-256", "sha-512", "mysql"])
+
+    def crack(self, hash):
+
+        burp0_url = "https://www.cmd5.org:443/"
+        burp0_cookies = {
+            "ASP.NET_SessionId": "qlif5gdwpbwtgetadf1joxox",
+            "FirstVisit": "1/27/2021 2:50:19 AM",
+            "Hm_lvt_0b7ba6c81309fff7ce4498ec7b107c0b": "1611687026",
+            "Hm_lpvt_0b7ba6c81309fff7ce4498ec7b107c0b": "1611687026",
+        }
+        burp0_headers = {
+            "Connection": "close",
+            "Cache-Control": "max-age=0",
+            "Upgrade-Insecure-Requests": "1",
+            "Origin": "https://www.cmd5.org",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "Sec-Fetch-Site": "same-origin",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-User": "?1",
+            "Sec-Fetch-Dest": "document",
+            "Referer": "https://www.cmd5.org/",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+        }
+        burp0_data = {
+            "__EVENTTARGET": "Button1",
+            "__EVENTARGUMENT": "",
+            "__VIEWSTATE": "tu3WNlNyUoktOeZhTvcpBgoQNoH8wLOeqDzVGEU8XUzmvViF7uaTr0g08l0kUf5lk3qITzThnkc2nUW1yLwFIjQ47H1XJ0OGnrfH/bM7kxSAW+uqvNVB0XvbJzA7l8DxDZt9HphWM+ettS5HAmW1L2a8tdflHF4/YkDL9ZHzu78ZpQwFoo8R8S7uSLVj2rOlV68Tprep6JyNStYF5JyKlbyrIZbJgwmRl9Y1KY2qQHTRgEmYA/CUveeY2AK+AAbOBM0STCWbdvMwaGwCKR5lXpdbmWUCBhi2cFzG7blTzkUWTaorAvUNqldJ9Jrr1XB7EsbsSgQwLvif70ztu3/M0FptuoUCbuMlEOWYh1YE+im3RripucSN9SKxwO4TRfk7Y46bm2asXHDsHXDa/uWr/301DHVRiii0Rnd7XXg2TNtyuhUt+VOlye6ZQBSuQ75L8tFKMpCnWs6xMUNGxz1IICxDmbHxPBx6NUdis9RYjh1cd+xcF1I+84jz8F2nwTpEN51D+eWLKMB5ZFrb4tExNZhNtRJ6vKbX9ntv+N9Ktg0Hmq3mu43FlGRP5H7pWdhdO3a8HdyX1vs1fF8izfMidpN/Sh4jcozbUAIbXtJDjnCMo8P2vCOS8MvNntcA1pHakoDEZIaVKkD8Q9XK9Az76kgJEFG9f4mV1/3xdQDHZZOnTymz09CrB7VKb+yd1Y2jCkHPger5mYNrKdtFrnFzFNeTycln/mybXwHIXLLv/VUHUPv+m15IlomAvQggWcjOXyTGjlNRE4V+1Jn6Fsr8QdG8qV6zC8lDM0GU2++MKOxLgOfxX/TjnycruULcAbYCgfY6FCdfqXBuNp1OK+CCNvI3emhA+olMzsykpONescFHlmKuH/UUvvx5CtVw4T8aYfhpLduzMi7smG41BcPw9xjKvFCACOVGM6aa5WrHOzdWgZJd+Cpa5BUdoOfiwHZyzuvtWBbwbaWafqjsxisXhEWMODkrdN+kChxX93KGU6I5bxRIQZHJge540/Cv1mElRimxNo8IyrzFK/ek5Pezjj/TWY63ERN82kastXX/SYLGu1KkSSaUsIus8WTI+hxjhFvks8vX9IyxBsm3iWKKFomyx/BK7GeWEn9x6H+RgDpN9crDnaqc8aL/bWK5lKhglMhxOPxR0Cf0f9Mi1bi8VwzuZSpFIIbZYvNngJhz7kqGgZTwdeWhCx0WLd0T3Q74IevoMo1kj819Qgzb3XN9LfDiOkoznj3Ae8uh+HZWVRDjubd9e9PnKrsMmB39VP3LbY2qyTyUWHHNN+GXsX/nxVUrRoXkUe71Q1espbbry+lHN/dc5e/+qR8C8oGLjQ5UhCEAMDRcoXNDWLFLPcyWL2A5Kh/VCPbMUqluJw==",
+            "__VIEWSTATEGENERATOR": "CA0B0334",
+            "ctl00$ContentPlaceHolder1$TextBoxInput": hash,
+            "ctl00$ContentPlaceHolder1$InputHashType": "md5",
+            "ctl00$ContentPlaceHolder1$Button1": "decrypt",
+            "ctl00$ContentPlaceHolder1$HiddenField1": "",
+            "ctl00$ContentPlaceHolder1$HiddenField2": "v/igYz1K/yDDlnTvRIWQYtuyklAdCNOEefJsT96P0wIkSxKQeyxfomZ8W45XFdNl",
+        }
+
+        try:
+            text = requests.post(
+                burp0_url, headers=burp0_headers, cookies=burp0_cookies, data=burp0_data
+            ).text
+            return "".join(
+                text.split(
+                    '<span id="LabelAnswer" class="LabelAnswer" onmouseover="toggle();">'
+                )[1]
+            ).split("<")[0]
+        except:
+            return "Failed to crack or couldn't connect"
+
+
+class md5_addr:
+
+    supports = set(["md5"])
+
+    def crack(self, hash):
+        burp0_url = "http://md5.my-addr.com:80/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
+        burp0_cookies = {"PHPSESSID": "aki2l78uvb3hk5n1uvuhefut17"}
+        burp0_headers = {
+            "Cache-Control": "max-age=0",
+            "Upgrade-Insecure-Requests": "1",
+            "Origin": "http://md5.my-addr.com",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "Referer": "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
+            "Connection": "close",
+        }
+        burp0_data = {"md5": hash, "x": "13", "y": "10"}
+
+        try:
+            text = requests.post(
+                burp0_url, headers=burp0_headers, cookies=burp0_cookies, data=burp0_data
+            ).text
+            return "".join(
+                text.split(
+                    "<div class='white_bg_title'><span class='middle_title'>Hashed string</span>: "
+                )[1]
+            ).split("</div")[0]
+        except:
+            return "Failed to crack or couldn't connect"
 
 
 # Will try and multi-thread later
