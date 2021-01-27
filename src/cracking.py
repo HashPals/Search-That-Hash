@@ -96,7 +96,7 @@ class Searcher:
             return {type(search).__name__: search.crack(future)}
         except Exception as e:
             logger.warn(f"{type(search).__name__} [{e}]")
-            return {type(search).__name__: False}
+            return {type(search).__name__: "Failed"}
 
 
 # Bug Fixing - API / Domain is currently down
