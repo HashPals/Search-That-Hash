@@ -80,16 +80,20 @@ class Searcher:
     def threaded_search(self, future, supported_searchers):
 
         processes = []
-        results = {}
+        success = {}
+        fails = {}
 
         with ThreadPoolExecutor(max_workers=4) as executor:
             for search in supported_searchers:
                 processes.append(executor.submit(self.call_searcher, search, future))
 
         for d in processes:
-            results.update(d.result())
-
-        return results
+          if list(d.result().values())[0] == "Failed" or list(d.result().values())[0] == "Not connected":
+            fails.update(d.result())
+          else:
+            success.update(d.result())
+          #results.update(d)
+        return({future[0] : [success, fails]})
 
     def call_searcher(self, search, future):
         try:
@@ -117,13 +121,13 @@ class hashsorg:
             ).text
         except:
             logger.warn("Couldn't connect to hashesorg")
-            return False
+            return("Not connected")
 
         # Check for false positive
 
         if "null" in request:
             logger.warn("Couldnt connect to hashesorg")
-            return "Couldnt connect"
+            return "Not connected"
         if not request:
             logger.warn("Hash seems to be a plain???")
             return "Hash seems to be a plain'"
@@ -150,7 +154,7 @@ class hashcat:
     # How do we implement the types?? (IDs) and wordlist??
 
     def crack(self, hash):
-        return False
+        return "Failed"
         for possible_type in range(len(hash[2])):
             command = f"hashcat64.exe -a 0 -m {ids[possible_type]} {hash[0]} {wordlist}"  # >> Can change for better optimization etc.....
             # Hashcat64.exe for windows
@@ -167,10 +171,10 @@ class hashcat:
                     in str(error)
                 ):
                     logger.warn("Hashcat not in PATH")
-                    return False
+                    return "Failed"
                 if "./hashcat.hctune: No such file or directory" in str(error):
                     logger.warn("Read the docs on using windows")
-                    return False
+                    return "Failed"
                 logger.warn("Hashcat couldn't crack hash")
                 continue
 
@@ -245,18 +249,18 @@ class LmRainbowTabels:
             ).text.split("&nbsp;")
         except:
             logger.warn("Couldn't connect to LM rainbow tabels")
-            return "Couldn't connect"
+            return "Not connected"
 
         if "CRACKED" in response[3]:
             return response[5]
 
         if "Not yet in database" in response[3]:
             logger.warn("LmRainbowTabels couldnt crack hash")
-            return "Hash not in database"
+            return "Failed"
 
         if "Uncrackable with this charset" in response[3]:
             logger.warn("This isnt an LM hash.")
-            return "Charset not supported"
+            return "Failed"
 
 
 # OPTIMIZATIONNNNN
@@ -308,7 +312,7 @@ class nitrxgen:
 
         else:
             logger.warn("Couldn't connect to nitrxegen or couldnt find a hash")
-            return "Couldn't crack or connect"
+            return "Failed"
 
 
 class cmd5:
@@ -362,7 +366,7 @@ class cmd5:
                 )[1]
             ).split("<")[0]
         except:
-            return "Failed to crack or couldn't connect"
+            return "Failed"
 
 
 class md5_addr:
@@ -396,7 +400,7 @@ class md5_addr:
                 )[1]
             ).split("</div")[0]
         except:
-            return "Failed to crack or couldn't connect"
+            return "Failed"
 
 class md5_grom:
 
@@ -407,10 +411,10 @@ class md5_grom:
             out = requests.get(f"https://md5.gromweb.com/?md5={hash[0]}", timeout = hash[3]).text
             text = "".join(out.split('<input class="field" id="form_string_to_hash_string" type="search" name="string" value="')[1]).split('"')[0]
             if not text:
-                return("Failed to crack")
+                return("Failed")
             return(text)
         except:
-            return("Failed to connect")
+            return("Not connected")
 
 class sha1_grom:
 
@@ -421,9 +425,9 @@ class sha1_grom:
             out = requests.get(f"https://sha1.gromweb.com/?hash={hash[0]}", timeout = hash[3]).text
             text = "".join(out.split('<input class="field" id="form_string_to_hash_string" type="search" name="string" value="')[1]).split('"')[0]
             if not text:
-                return("Failed to crack")
+                return("Failed")
             return(text)
         except:
-            return("Failed to connect / Couldn't connect")        
+            return("Not connected")        
     
 # Will try and multi-thread later
