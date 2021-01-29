@@ -1,11 +1,13 @@
-import hashid
-import searcher
+import json
+from name_that_hash import runner
 
 import click
 import sys
 from appdirs import *
-from googlesearch import search
+
 import toml
+import cracking
+from printing import Prettifier
 
 # import google
 # from googlesearch.googlesearch import GoogleSearch
@@ -14,10 +16,10 @@ import toml
 # The set of popular hashes
 # These have priority over any other hash.
 # If one hash can be MD5 or MD2, it will pick MD5 first and then MD2.
-popular_hashes = set(["md5", "sha1", "sha256", "sha384", "sha512", "ntlm"])
 
 
 @click.command()
+@click.option("--timeout", type=int, help="Choose timeout time in second")
 @click.option("--text", "-t", type=str, help="Crack a single hash")
 @click.option(
     "--offline",
@@ -30,22 +32,25 @@ popular_hashes = set(["md5", "sha1", "sha256", "sha384", "sha512", "ntlm"])
 @click.option(
     "-f",
     "--file",
-    type=click.File("rb"),
+    type=click.File("r"),
     required=False,
     help="The file of hashes, seperated by newlines.",
 )
 @click.option(
-    "-w", "--wordlist", type=click.File("rb"), required=False, help="The wordlist."
+    "-w", "--wordlist", type=click.File("r"), required=False, help="The wordlist."
 )
 @click.option(
-    "--config", type=click.File("rb"), required=False, help="File of API keys."
+    "--config", type=click.File("r"), required=False, help="File of API keys."
 )
 @click.option("--hashcat", is_flag=True, help="Runs Hashcat instead of John")
 @click.option("--where", is_flag=True, help="Prints config file location")
-def main(**kwargs):
-    """HashSearch - Search Hash APIs before automatically cracking them
+@click.option("--greppable", is_flag=True, help="Used to grep")
 
-    """
+
+# MAIN FUNCTION VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
+
+def main(**kwargs):
 
     if kwargs["where"] == True:
         print(find_appdirs_location())
@@ -67,7 +72,7 @@ def main(**kwargs):
     if kwargs["text"] != None:
         config["hashes"] = [kwargs["text"]]
     elif kwargs["file"] != None:
-        config["hashes"] = kwargs["file"].split("\n")
+        config["hashes"] = "".join(list(kwargs["file"])).split("\n")
     else:
         print("Error. No hashes were inputted. Use the help menu --help")
 
@@ -76,28 +81,40 @@ def main(**kwargs):
     config["offline"] = kwargs["offline"]
     config["wordlist"] = kwargs["wordlist"]
     config["hashcat"] = kwargs["hashcat"]
+    config["timeout"] = kwargs["timeout"]
+    config["greppable"] = kwargs["greppable"]
 
-    config = searcher.Searcher(config)
+    Prettifier.banner()
+
+    searcher = cracking.Searcher(config)
+    cracking.Searcher.main(searcher)
+
+    # printing.Prettifier(results, config)
+
+
+def return_as_json(hashes):
+
+    config = {}
+
+    config["hashes"] = hashes
+    config["offline"] = False
+    config["timeout"] = 1
+    config["greppable"] = True
+
+    searcher = cracking.Searcher(config)
+
+    return cracking.Searcher.main(searcher)
 
 
 def create_hash_config(config):
-    # Returns the hashing config
-    # [{hash: {hash_types}}, {hash: {hash_types}}]
-    result = []
-    for hash in config["hashes"]:
-        try:
-            result.append({hash: get_hashid(hash)})
-        except Exception as e:
-            print(f"{hash} is an unknown hash type.")
-            continue
-    return result
+    try:
+        return json.loads(runner.api_return_hashes_as_json(config["hashes"]))
+    except:
+        print("Invalid hash type")
+        exit(0)
 
 
-def get_hashid(hash):
-    hash_identifier = hashid.HashID()
-    return hashid.writeResult(
-        hash_identifier.identifyHash(hash)  # , None, True, True, True
-    )
+# CONFIG FILE FUNCTIONS VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
 
 def read_config_file():
@@ -106,7 +123,7 @@ def read_config_file():
 
 def find_appdirs_location():
     # TODO make this OS independent the "/" makes it Windows specific
-    print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
+    # print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
     return user_config_dir("HashSearch", "Bee-san") + "/config.toml"
 
 
@@ -114,7 +131,7 @@ def read_and_parse_config_file(file):
     config_to_parse = read_file(file)
 
     if config_to_parse == None:
-        print("its none")
+        # print("its none")
         return config_to_parse
     else:
         try:
@@ -122,37 +139,12 @@ def read_and_parse_config_file(file):
         except:
             return None
 
-
 def read_file(file):
     try:
         with open(file, "r") as out:
             return out.read()
     except:
         return None
-
-
-def hashcat():
-    Pass
-
-def John():
-    Pass
-
-
-def search_and_crack_hashes(config):
-    """Searches hashes in APIs and then cracks the ones not found
-
-    Args:
-        list ([string]): [hashes as strings]
-
-    Returns:
-        [list]: [Plaintext of hashes]
-    """
-    return None
-
-
-def crack_hashes(list):
-    pass
-
-
+    
 if __name__ == "__main__":
     main()
