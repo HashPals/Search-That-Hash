@@ -7,7 +7,7 @@ from appdirs import *
 
 import toml
 import cracking
-import printing
+from printing import Prettifier
 
 # import google
 # from googlesearch.googlesearch import GoogleSearch
@@ -16,6 +16,7 @@ import printing
 # The set of popular hashes
 # These have priority over any other hash.
 # If one hash can be MD5 or MD2, it will pick MD5 first and then MD2.
+
 
 @click.command()
 @click.option("--timeout", type=int, help="Choose timeout time in second")
@@ -43,9 +44,11 @@ import printing
 )
 @click.option("--hashcat", is_flag=True, help="Runs Hashcat instead of John")
 @click.option("--where", is_flag=True, help="Prints config file location")
+@click.option("--greppable", is_flag=True, help="Used to grep")
 
 
 # MAIN FUNCTION VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+
 
 def main(**kwargs):
 
@@ -54,7 +57,7 @@ def main(**kwargs):
         exit(0)
 
     config = {}
-    
+
     if kwargs["config"] != None:
         try:
             config["api_keys"] = toml.loads(kwargs["config"])
@@ -79,29 +82,48 @@ def main(**kwargs):
     config["wordlist"] = kwargs["wordlist"]
     config["hashcat"] = kwargs["hashcat"]
     config["timeout"] = kwargs["timeout"]
-    
-    #print(config["hashes"]) ; exit(0)
+    config["greppable"] = kwargs["greppable"]
+
+    Prettifier.banner()
+
     searcher = cracking.Searcher(config)
-    results = cracking.Searcher.main(searcher)
-    
-    printing.Prettifier(results, config)
-    
+    cracking.Searcher.main(searcher)
+
+    # printing.Prettifier(results, config)
+
+
+def return_as_json(hashes):
+
+    config = {}
+
+    config["hashes"] = hashes
+    config["offline"] = False
+    config["timeout"] = 1
+    config["greppable"] = True
+
+    searcher = cracking.Searcher(config)
+
+    return cracking.Searcher.main(searcher)
+
+
 def create_hash_config(config):
     try:
         return json.loads(runner.api_return_hashes_as_json(config["hashes"]))
     except:
-        print("Invalid hash type") ; exit(0)
-
+        print("Invalid hash type")
+        exit(0)
 
 
 # CONFIG FILE FUNCTIONS VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
+
 def read_config_file():
     return read_and_parse_config_file(find_appdirs_location())
 
+
 def find_appdirs_location():
     # TODO make this OS independent the "/" makes it Windows specific
-    #print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
+    # print(user_config_dir("HashSearch", "Bee-san") + "/config.toml")
     return user_config_dir("HashSearch", "Bee-san") + "/config.toml"
 
 
@@ -109,7 +131,7 @@ def read_and_parse_config_file(file):
     config_to_parse = read_file(file)
 
     if config_to_parse == None:
-        #print("its none")
+        # print("its none")
         return config_to_parse
     else:
         try:
@@ -123,6 +145,6 @@ def read_file(file):
             return out.read()
     except:
         return None
-
+    
 if __name__ == "__main__":
     main()
