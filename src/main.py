@@ -6,17 +6,19 @@ import sys
 from appdirs import *
 
 import toml
-import cracking
-from printing import Prettifier
 
-# import google
-# from googlesearch.googlesearch import GoogleSearch
-# this isnt
+try:
+    import cracking, printing
+except ModuleNotFoundError:
+    from search_that_hash import cracking, printing
 
-# The set of popular hashes
-# These have priority over any other hash.
-# If one hash can be MD5 or MD2, it will pick MD5 first and then MD2.
+from loguru import logger
 
+logger.add(
+    sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO"
+)
+
+logger.remove()
 
 @click.command()
 @click.option("--timeout", type=int, help="Choose timeout time in second")
@@ -37,18 +39,14 @@ from printing import Prettifier
     help="The file of hashes, seperated by newlines.",
 )
 @click.option(
-    "-w", "--wordlist", type=click.File("r"), required=False, help="The wordlist."
+    "-w", "--wordlist", type=str, required=False, help="The wordlist."
 )
 @click.option(
-    "--config", type=click.File("r"), required=False, help="File of API keys."
+    "--config", type=click.File("r"), required=False, help="File of config"
 )
 @click.option("--hashcat", is_flag=True, help="Runs Hashcat instead of John")
 @click.option("--where", is_flag=True, help="Prints config file location")
 @click.option("--greppable", is_flag=True, help="Used to grep")
-
-
-# MAIN FUNCTION VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-
 
 def main(**kwargs):
 
@@ -60,7 +58,7 @@ def main(**kwargs):
 
     if kwargs["config"] != None:
         try:
-            config["api_keys"] = toml.loads(kwargs["config"])
+            config["api_kys"] = toml.loads(kwargs["config"])
         except:
             config["api_keys"] = None
     else:
@@ -75,6 +73,7 @@ def main(**kwargs):
         config["hashes"] = "".join(list(kwargs["file"])).split("\n")
     else:
         print("Error. No hashes were inputted. Use the help menu --help")
+        exit(0)
 
     config["hashes"] = create_hash_config(config)
 
@@ -84,37 +83,40 @@ def main(**kwargs):
     config["timeout"] = kwargs["timeout"]
     config["greppable"] = kwargs["greppable"]
 
-    Prettifier.banner()
+    if not kwargs["greppable"]:
+        printing.Prettifier.banner()
 
     searcher = cracking.Searcher(config)
-    cracking.Searcher.main(searcher)
+    results = cracking.Searcher.main(searcher)
 
-    # printing.Prettifier(results, config)
+    if kwargs["greppable"]:
+        printing.Prettifier.grepable_print(results)
 
+    exit(0)
 
 def return_as_json(hashes):
 
-    config = {}
+    try:
+        config = {}
 
-    config["hashes"] = hashes
-    config["offline"] = False
-    config["timeout"] = 1
-    config["greppable"] = True
+        config["offline"] = False
+        config["api_keys"] = False
+        config["wordlist"] = False
+        config["hashcat"] = True
+        config["timeout"] = 1
+        config["greppable"] = True
+        config["hashes"] = hashes
+        config["hashes"] = create_hash_config(config)
 
-    searcher = cracking.Searcher(config)
+        searcher = cracking.Searcher(config)
 
-    return cracking.Searcher.main(searcher)
-
+        return json.dumps(cracking.Searcher.main(searcher))
+    except:
+        return(False)
+        
 
 def create_hash_config(config):
-    try:
-        return json.loads(runner.api_return_hashes_as_json(config["hashes"]))
-    except:
-        print("Invalid hash type")
-        exit(0)
-
-
-# CONFIG FILE FUNCTIONS VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    return json.loads(runner.api_return_hashes_as_json(config["hashes"]))
 
 
 def read_config_file():
@@ -131,7 +133,6 @@ def read_and_parse_config_file(file):
     config_to_parse = read_file(file)
 
     if config_to_parse == None:
-        # print("its none")
         return config_to_parse
     else:
         try:
