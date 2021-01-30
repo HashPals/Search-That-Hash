@@ -1,37 +1,39 @@
-# Need to support IDS but will wait for format from name-that-hash
+import subprocess as sp
+
 class hashcat:
 
-    supports = set(["md5", "NTLM", "sha512"])
-    moduels = ["subprocess"]
-    offline = True
-
-    # How do we implement the types?? (IDs) and wordlist??
-
     def crack(self, hash):
-        return "Failed"
-        for possible_type in range(len(hash[2])):
-            command = f"hashcat64.exe -a 0 -m {ids[possible_type]} {hash[0]} {wordlist}"  # >> Can change for better optimization etc.....
-            # Hashcat64.exe for windows
-            try:
-                sp.check_call(
-                    command,
-                    shell="True",
-                    cwd="/mnt/p/Hashcat"  # << For windows, you must put the hashcat directory for it to work. Also the wordlist must be in the directory or a full path.
-                    # stderr=sp.STDOUT
-                )
-            except sp.CalledProcessError as error:
-                if (
-                    "'hashcat' is not recognized as an internal or external command"
-                    in str(error)
-                ):
-                    # logger.debug("Hashcat not in PATH")
-                    return "Failed"
-                if "./hashcat.hctune: No such file or directory" in str(error):
-                    # logger.debug("Read the docs on using windows")
-                    return "Failed"
-                # logger.debug("Hashcat couldn't crack hash")
-                continue
 
+        hashcat_dict = str.maketrans({'$':'\\$'})
+        
+        hash_formatted = hash[0].translate(hashcat_dict)
+
+        for possible_type in hash[2]:
+            command = f"./hashcat64.exe -a 0 -m {possible_type} {hash_formatted} {hash[6]}"  
+            # Is greppable? Yes - Then silence.
+            if hash[5]:
+                try:
+                    sp.check_call(
+                        command,
+                        shell="True",
+                        cwd="/mnt/p/Hashcat", 
+                        stdout=sp.DEVNULL,
+                        stderr=sp.STDOUT
+                    )
+                except sp.CalledProcessError as error:
+                    return("Failed")
+                    continue
+            else:
+                try:
+                    sp.check_call(
+                        command,
+                        shell="True",
+                        cwd="/mnt/p/Hashcat"
+                    )
+                except sp.CalledProcessError as error:
+                    return("Failed")
+                    continue
+            
             possible_output = str(
                 sp.check_output(
                     f"{command} --show", shell=True, cwd="/mnt/p/Hashcat"
