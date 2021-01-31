@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "hashsearch"
-version = "0.1.0"
+name = "search-that-hash"
+version = "0.0.5"
 description = "Search hashes quickly before cracking them"
 authors = ["Jayy", "bee"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.6"
 click = "^7.1.2"
 appdirs = "^1.4.4"
 toml = "^0.10.1"
@@ -17,3 +17,7 @@ pytest = "^6.2.2"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+sth = "search_that_hash.main:main"
+name-that-hash = "search_that_hash.main:main"
