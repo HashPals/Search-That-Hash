@@ -21,7 +21,7 @@ logger.add(
 logger.remove()
 
 @click.command()
-@click.option("--timeout", type=int, help="Choose timeout time in second")
+@click.option("--timeout", type=int, help="Choose timeout time in second", default=1)
 @click.option("--text", "-t", type=str, help="Crack a single hash")
 @click.option(
     "--offline",
@@ -88,6 +88,7 @@ def main(**kwargs):
     config["hashcat"] = kwargs["hashcat"]
     config["timeout"] = kwargs["timeout"]
     config["greppable"] = kwargs["greppable"]
+    config["api"] = False
 
     if not kwargs["greppable"]:
         printing.Prettifier.banner()
@@ -102,24 +103,41 @@ def main(**kwargs):
 
 def return_as_json(hashes):
 
-    try:
-        config = {}
+    config = {}
 
-        config["offline"] = False
-        config["api_keys"] = False
-        config["wordlist"] = False
-        config["hashcat"] = False
-        config["timeout"] = 1
-        config["greppable"] = True
-        config["hashes"] = hashes
-        config["binary"] = False
-        config["hashes"] = create_hash_config(config)
+    config["offline"] = False
+    config["api_keys"] = False
+    config["wordlist"] = False
+    config["hashcat"] = False
+    config["timeout"] = 1
+    config["greppable"] = True
+    config["hashes"] = hashes
+    config["binary"] = False
+    config["hashes"] = create_hash_config(config)
+    config["api"] = False
 
-        searcher = cracking.Searcher(config)
+    searcher = cracking.Searcher(config)
 
-        return json.dumps(cracking.Searcher.main(searcher))
-    except:
-        return(False)
+    return json.dumps(cracking.Searcher.main(searcher))
+
+def return_as_fast_json(hashes):
+
+    config = {}
+
+    config["offline"] = False
+    config["api_keys"] = False
+    config["wordlist"] = False
+    config["hashcat"] = False
+    config["timeout"] = 1
+    config["greppable"] = False
+    config["hashes"] = hashes
+    config["binary"] = False
+    config["hashes"] = create_hash_config(config)
+    config["api"] = True
+
+    searcher = cracking.Searcher(config)
+
+    print(cracking.Searcher.main(searcher))
         
 
 def create_hash_config(config):
