@@ -108,10 +108,11 @@ def return_as_json(hashes):
         config["offline"] = False
         config["api_keys"] = False
         config["wordlist"] = False
-        config["hashcat"] = True
+        config["hashcat"] = False
         config["timeout"] = 1
         config["greppable"] = True
         config["hashes"] = hashes
+        config["binary"] = False
         config["hashes"] = create_hash_config(config)
 
         searcher = cracking.Searcher(config)
