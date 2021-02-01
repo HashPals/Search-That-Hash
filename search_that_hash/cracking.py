@@ -33,7 +33,7 @@ class Searcher:
         ]
         self.Hash_input = namedtuple(
             "Hash_input",
-            ["text", "types", "hashcat_types", "api_keys", "timeout", "greppable", "wordlist", "binary"],
+            ["text", "types", "hashcat_types", "api_keys", "timeout", "greppable", "wordlist", "binary", "api"],
         )
 
     def main(self):
@@ -77,7 +77,8 @@ class Searcher:
                 config["timeout"],
                 config["greppable"],
                 config["wordlist"],
-                config["binary"]
+                config["binary"],
+                config["api"]
             )
 
             out.append(self.threaded_search(future, supported_searchers))
@@ -110,11 +111,13 @@ class Searcher:
                         success.update(possible_done.result())
 
                         if not future[
-                            5 # Checks if greppable, if not then prints normally, if yes then returns and prints JSON.
+                            5 # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
                         ]:  # Prints without waiting for other threads to finish.
-                            printing.Prettifier.one_print(
-                                str(list(possible_done.result().values())[0]), future[0]
-                            )
+
+                            if not future[8]:
+                                printing.Prettifier.one_print(
+                                    str(list(possible_done.result().values())[0]), future[0]
+                                )
                             return {
                                 future[0]: str(list(possible_done.result().values())[0])
                             }
