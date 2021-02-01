@@ -1,3 +1,6 @@
+# Put this into a new repo, it doesn't need to be in here at all :) 
+
+
 import discord
 from discord.ext import commands
 from name_that_hash import runner

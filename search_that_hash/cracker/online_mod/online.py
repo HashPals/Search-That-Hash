@@ -3,7 +3,7 @@ import requests
 
 class LmRainbowTabels:
 
-    # Ok so bug for this one, it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
+    # it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
 
     supports = set(["lm"])
 
@@ -317,6 +317,7 @@ class hashsorg:
         if "$HEX[" in output:
             return bytearray.fromhex(
                 final_output[5 : len(final_output) - 1]
-            ).decode()  # Partions it so that it only contains hex and then decodes it into ASCII
+            ).decode()  
+            # Partions it so that it only contains hex and then decodes it into ASCII
 
         return output

@@ -1,20 +1,10 @@
-# Debugging
-
-from loguru import logger
-
-# Other
-
 from collections import namedtuple
 from concurrent.futures import ThreadPoolExecutor
 
-# Files
 
-try:
-    import printing, offline, online
-except ModuleNotFoundError:
-    from search_that_hash import offline, printing, online
+from loguru import logger
 
-
+import printing, offline, online
 
 class Searcher:
     def __init__(self, config):
@@ -33,7 +23,17 @@ class Searcher:
         ]
         self.Hash_input = namedtuple(
             "Hash_input",
-            ["text", "types", "hashcat_types", "api_keys", "timeout", "greppable", "wordlist", "binary", "api"],
+            [
+                "text",
+                "types",
+                "hashcat_types",
+                "api_keys",
+                "timeout",
+                "greppable",
+                "wordlist",
+                "binary",
+                "api",
+            ],
         )
 
     def main(self):
@@ -67,18 +67,19 @@ class Searcher:
             if config["hashcat"]:
                 supported_searchers.append(offline.hashcat())
             else:
-                supported_searchers.append(offline.john()) # Offline searchers
+                supported_searchers.append(offline.john())  # Offline searchers
 
             future = self.Hash_input(
                 hash_ctext,
                 types,
-                hashcat_types, # For john, hashcat
+                hashcat_types,  # For john, hashcat
+                # TODO don't update config like this, use the config updater file pls
                 config["api_keys"],
                 config["timeout"],
                 config["greppable"],
                 config["wordlist"],
                 config["binary"],
-                config["api"]
+                config["api"],
             )
 
             out.append(self.threaded_search(future, supported_searchers))
@@ -96,9 +97,7 @@ class Searcher:
                 processes.append(executor.submit(self.call_searcher, search, future))
                 for (
                     possible_done
-                ) in (
-                    processes
-                ):  ## Checks the progress of everything during cracking 
+                ) in processes:  # Checks the progress of everything during cracking
                     if possible_done in success or possible_done in fails:
                         continue
 
@@ -111,17 +110,18 @@ class Searcher:
                         success.update(possible_done.result())
 
                         if not future[
-                            5 # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
+                            5  # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
                         ]:  # Prints without waiting for other threads to finish.
 
                             if not future[8]:
                                 printing.Prettifier.one_print(
-                                    str(list(possible_done.result().values())[0]), future[0]
+                                    str(list(possible_done.result().values())[0]),
+                                    future[0],
                                 )
                             return {
                                 future[0]: str(list(possible_done.result().values())[0])
                             }
-                            
+
         return {future[0]: [success, fails]}
 
     def call_searcher(self, search, future):
