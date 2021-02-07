@@ -6,7 +6,10 @@ import click
 from loguru import logger
 from name_that_hash import runner as nth
 
-import cracking
+from search_that_hash.cracker import cracking
+from search_that_hash import config_object
+from search_that_hash import printing
+
 
 # import printing
 # import config
@@ -16,9 +19,6 @@ import cracking
 logger.add(
     sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO"
 )
-
-# logger.remove()
-
 
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash")
@@ -47,15 +47,34 @@ logger.add(
     type=bool,
     help="Use offline mode. Does not search for hashes.",
 )
-@click.option("--config", type=click.File("r"), required=False, help="File of config")
-@click.option("--where", is_flag=True, help="Prints config file location")
+#@click.option("--config", type=click.File("r"), required=False, help="File of config")
+#@click.option("--where", is_flag=True, help="Prints config file location")
 def main(**kwargs):
+    """
+    Search That Hash - The fastest way to crack a hash.\n
+    Searches Hash APIs for the answer, if not found goes straight to HashCat / John.\n
+
+    Discord (for support):\n
+        https://discord.gg/CGSDqEA
+    \n
+    GitHUb:\n
+        https://github.com/HashPals/hashsearch \n
+    A project by Bee, creator of RustScan, Ciphey, Name-That-Hash and more. Thanks to Jayyy, Fawaz, and Skeletal <3
+
+    \n
+
+    Usage examples:\n
+        sth -t "8846F7EAEE8FB117AD06BDD830B7584C"\n
+        sth -t "8846F7EAEE8FB117AD06BDD830B7584C" --offline\n
+    """
+    """
     if kwargs["where"] == True:
         print(config.find_appdirs_location())
-        exit(0)
+        exit(0)"""
 
-    config = {}
+    config = {"api_keys": None, "binary": None, "api": None}
 
+    """
     if kwargs["config"] != None:
         try:
             config["api_kys"] = toml.loads(kwargs["config"])
@@ -65,7 +84,7 @@ def main(**kwargs):
         # if no config is manually provided
         # check to see if one exists at appdirs
         # if it doesn't, it'll result to None
-        config["api_keys"] = config.read_config_file()
+        config["api_keys"] = config_object.read_config_file()"""
 
     if kwargs["text"] != None:
         config["hashes"] = [kwargs["text"]]

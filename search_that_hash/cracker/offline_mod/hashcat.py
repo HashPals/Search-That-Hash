@@ -1,4 +1,4 @@
-class hashcat:
+class Hashcat:
     def crack(self, hash):
 
         hashcat_dict = str.maketrans({"$": "\\$"})

@@ -4,12 +4,15 @@ from concurrent.futures import ThreadPoolExecutor
 
 from loguru import logger
 
-import printing, offline, online
+from search_that_hash import printing
+
+from search_that_hash.cracker.offline_mod import hashcat
+from search_that_hash.cracker.online_mod import online
 
 class Searcher:
     def __init__(self, config):
         self.config = config
-        self.searchers_offline = [offline.hashcat()]
+        self.searchers_offline = [hashcat.Hashcat()]
         self.searchers_online = [
             online.md5crypt(),
             online.rainbow_tabels(),
@@ -63,11 +66,11 @@ class Searcher:
                                 supported_searchers.append(search)
                             if not hashtype in types:
                                 types.append(hashtype)
-
-            if config["hashcat"]:
-                supported_searchers.append(offline.hashcat())
+            supported_searchers.append(hashcat.Hashcat())
+            """if config["hashcat"]:
+                
             else:
-                supported_searchers.append(offline.john())  # Offline searchers
+                supported_searchers.append(offline.john())  # Offline searchers"""
 
             future = self.Hash_input(
                 hash_ctext,
