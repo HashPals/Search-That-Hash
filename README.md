@@ -1,38 +1,35 @@
 
 <p align="center">
-<img src="https://github.com/HashPals/HashSearch/blob/main/Pictures/logo.gif?raw=true">
+<img src="https://github.com/HashPals/Search-That-Hash/blob/main/Pictures/logo.gif?raw=true">
 <p align="center">➡️ <a href="https://discord.gg/zYTM3rZM4T">Discord</a> | <a href="https://nth.skerrittt.blog">Website</a> ⬅️</p>
-<p align="center">The morden hash cracking system<br>
+<p align="center">The Fastest Hash Cracking System<br>
 <code>pip3 install search-that-hash && sth</code>
 </p>
 
 # 🤔 Overview
 
-<img src="https://github.com/Jayy001/HashSearch/blob/main/Pictures/speedrunning.gif">
-<p align="center"><i>Speedrunning TryHackMe Crack the Hashes 100%</i></p>
+<img src="https://github.com/Jayy001/Search-That-Hash/blob/main/Pictures/speedrunning.gif">
+<p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 100% 2.13 seconds</i></p>
 
-Tired of going to every website to crack your hash? Hashsearch automates this process in less then 2 seconds.
-Hashsearch searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
+Tired of going to every website to crack your hash? Search-That-Hash automates this process in less then 2 seconds.
+Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
 
 # 🔍 Features
 
-* **📁 File Input** - Supports multiple hashes from file
-* **📵 Offline Mode** - Not connected to the internet? No worries, hashsearch will automatically run hashcat / John for you
-* **🦾 JSON** - As well as JSON output for CLI we also offer an API
-* **♿ Accessible** - We are 100% [ Accessible](https://skerritt.blog/a11y/)
-* **💨 Fast** - We're all busy people and that's why we've dedicated time to make hashsearch as fast as possible.
-* **⌨️ Auto-Type** - No need to know the hash type, Hashsearch uses [Name-That-Hash](https://github.com/HashPals/Name-That-Hash) to get accurate results on the type of the hash.
-* **🌌 Supports many hashes** - HashSearch supports over 100 hash types
-* **🎫 Extensible** - Adding sites to HashSearch is as easy as printing "hello world" !
-* **🌈 Beautiful** - The colours were hand-selected to be as gnarly and accessible as possible 
-* **🌐 Wide variety of sites** - HashSearch supports a wide variety of sites to search your hash(s)
-* **☮️ Ethical** - We search hashes ethically and legally
+* **⌨️ Auto-Type Identification** - No need to know the hash type, Search-That-Hash uses [Name-That-Hash](https://github.com/HashPals/Name-That-Hash) to get accurate results on the type of the hash.
+* **📵 Offline Mode** - Not connected to the internet? No worries, Search-That-Hash will automatically run Hashcat for you.
+* **💨 Fast** - We're all busy people and that's why we've dedicated time to make Search-That-Hash as fast as possible.
+* **🦾 JSON API** - As well as JSON output for CLI we also offer an API.
+* **♿ Accessible** - We are 100% [ Accessible](https://skerritt.blog/a11y/).
+* **🎫 Extensible** - Adding sites to Search-That-Hash is as easy as printing "hello world" !
+* **🌈 Beautiful** - The colours were hand-selected to be as gnarly and accessible as possible .
+* **☮️ Ethical** - We search hashes ethically and legally.
 
 # 📈 Statistics
 
-If your not convinced yet, here are some Statistics about hashsearch using [TryHackMe Crack The Hash](https://tryhackme.com/room/crackthehash) - As shown above
+If you're not convinced yet, here are some Statistics about Search-That-Hash using [TryHackMe Crack The Hash](https://tryhackme.com/room/crackthehash) - As shown above
 
-| **Hash** | Time | Plain |
+| **Search-That-Hash** | Time | Plain |
 | ---- | ---- | ---- |
 | **48bb6e862e54f2a795ffc4e541caed4d** | 0.515 |  Easy
 | **CBFDAC6008F9CAB4083784CBD1874F76618D2A97** | 2.452 | Password123
@@ -42,9 +39,9 @@ If your not convinced yet, here are some Statistics about hashsearch using [TryH
 | **1DFECA0C002AE40B8619ECF94819CC1B** | 3.023 | n63umy8lkf4i
 | **\$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom** | 3.202 | bleh
 
-.......and for some comparison against hash-buster
+.......and for some comparison against [hash-buster](https://github.com/s0md3v/Hash-Buster):
 
-| **Hash** | Time | Plain |
+| **Hash-Buster** | Time | Plain |
 | ---- | ---- | ---- | 
 | **48bb6e862e54f2a795ffc4e541caed4d** | 0.875 |  Easy
 | **CBFDAC6008F9CAB4083784CBD1874F76618D2A97** | N/A | Not Found
@@ -53,9 +50,6 @@ If your not convinced yet, here are some Statistics about hashsearch using [TryH
 | **F09EDCB1FCEFC6DFB23DC3505A882655FF77375ED8AA2D1C13F640FCCC2D0C85** | N/A | Not Found
 | **1DFECA0C002AE40B8619ECF94819CC1B** | N/A | Not Found
 | **\$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom** | N/A | Not found
-
-
-
 
 # 🔨 Installation
 
@@ -73,6 +67,8 @@ then:
 
 To run.
 
+**Note**: We can't guarantee all of the APIs provide perfect privacy due to being closed source. If you need to crack sensitive, personal information please use the offline mode or Hashcat directly.
+
 
 # 📖 Documentation
 
@@ -84,7 +80,7 @@ Thats why we have documentation!
 
 | 📚 **Documentation** | 🐦 **My Twitter (@ me for questions)** | 🎳 **Discord** 
 | --------------- | ----------------------------------- | ---------------- | 
-| [Wiki](https://github.com/HashPals/HashSearch/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](https://discord.gg/zYTM3rZM4T) | 
+| [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](https://discord.gg/zYTM3rZM4T) | 
 
 
 # ✍️ Contributing
