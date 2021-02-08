@@ -44,23 +44,25 @@ class Searcher:
 
     def perform_search(self, config):
 
+        out = []
+
         sth_found_hashes = []
 
-        if not config["offline"] and not config["api"]: 
+        if not config["offline"]: 
             try:  
                 results = online.sth_api.crack(list(config["hashes"].keys()))
                 
                 for hash, values in results['body'].items():
                     sth_found_hashes.append(hash)
-                    if not future[8] or not future[5]:
+                    print(f"Greppable = {config['greppable']}")
+                    if not config["greppable"]:
+                        if config["api"]:
+                            out.append({hash:values["Plaintext"]})
                         printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
-                
-                for hash_to_remove in sth_found_hashes:
-                    del config["hashes"][hash_to_remove]
+                    for hash_to_remove in sth_found_hashes:
+                        del config["hashes"][hash_to_remove]
             except:
                 pass
-
-        out = []
 
         if not config["timeout"]:
             config["timeout"] = 1

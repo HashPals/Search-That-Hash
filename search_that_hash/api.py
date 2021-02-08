@@ -3,7 +3,11 @@ from search_that_hash import __main__
 
 import json
 
+print("Is this file being ran")
+
 def return_as_json(hashes):
+
+    print("Is return as JSON being called")
 
     config = {}
 
@@ -26,6 +30,7 @@ def return_as_json(hashes):
 
 
 def return_as_fast_json(hashes):
+    print("IS return as fast being called")
 
     config = {}
 
