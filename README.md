@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://github.com/HashPals/Search-That-Hash/blob/main/Pictures/logo.gif?raw=true">
+<img src="Pictures/logo.gif">
 <p align="center">➡️ <a href="https://discord.gg/zYTM3rZM4T">Discord</a> | <a href="https://nth.skerrittt.blog">Website</a> ⬅️</p>
 <p align="center">The Fastest Hash Cracking System<br>
 <code>pip3 install search-that-hash && sth</code>
@@ -8,7 +8,7 @@
 
 # 🤔 Overview
 
-<img src="https://github.com/Jayy001/Search-That-Hash/blob/main/Pictures/speedrunning.gif">
+<img src="Pictures/speedrunning.gif">
 <p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 100% 2.13 seconds</i></p>
 
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less then 2 seconds.
