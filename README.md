@@ -27,7 +27,7 @@ Search-That-Hash searches the most popular hash cracking sites and automatically
 
 # 📴 Offline Mode
 
-<img src="Pictures/speedrunning.gif">
+<img src="Pictures/hashcat.gif">
 
 STH automatically pipes your input into hashcat
 
