@@ -16,8 +16,6 @@ jobs:
         architecture: x64
     - run: pip install nox==2019.11.9
     - run: pip install poetry==1.0.5
-    - run: pip install name-that-hash
-    - run: poetry add name-that-hash
     - run: poetry add requests
     - run: poetry update
     - run: nox
