@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "search-that-hash"
-version = "0.1.1"
+version = "0.1.2"
 description = "Search hashes quickly before cracking them"
 authors = ["Jayy", "bee"]
 
