@@ -17,7 +17,6 @@ class Prettifier:
 
     def __init__(self, results, config):
         self.banner()
-        self.pretty_print(results, config)
 
     def banner():
         banner = r"""
@@ -49,9 +48,7 @@ class Prettifier:
     def one_print(result, hash):
         # Fixes dictionary update sequence element #0 has length 1; 2 is required #1
         console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
-        result = "testy"
-        hash = "testtestestest"
-        if "statusCode" in result:
+        if "statusCode" in result: # Handles STH API being given
             data = result["body"][hash]
             result = data["Plaintext"]
             type_hash = data["Type"]
@@ -80,3 +77,14 @@ class Prettifier:
             console.print(
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             )
+
+    def sth_print(hash, result, type, verified):
+        console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
+        texts = (
+            f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
+            + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type}[/bold #AFEADC on #005F5F]"
+            )
+        if not verified:
+            texts += f"\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
+    
+        console.print(texts)

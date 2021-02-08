@@ -1,8 +1,4 @@
-# Don't use Config{} here, either update the dict orr store it all in the class
-class Search_that_hash_api:
-    def __init__(self):
-        config = {}
-
+from cracker import cracking
 
 def return_as_json(hashes):
 
@@ -17,7 +13,7 @@ def return_as_json(hashes):
     config["hashes"] = hashes
     config["binary"] = False
     config["hashes"] = create_hash_config(config)
-    config["api"] = Flse
+    config["api"] = True
 
     try:
         searcher = cracking.Searcher(config)
@@ -46,3 +42,4 @@ def return_as_fast_json(hashes):
         return json.dumps(cracking.Searcher.main(searcher))
     except:
         return False
+

@@ -50,23 +50,6 @@ logger.add(
     help="Turn on debugging logs. -vvv for maximum logs.",
 )
 def main(**kwargs):
-    """
-    Search That Hash - The fastest way to crack a hash.\n
-    Searches Hash APIs for the answer, if not found goes straight to HashCat / John.\n
-
-    Discord (for support):\n
-        https://discord.gg/CGSDqEA
-    \n
-    GitHUb:\n
-        https://github.com/HashPals/hashsearch \n
-    A project by Bee, creator of RustScan, Ciphey, Name-That-Hash and more. Thanks to Jayyy, Fawaz, and Skeletal <3
-
-    \n
-
-    Usage examples:\n
-        sth -t "8846F7EAEE8FB117AD06BDD830B7584C"\n
-        sth -t "8846F7EAEE8FB117AD06BDD830B7584C" --offline\n
-    """
 
     set_logger(kwargs)
     logger.debug(kwargs)

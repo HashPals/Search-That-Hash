@@ -161,22 +161,6 @@ class cmd5:
         except:
             return "Failed"
 
-
-class sth_api:
-    supports = set(["all"])
-
-    def crack(self, chash):
-        url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
-        payload = json.dumps({"Hash": [chash.text]})
-        headers = {"Content-Type": "application/json"}
-        response = requests.request("GET", url, headers=headers, data=payload)
-        if response.status_code == 200 and response.json()["body"]:
-            output = response.json()
-            return output
-        else:
-            return "Failed"
-
-
 class md5_addr:
 
     supports = set(["md5"])
@@ -214,6 +198,19 @@ class md5_addr:
         except:
             return "Failed"
 
+class sth_api:
+    supports = set(["all"])
+
+    def crack(hashes):
+        url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
+        payload = json.dumps({"Hash": hashes})
+        headers = {"Content-Type": "application/json"}
+        response = requests.request("GET", url, headers=headers, data=payload)
+        if response.status_code == 200 and response.json()["body"]:
+            output = response.json()
+            return output
+        else:
+            return "Failed"
 
 class md5_grom:
 

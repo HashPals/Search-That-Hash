@@ -1,7 +1,6 @@
 from collections import namedtuple
 from concurrent.futures import ThreadPoolExecutor
 
-
 from loguru import logger
 
 from search_that_hash import printing
@@ -9,13 +8,11 @@ from search_that_hash import printing
 from search_that_hash.cracker.offline_mod import hashcat
 from search_that_hash.cracker.online_mod import online
 
-
 class Searcher:
     def __init__(self, config):
         self.config = config
         self.searchers_offline = [hashcat.Hashcat()]
         self.searchers_online = [
-            online.sth_api(),
             online.md5crypt(),
             online.rainbow_tabels(),
             online.nitrxgen(),
@@ -36,7 +33,7 @@ class Searcher:
                 "timeout",
                 "greppable",
                 "wordlist",
-                "binary",
+                "hashcat_binary",
                 "api",
             ],
         )
@@ -47,7 +44,20 @@ class Searcher:
 
     def perform_search(self, config):
 
+        sth_found_hashes = []
+        if not config["offline"]: 
+            try:  
+                results = online.sth_api.crack(list(config["hashes"].keys()))
+                for hash, values in results['body'].items():
+                    sth_found_hashes.append(hash)
+                    printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
+            except:
+                pass
+
         out = []
+
+        for hash_to_remove in sth_found_hashes:
+            del config["hashes"][hash_to_remove]
 
         if not config["timeout"]:
             config["timeout"] = 1
@@ -59,6 +69,10 @@ class Searcher:
             hashcat_types = [type["hashcat"] for type in types]
             supported_searchers = []
             types = []
+
+            if keys == [] and not config["greppable"]:
+                printing.Prettifier.one_print("Could not find any types for this hash", hash_ctext)
+                return
 
             if not config["offline"]:
                 for search in self.searchers_online:
@@ -79,13 +93,12 @@ class Searcher:
             future = self.Hash_input(
                 hash_ctext,
                 types,
-                hashcat_types,  # For john, hashcat
-                # TODO don't update config like this, use the config updater file pls
+                hashcat_types,  
                 config["api_keys"],
                 config["timeout"],
                 config["greppable"],
                 config["wordlist"],
-                config["binary"],
+                config["hashcat_binary"],
                 config["api"],
             )
 
@@ -125,9 +138,13 @@ class Searcher:
                                     list(possible_done.result().values())[0],
                                     future[0],
                                 )
+                                return
                             return {
                                 future[0]: str(list(possible_done.result().values())[0])
                             }
+
+        if success == {} and not future[5]:
+            printing.Prettifier.one_print("Could not find hash", future[0])
 
         return {future[0]: [success, fails]}
 
