@@ -18,7 +18,7 @@ Search-That-Hash searches the most popular hash cracking sites and automatically
 
 * **⌨️ Auto-Type Identification** - No need to know the hash type, Search-That-Hash uses [Name-That-Hash](https://github.com/HashPals/Name-That-Hash) to get accurate results on the type of the hash.
 * **📵 Offline Mode** - Not connected to the internet? No worries, Search-That-Hash will automatically run Hashcat for you.
-<img src="Pictures/speedrunning.gif">
+<p>img src="Pictures/speedrunning.gif"></p>
 * **💨 Fast** - We're all busy people and that's why we've dedicated time to make Search-That-Hash as fast as possible.
 * **🦾 JSON API** - As well as JSON output for CLI we also offer an API.
 * **♿ Accessible** - We are 100% [ Accessible](https://skerritt.blog/a11y/).
