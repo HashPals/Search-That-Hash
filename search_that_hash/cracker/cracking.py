@@ -54,13 +54,13 @@ class Searcher:
                 
                 for hash, values in results['body'].items():
                     sth_found_hashes.append(hash)
-                    print(f"Greppable = {config['greppable']}")
                     if not config["greppable"]:
                         if config["api"]:
                             out.append({hash:values["Plaintext"]})
-                        printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
-                    for hash_to_remove in sth_found_hashes:
-                        del config["hashes"][hash_to_remove]
+                        else:
+                            printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
+                for hash_to_remove in sth_found_hashes:
+                    del config["hashes"][hash_to_remove]
             except:
                 pass
 
