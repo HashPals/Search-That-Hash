@@ -1,4 +1,7 @@
-from cracker import cracking
+from search_that_hash.cracker import cracking
+from search_that_hash import __main__
+
+import json
 
 def return_as_json(hashes):
 
@@ -12,7 +15,7 @@ def return_as_json(hashes):
     config["greppable"] = True
     config["hashes"] = hashes
     config["binary"] = False
-    config["hashes"] = create_hash_config(config)
+    config["hashes"] = __main__.create_hash_config(config)
     config["api"] = True
 
     try:
@@ -34,12 +37,9 @@ def return_as_fast_json(hashes):
     config["greppable"] = False
     config["hashes"] = hashes
     config["binary"] = False
-    config["hashes"] = create_hash_config(config)
+    config["hashes"] = __main__.create_hash_config(config)
     config["api"] = True
 
-    try:
-        searcher = cracking.Searcher(config)
-        return json.dumps(cracking.Searcher.main(searcher))
-    except:
-        return False
+    searcher = cracking.Searcher(config)
+    return json.dumps(cracking.Searcher.main(searcher))
 
