@@ -9,11 +9,13 @@ from search_that_hash import printing
 from search_that_hash.cracker.offline_mod import hashcat
 from search_that_hash.cracker.online_mod import online
 
+
 class Searcher:
     def __init__(self, config):
         self.config = config
         self.searchers_offline = [hashcat.Hashcat()]
         self.searchers_online = [
+            online.sth_api(),
             online.md5crypt(),
             online.rainbow_tabels(),
             online.nitrxgen(),
@@ -61,16 +63,18 @@ class Searcher:
             if not config["offline"]:
                 for search in self.searchers_online:
                     for hashtype in keys:
+                        if "all" in search.supports:
+                            supported_searchers.append(search)
+                            types.append(hashtype)
+                            continue
+
                         if hashtype.lower() in search.supports:
                             if not search in supported_searchers:
                                 supported_searchers.append(search)
                             if not hashtype in types:
                                 types.append(hashtype)
+
             supported_searchers.append(hashcat.Hashcat())
-            """if config["hashcat"]:
-                
-            else:
-                supported_searchers.append(offline.john())  # Offline searchers"""
 
             future = self.Hash_input(
                 hash_ctext,
@@ -118,7 +122,7 @@ class Searcher:
 
                             if not future[8]:
                                 printing.Prettifier.one_print(
-                                    str(list(possible_done.result().values())[0]),
+                                    list(possible_done.result().values())[0],
                                     future[0],
                                 )
                             return {

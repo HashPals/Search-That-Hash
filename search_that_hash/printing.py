@@ -4,6 +4,8 @@ from typing import NamedTuple, List
 from rich.console import Console
 from loguru import logger
 
+from name_that_hash import runner
+
 console = Console(highlighter=False)
 
 
@@ -44,7 +46,31 @@ class Prettifier:
         print(JSON)
 
     def one_print(result, hash):
+        # Fixes dictionary update sequence element #0 has length 1; 2 is required #1
         console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
-        console.print(
-            f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
-        )
+        result = "testy"
+        hash = "testtestestest"
+        if "statusCode" in result:
+            data = result["body"][hash]
+            result = data["Plaintext"]
+            type_hash = data["Type"]
+            texts = (
+                f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
+                + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type_hash}[/bold #AFEADC on #005F5F]"
+            )
+            if not data["Verified"]:
+                texts += f"\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
+            console.print(texts)
+        else:
+            hashes = [hash]
+            output = json.loads(runner.api_return_hashes_as_json(hashes))
+            types = output[hash]
+            to_make = []
+            for i in types:
+                to_make.append(i["name"])
+
+            url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
+            payload = {"Hash": hash, "Plaintext": result, "Type": to_make}
+            console.print(
+                f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
+            )

@@ -10,15 +10,10 @@ from search_that_hash.cracker import cracking
 from search_that_hash import config_object
 from search_that_hash import printing
 
-
-# import printing
-# import config
-# import api
-
-
 logger.add(
     sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO"
 )
+
 
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash")
@@ -47,8 +42,13 @@ logger.add(
     type=bool,
     help="Use offline mode. Does not search for hashes.",
 )
-#@click.option("--config", type=click.File("r"), required=False, help="File of config")
-#@click.option("--where", is_flag=True, help="Prints config file location")
+@click.option(
+    "-v",
+    "--verbose",
+    count=True,
+    type=int,
+    help="Turn on debugging logs. -vvv for maximum logs.",
+)
 def main(**kwargs):
     """
     Search That Hash - The fastest way to crack a hash.\n
@@ -67,24 +67,11 @@ def main(**kwargs):
         sth -t "8846F7EAEE8FB117AD06BDD830B7584C"\n
         sth -t "8846F7EAEE8FB117AD06BDD830B7584C" --offline\n
     """
-    """
-    if kwargs["where"] == True:
-        print(config.find_appdirs_location())
-        exit(0)"""
+
+    set_logger(kwargs)
+    logger.debug(kwargs)
 
     config = {"api_keys": None, "binary": None, "api": None}
-
-    """
-    if kwargs["config"] != None:
-        try:
-            config["api_kys"] = toml.loads(kwargs["config"])
-        except:
-            config["api_keys"] = None
-    else:
-        # if no config is manually provided
-        # check to see if one exists at appdirs
-        # if it doesn't, it'll result to None
-        config["api_keys"] = config_object.read_config_file()"""
 
     if kwargs["text"] != None:
         config["hashes"] = [kwargs["text"]]
@@ -113,6 +100,24 @@ def main(**kwargs):
 def create_hash_config(config):
     # Gets the results from name-that-hash
     return json.loads(nth.api_return_hashes_as_json(config["hashes"]))
+
+
+def set_logger(kwargs):
+    # sets the logger value based on args
+    verbosity = kwargs["verbose"]
+    if not verbosity:
+        logger.remove()
+        return
+    elif verbosity == 1:
+        verbosity = "WARNING"
+    elif verbosity == 2:
+        verbosity = "DEBUG"
+    elif verbosity == 3:
+        verbosity = "TRACE"
+    logger.add(sink=sys.stderr, level=verbosity, colorize=sys.stderr.isatty())
+    logger.opt(colors=True)
+
+    logger.debug(f"Verbosity set to level {verbosity} ({verbosity})")
 
 
 if __name__ == "__main__":

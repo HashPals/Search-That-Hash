@@ -93,6 +93,3 @@ class Hashcat:
 
                     if not "No hashes loaded." in possible_output:
                         return possible_output.split(":")[1]
-
-
-

@@ -1,4 +1,6 @@
 import requests
+import json
+import loguru
 
 
 class LmRainbowTabels:
@@ -160,6 +162,21 @@ class cmd5:
             return "Failed"
 
 
+class sth_api:
+    supports = set(["all"])
+
+    def crack(self, chash):
+        url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
+        payload = json.dumps({"Hash": [chash.text]})
+        headers = {"Content-Type": "application/json"}
+        response = requests.request("GET", url, headers=headers, data=payload)
+        if response.status_code == 200 and response.json()["body"]:
+            output = response.json()
+            return output
+        else:
+            return "Failed"
+
+
 class md5_addr:
 
     supports = set(["md5"])
@@ -273,7 +290,7 @@ class opcrack:
 
 class rainbow_tabels:
 
-    supports = set(["sha-256", "md5", "md4", "NTLM"])
+    supports = set(["sha-256", "md5", "md4", "ntlm"])
 
     def crack(self, hash):
         try:
@@ -315,9 +332,7 @@ class hashsorg:
         # Check for Hex
 
         if "$HEX[" in output:
-            return bytearray.fromhex(
-                final_output[5 : len(final_output) - 1]
-            ).decode()  
+            return bytearray.fromhex(final_output[5 : len(final_output) - 1]).decode()
             # Partions it so that it only contains hex and then decodes it into ASCII
 
         return output
