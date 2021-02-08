@@ -1,8 +1,8 @@
 from collections import namedtuple
 from concurrent.futures import ThreadPoolExecutor
 
-
 from loguru import logger
+
 
 from search_that_hash import printing
 
@@ -10,10 +10,12 @@ from search_that_hash.cracker.offline_mod import hashcat
 from search_that_hash.cracker.online_mod import online
 
 
+
 class Searcher:
     def __init__(self, config):
         self.config = config
         self.searchers_offline = [hashcat.Hashcat()]
+
         self.searchers_online = [
             online.sth_api(),
             online.md5crypt(),
@@ -36,7 +38,7 @@ class Searcher:
                 "timeout",
                 "greppable",
                 "wordlist",
-                "binary",
+                "hashcat_binary",
                 "api",
             ],
         )
@@ -48,9 +50,6 @@ class Searcher:
     def perform_search(self, config):
 
         out = []
-
-        if not config["timeout"]:
-            config["timeout"] = 1
 
         for hash, types in config["hashes"].items():
             hash_ctext = hash
@@ -85,7 +84,7 @@ class Searcher:
                 config["timeout"],
                 config["greppable"],
                 config["wordlist"],
-                config["binary"],
+                config["hashcat_binary"],
                 config["api"],
             )
 
@@ -128,6 +127,13 @@ class Searcher:
                             return {
                                 future[0]: str(list(possible_done.result().values())[0])
                             }
+
+
+                        if not future[5]: # Checks for greppable (gives all info)
+                            if future[8]: # Do we RETURN (api) or PRINT (cli)
+                                return({future[0]:list(possible_done.result().values())[0]})
+                            printing.Prettifier.one_print(list(possible_done.result().values())[0], future[0])
+                            return
 
         return {future[0]: [success, fails]}
 

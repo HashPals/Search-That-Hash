@@ -73,7 +73,6 @@ then:
 
 To run.
 
-
 # 📖 Documentation
 
 Want to know how everything works? 
@@ -86,6 +85,9 @@ Thats why we have documentation!
 | --------------- | ----------------------------------- | ---------------- | 
 | [Wiki](https://github.com/HashPals/HashSearch/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](https://discord.gg/zYTM3rZM4T) | 
 
+# ⚠ Waning about API usage
+
+Some APIs will record your input, the plaintext and more. This is because you are essentially using a paid for service for free. If you do not want APIs to track usage, only use the offline mode.
 
 # ✍️ Contributing
 
