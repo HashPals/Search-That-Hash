@@ -3,6 +3,7 @@ from typing import NamedTuple, List
 
 from rich.console import Console
 from loguru import logger
+import requests
 
 from name_that_hash import runner
 
@@ -70,7 +71,12 @@ class Prettifier:
                 to_make.append(i["name"])
 
             url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
+            headers = {
+            'x-api-key': 'rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa',
+            'Content-Type': 'application/json'
+            }
             payload = {"Hash": hash, "Plaintext": result, "Type": to_make}
+            response = requests.request("PUT", url, headers=headers, data=payload)
             console.print(
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             )

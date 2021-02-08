@@ -11,6 +11,8 @@ appdirs = "^1.4.4"
 toml = "^0.10.1"
 loguru = "^0.5.2"
 name-that-hash = "^0.8.0"
+requests = "^2.25.1"
+rich = "^9.10.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
