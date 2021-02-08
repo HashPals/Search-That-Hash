@@ -14,6 +14,9 @@
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less then 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
 
+Please note that this in alpha stage so do not expect it to be perfect 🙂
+For bugs please open an issue.
+
 # 🔍 Features
 
 * **⌨️ Auto-Type Identification** - No need to know the hash type, Search-That-Hash uses [Name-That-Hash](https://github.com/HashPals/Name-That-Hash) to get accurate results on the type of the hash.
