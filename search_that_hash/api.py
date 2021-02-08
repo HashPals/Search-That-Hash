@@ -14,7 +14,7 @@ def return_as_json(hashes):
     config["timeout"] = 1
     config["greppable"] = True
     config["hashes"] = hashes
-    config["binary"] = False
+    config["hashcat_binary"] = False
     config["hashes"] = __main__.create_hash_config(config)
     config["api"] = True
 
@@ -36,7 +36,7 @@ def return_as_fast_json(hashes):
     config["timeout"] = 1
     config["greppable"] = False
     config["hashes"] = hashes
-    config["binary"] = False
+    config["hashcat_binary"] = False
     config["hashes"] = __main__.create_hash_config(config)
     config["api"] = True
 

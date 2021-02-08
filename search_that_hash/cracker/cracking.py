@@ -51,7 +51,8 @@ class Searcher:
                 
                 for hash, values in results['body'].items():
                     sth_found_hashes.append(hash)
-                    printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
+                    if not future[8] or not future[5]:
+                        printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
                 
                 for hash_to_remove in sth_found_hashes:
                     del config["hashes"][hash_to_remove]
