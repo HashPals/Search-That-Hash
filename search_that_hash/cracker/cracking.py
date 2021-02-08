@@ -45,7 +45,8 @@ class Searcher:
     def perform_search(self, config):
 
         sth_found_hashes = []
-        if not config["offline"]: 
+
+        if not config["offline"] and not config["api"]: 
             try:  
                 results = online.sth_api.crack(list(config["hashes"].keys()))
                 
