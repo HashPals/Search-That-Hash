@@ -48,6 +48,7 @@ class Searcher:
         if not config["offline"]: 
             try:  
                 results = online.sth_api.crack(list(config["hashes"].keys()))
+                
                 for hash, values in results['body'].items():
                     sth_found_hashes.append(hash)
                     printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
@@ -58,9 +59,6 @@ class Searcher:
                 pass
 
         out = []
-
-        for hash_to_remove in sth_found_hashes:
-            del config["hashes"][hash_to_remove]
 
         if not config["timeout"]:
             config["timeout"] = 1
