@@ -22,5 +22,5 @@ requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.poetry.scripts]
-sth = "search_that_hash.main:main"
-name-that-hash = "search_that_hash.main:main"
+sth = "search_that_hash.main:__main__"
+name-that-hash = "search_that_hash.main:__main__"
