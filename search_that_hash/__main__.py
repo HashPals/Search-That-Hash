@@ -50,7 +50,18 @@ logger.add(
     help="Turn on debugging logs. -vvv for maximum logs.",
 )
 def main(**kwargs):
-
+    """
+    Search-That-Hash - The fastest way to crack any hash.
+    \n
+    GitHub:\n
+        https://github.com/HashPals/Search-That-Hash\n
+    Discord:\n
+        https://discord.gg/CswayhQ8Ru
+    \n
+    Usage:
+    \n
+        sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
+    """
     set_logger(kwargs)
     logger.debug(kwargs)
 
