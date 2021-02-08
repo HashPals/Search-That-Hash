@@ -1,4 +1,4 @@
-# Put this into a new repo, it doesn't need to be in here at all :) 
+# Put this into a new repo, it doesn't need to be in here at all :)
 
 
 import discord
@@ -9,14 +9,16 @@ import cracking
 import hashsearch
 
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix="!")
+
 
 @bot.event
 async def on_ready():
-    print('Logged in as')
+    print("Logged in as")
     print(bot.user.name)
     print(bot.user.id)
-    print('------')
+    print("------")
+
 
 @bot.command()
 async def hash(ctx, hash):
@@ -27,7 +29,10 @@ async def hash(ctx, hash):
     for i in range(len(types)):
         if i == 6:
             break
-        embed_types.add_field(name=types[i]['name'], value=types[i]['description'], inline=False)
+        embed_types.add_field(
+            name=types[i]["name"], value=types[i]["description"], inline=False
+        )
     await ctx.send(embed=embed_types)
 
-bot.run('MzM0NzExNTYzMzI1ODAwNDU5.WWY6bw.kpE4pBua63XpIYJxvVyYHIINvz8')
+
+bot.run("MzM0NzExNTYzMzI1ODAwNDU5.WWY6bw.kpE4pBua63XpIYJxvVyYHIINvz8")

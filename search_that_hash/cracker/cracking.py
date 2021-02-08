@@ -3,14 +3,21 @@ from concurrent.futures import ThreadPoolExecutor
 
 from loguru import logger
 
-from search_that_hash.cracker.offline_mod import offline
-from search_that_hash.cracker.online_mod import online
+
 from search_that_hash import printing
+
+from search_that_hash.cracker.offline_mod import hashcat
+from search_that_hash.cracker.online_mod import online
+
+
 
 class Searcher:
     def __init__(self, config):
         self.config = config
+        self.searchers_offline = [hashcat.Hashcat()]
+
         self.searchers_online = [
+            online.sth_api(),
             online.md5crypt(),
             online.rainbow_tabels(),
             online.nitrxgen(),
@@ -55,11 +62,18 @@ class Searcher:
             if not config["offline"]:
                 for search in self.searchers_online:
                     for hashtype in keys:
+                        if "all" in search.supports:
+                            supported_searchers.append(search)
+                            types.append(hashtype)
+                            continue
+
                         if hashtype.lower() in search.supports:
                             if not search in supported_searchers:
                                 supported_searchers.append(search)
                             if not hashtype in types:
                                 types.append(hashtype)
+
+            supported_searchers.append(hashcat.Hashcat())
 
             future = self.Hash_input(
                 hash_ctext,
@@ -101,11 +115,26 @@ class Searcher:
                     else:
                         success.update(possible_done.result())
 
+                        if not future[
+                            5  # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
+                        ]:  # Prints without waiting for other threads to finish.
+
+                            if not future[8]:
+                                printing.Prettifier.one_print(
+                                    list(possible_done.result().values())[0],
+                                    future[0],
+                                )
+                            return {
+                                future[0]: str(list(possible_done.result().values())[0])
+                            }
+
+
                         if not future[5]: # Checks for greppable (gives all info)
                             if future[8]: # Do we RETURN (api) or PRINT (cli)
                                 return({future[0]:list(possible_done.result().values())[0]})
                             printing.Prettifier.one_print(list(possible_done.result().values())[0], future[0])
                             return
+
         return {future[0]: [success, fails]}
 
     def call_searcher(self, search, future):

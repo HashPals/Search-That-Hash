@@ -1,4 +1,4 @@
-class hashcat:
+class Hashcat:
     def crack(self, hash):
 
         hashcat_dict = str.maketrans({"$": "\\$"})
@@ -93,6 +93,3 @@ class hashcat:
 
                     if not "No hashes loaded." in possible_output:
                         return possible_output.split(":")[1]
-
-
-

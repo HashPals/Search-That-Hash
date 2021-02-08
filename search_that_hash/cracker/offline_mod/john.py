@@ -23,4 +23,4 @@ class john:
 
 	Thanks jabbba, will do this later :P
 
-"""	
+"""

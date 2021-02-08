@@ -1,12 +1,13 @@
 from search_that_hash import main
 import click.testing
 
+
 def test_it_works():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
 
     x = main.return_as_json(hashes)
-    
+
     assert x is not None
 
 
