@@ -25,31 +25,11 @@ Search-That-Hash searches the most popular hash cracking sites and automatically
 * **🌈 Beautiful** - The colours were hand-selected to be as gnarly and accessible as possible .
 * **☮️ Ethical** - We search hashes ethically and legally.
 
-# 📈 Statistics
+# 📴 Offline Mode
 
-If you're not convinced yet, here are some Statistics about Search-That-Hash using [TryHackMe Crack The Hash](https://tryhackme.com/room/crackthehash) - As shown above
+<img src="Pictures/speedrunning.gif">
 
-| **Search-That-Hash** | Time | Plain |
-| ---- | ---- | ---- |
-| **48bb6e862e54f2a795ffc4e541caed4d** | 0.515 |  Easy
-| **CBFDAC6008F9CAB4083784CBD1874F76618D2A97** | 2.452 | Password123
-| **1C8BFE8F801D79745C4631D09FFF36C82AA37FC4CCE4FC946683D7B336B63032** | 2.078  | letmein
-| **279412f945939ba78ce0758d3fd83daa** | 1.383|  Eternity22
-| **F09EDCB1FCEFC6DFB23DC3505A882655FF77375ED8AA2D1C13F640FCCC2D0C85** | 1.970 |  paule
-| **1DFECA0C002AE40B8619ECF94819CC1B** | 3.023 | n63umy8lkf4i
-| **\$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom** | 3.202 | bleh
-
-.......and for some comparison against [hash-buster](https://github.com/s0md3v/Hash-Buster):
-
-| **Hash-Buster** | Time | Plain |
-| ---- | ---- | ---- | 
-| **48bb6e862e54f2a795ffc4e541caed4d** | 0.875 |  Easy
-| **CBFDAC6008F9CAB4083784CBD1874F76618D2A97** | N/A | Not Found
-| **1C8BFE8F801D79745C4631D09FFF36C82AA37FC4CCE4FC946683D7B336B63032** | N/A  | Not Found
-| **279412f945939ba78ce0758d3fd83daa** | N/A |  Not Found
-| **F09EDCB1FCEFC6DFB23DC3505A882655FF77375ED8AA2D1C13F640FCCC2D0C85** | N/A | Not Found
-| **1DFECA0C002AE40B8619ECF94819CC1B** | N/A | Not Found
-| **\$12$Dwt1BZj6pcyc3Dy1FWZ5ieeUznr71EeNkJkUlypTsgbX1H68wsRom** | N/A | Not found
+STH automatically pipes your input into hashcat
 
 # 🔨 Installation
 
