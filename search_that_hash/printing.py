@@ -2,7 +2,6 @@ import json
 from typing import List, NamedTuple
 
 import requests
-from loguru import logger
 from name_that_hash import runner
 from rich.console import Console
 
@@ -87,3 +86,11 @@ class Prettifier:
             texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
 
         console.print(texts)
+
+    def error_print(msg, hash):
+        console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
+        console.print(f"\n[bold underline #E71D36]Error[/bold underline #E71D36] : [bold #E71D36]{msg}[/bold #E71D36]")
+
+    def type_print(types):
+        console.print(f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{','.join(types)}[/bold #AFEADC on #005F5F]")
+

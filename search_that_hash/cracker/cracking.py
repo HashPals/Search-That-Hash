@@ -76,7 +76,7 @@ class Searcher:
             types = []
 
             if keys == [] and not config["greppable"]:
-                printing.Prettifier.one_print("Could not find any types for this hash", hash_ctext)
+                printing.Prettifier.error_print("Could not find any types for this hash", hash_ctext)
                 return
 
             if not config["offline"]:
@@ -149,7 +149,8 @@ class Searcher:
                             }
 
         if success == {} and not future[5]:
-            printing.Prettifier.one_print("Could not find hash", future[0])
+            printing.Prettifier.error_print("Could not find plaintext", future[0])
+            printing.Prettifier.type_print(future[1])
 
         return {future[0]: [success, fails]}
 
