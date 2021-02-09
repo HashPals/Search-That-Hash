@@ -1,11 +1,10 @@
 import json
-from typing import NamedTuple, List
+from typing import List, NamedTuple
 
-from rich.console import Console
-from loguru import logger
 import requests
-
+from loguru import logger
 from name_that_hash import runner
+from rich.console import Console
 
 console = Console(highlighter=False)
 
@@ -20,13 +19,13 @@ class Prettifier:
 
     def banner():
         banner = r"""
-  _____                     _        _______ _           _          _    _           _     
- / ____|                   | |      |__   __| |         | |        | |  | |         | |    
-| (___   ___  __ _ _ __ ___| |__ ______| |  | |__   __ _| |_ ______| |__| | __ _ ___| |__  
- \___ \ / _ \/ _` | '__/ __| '_ \______| |  | '_ \ / _` | __|______|  __  |/ _` / __| '_ \ 
+  _____                     _        _______ _           _          _    _           _
+ / ____|                   | |      |__   __| |         | |        | |  | |         | |
+| (___   ___  __ _ _ __ ___| |__ ______| |  | |__   __ _| |_ ______| |__| | __ _ ___| |__
+ \___ \ / _ \/ _` | '__/ __| '_ \______| |  | '_ \ / _` | __|______|  __  |/ _` / __| '_ \
  ____) |  __/ (_| | | | (__| | | |     | |  | | | | (_| | |_       | |  | | (_| \__ \ | | |
-|_____/ \___|\__,_|_|  \___|_| |_|     |_|  |_| |_|\__,_|\__|      |_|  |_|\__,_|___/_| |_|                                                                                           																		  
-		"""
+|_____/ \___|\__,_|_|  \___|_| |_|     |_|  |_| |_|\__,_|\__|      |_|  |_|\__,_|___/_| |_|
+        """
 
         links = [
             "https://twitter.com/bee_sec_san",
@@ -48,7 +47,7 @@ class Prettifier:
     def one_print(result, hash):
         # Fixes dictionary update sequence element #0 has length 1; 2 is required #1
         console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
-        if "statusCode" in result: # Handles STH API being given
+        if "statusCode" in result:  # Handles STH API being given
             data = result["body"][hash]
             result = data["Plaintext"]
             type_hash = data["Type"]
@@ -57,7 +56,7 @@ class Prettifier:
                 + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type_hash}[/bold #AFEADC on #005F5F]"
             )
             if not data["Verified"]:
-                texts += f"\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
+                texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
             console.print(texts)
         else:
             hashes = [hash]
@@ -69,11 +68,13 @@ class Prettifier:
 
             url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
             headers = {
-            'x-api-key': 'rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa',
-            'Content-Type': 'application/json'
+                "x-api-key": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
+                "Content-Type": "application/json",
             }
-            payload = {"Hash": hash, "Plaintext": result, "Type": to_make}
-            response = requests.request("PUT", url, headers=headers, data=payload)
+            payload = (
+                f"""{{"Hash": "{hash}", "Plaintext": "{result}", "Type": {to_make}}}"""
+            )
+            requests.request("PUT", url, headers=headers, data=payload)
             console.print(
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             )
@@ -83,8 +84,8 @@ class Prettifier:
         texts = (
             f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type}[/bold #AFEADC on #005F5F]"
-            )
+        )
         if not verified:
-            texts += f"\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
-    
+            texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
+
         console.print(texts)
