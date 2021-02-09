@@ -71,9 +71,7 @@ class Prettifier:
                 "x-api-key": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
                 "Content-Type": "application/json",
             }
-            payload = (
-                f"""{{"Hash": "{hash}", "Plaintext": "{result}", "Type": {to_make}}}"""
-            )
+            payload = json.dumps({"Hash": hash, "Plaintext": result, "Type": to_make})
             requests.request("PUT", url, headers=headers, data=payload)
             console.print(
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
