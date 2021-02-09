@@ -14,8 +14,8 @@
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less then 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
 
-Please note that this in alpha stage so do not expect it to be perfect 🙂
-For bugs please open an issue.
+**Please note that this in alpha stage so do not expect it to be perfect 🙂
+For bugs please open an issue.**
 
 # 🔍 Features
 
@@ -32,7 +32,7 @@ For bugs please open an issue.
 
 <img src="Pictures/hashcat.gif">
 
-STH automatically pipes your input into hashcat
+Couldn't find it in any API? 😢 STH automatically pipes your input into Hashcat 🥳
 
 # 🔨 Installation
 
