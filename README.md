@@ -76,7 +76,7 @@ Thank you so much to  [Bee](https://twitter.com/bee_sec_san) who pretty much men
 
 Thank you also to [Fawaz](https://twitter.com/q8fawazo) for the amazing website!  🚧
 
-......And to [Jabba](https://github.com/JabbaTheBunny) for helping out with some of the code 💻
+......And to [Jabba](https://github.com/JabbaTheBunny) & [Skeletal](https://github.com/SkeletalDemise) for helping out with some of the code 💻
 
 Thank you to the TryHackMe community, they taught me so much in infosec and its a pleasure being part of it!
 
