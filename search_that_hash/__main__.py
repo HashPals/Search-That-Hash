@@ -10,11 +10,6 @@ from search_that_hash.cracker import cracking
 from search_that_hash import config_object
 from search_that_hash import printing
 
-logger.add(
-    sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO"
-)
-
-
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash")
 @click.option(
@@ -50,10 +45,18 @@ logger.add(
     help="Turn on debugging logs. -vvv for maximum logs.",
 )
 def main(**kwargs):
-
-    set_logger(kwargs)
-    logger.debug(kwargs)
-
+    """
+    Search-That-Hash - The fastest way to crack any hash.
+    \n
+    GitHub:\n
+        https://github.com/HashPals/Search-That-Hash\n
+    Discord:\n
+        https://discord.gg/CswayhQ8Ru
+    \n
+    Usage:
+    \n
+        sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
+    """
     config = {"api_keys": None, "binary": None, "api": None}
 
     if kwargs["text"] != None:
@@ -65,7 +68,7 @@ def main(**kwargs):
         exit(0)
 
     config.update(kwargs)
-    # TODO what does this do?
+
     config["hashes"] = create_hash_config(config)
 
     if not kwargs["greppable"]:
@@ -83,25 +86,6 @@ def main(**kwargs):
 def create_hash_config(config):
     # Gets the results from name-that-hash
     return json.loads(nth.api_return_hashes_as_json(config["hashes"]))
-
-
-def set_logger(kwargs):
-    # sets the logger value based on args
-    verbosity = kwargs["verbose"]
-    if not verbosity:
-        logger.remove()
-        return
-    elif verbosity == 1:
-        verbosity = "WARNING"
-    elif verbosity == 2:
-        verbosity = "DEBUG"
-    elif verbosity == 3:
-        verbosity = "TRACE"
-    logger.add(sink=sys.stderr, level=verbosity, colorize=sys.stderr.isatty())
-    logger.opt(colors=True)
-
-    logger.debug(f"Verbosity set to level {verbosity} ({verbosity})")
-
 
 if __name__ == "__main__":
     main()

@@ -14,6 +14,9 @@
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less then 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
 
+**Please note that this in alpha stage so do not expect it to be perfect 🙂
+For bugs please open an issue.**
+
 # 🔍 Features
 
 * **⌨️ Auto-Type Identification** - No need to know the hash type, Search-That-Hash uses [Name-That-Hash](https://github.com/HashPals/Name-That-Hash) to get accurate results on the type of the hash.
@@ -29,7 +32,7 @@ Search-That-Hash searches the most popular hash cracking sites and automatically
 
 <img src="Pictures/hashcat.gif">
 
-STH automatically pipes your input into hashcat
+Couldn't find it in any API? 😢 STH automatically pipes your input into Hashcat 🥳
 
 # 🔨 Installation
 
@@ -73,7 +76,7 @@ Thank you so much to  [Bee](https://twitter.com/bee_sec_san) who pretty much men
 
 Thank you also to [Fawaz](https://twitter.com/q8fawazo) for the amazing website!  🚧
 
-......And to [Jabba](https://github.com/JabbaTheBunny) for helping out with some of the code 💻
+......And to [Jabba](https://github.com/JabbaTheBunny) & [Skeletal](https://github.com/SkeletalDemise) for helping out with some of the code 💻
 
 Thank you to the TryHackMe community, they taught me so much in infosec and its a pleasure being part of it!
 
