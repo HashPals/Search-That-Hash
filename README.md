@@ -11,7 +11,7 @@
 <img src="Pictures/speedrunning.gif">
 <p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 2.13 seconds</i></p>
 
-Tired of going to every website to crack your hash? Search-That-Hash automates this process in less then 2 seconds.
+Tired of going to every website to crack your hash? Search-That-Hash automates this process in less than 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
 
 **Please note that this in alpha stage so do not expect it to be perfect 🙂
