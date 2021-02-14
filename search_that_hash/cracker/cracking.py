@@ -23,6 +23,7 @@ class Searcher:
             online.sha1_grom(),
             online.hashsorg(),
         ]
+        self.prettifier_obj = printing.Prettifier()
         self.Hash_input = namedtuple(
             "Hash_input",
             [
@@ -39,7 +40,6 @@ class Searcher:
     def perform_search(self, config):
 
         out = []
-
         sth_found_hashes = []
 
         if not config["offline"]: 
@@ -52,7 +52,7 @@ class Searcher:
                         if config["api"]:
                             out.append({chash:values["Plaintext"]})
                         else:
-                            printing.Prettifier.sth_print(chash, values['Plaintext'], values['Type'], values['Verified'])
+                            self.prettifier_obj.sth_print(chash, values['Plaintext'], values['Type'], values['Verified'])
                 for hash_to_remove in sth_found_hashes:
                     del config["hashes"][hash_to_remove]
             except:
@@ -70,7 +70,7 @@ class Searcher:
             types = []
 
             if keys == [] and not config["greppable"]:
-                printing.Prettifier.error_print("Could not find any types for this chash", hash_ctext)
+                self.prettifier_obj.error_print("Could not find any types for this chash", hash_ctext)
                 return
 
             if not config["offline"]:
@@ -127,8 +127,8 @@ class Searcher:
                         ]:  # Prints without waiting for other threads to finish.
 
                             if not self.config["api"]:
-                                printing.Prettifier.one_print(
-                                    list(possible_done.result().values())[0],
+                                self.prettifier_obj.one_print(
+                                    list(possible_done.result(). values())[0],
                                     future[0],
                                 )
                                 return
@@ -137,8 +137,8 @@ class Searcher:
                             }
 
         if success == {} and not self.config["greppable"]:
-            printing.Prettifier.error_print("Could not find plaintext", future[0])
-            printing.Prettifier.type_print(future[1])
+            self.prettifier_obj.error_print("Could not find plaintext", future[0])
+            self.prettifier_obj.type_print(future[1])
 
         return {future[0]: [success, fails]}
 

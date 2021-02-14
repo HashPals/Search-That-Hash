@@ -13,8 +13,8 @@ class Prettifier:
     This prints our output
     """
 
-    def __init__(self, results, config):
-        self.banner()
+    def __init__(self):
+        pass
 
     def banner():
         banner = r"""
@@ -39,7 +39,7 @@ class Prettifier:
             for link in links
         ]
 
-    def greppable_print(results):
+    def greppable_print(self, results):
         json_output = json.dumps(results, indent=4)
         print(json_output)
 
@@ -71,7 +71,7 @@ class Prettifier:
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             )
 
-    def sth_print(chash, result, type, verified):
+    def sth_print(self, chash, result, type, verified):
         console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
         texts = (
             f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
@@ -82,17 +82,17 @@ class Prettifier:
 
         console.print(texts)
 
-    def error_print(msg, chash):
+    def error_print(self, msg, chash):
         console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
         console.print(
             f"\n[bold underline #E71D36]Error[/bold underline #E71D36] : [bold #E71D36]{msg}[/bold #E71D36]"
         )
 
-    def type_print(types):
+    def type_print(self, types):
         console.print(
             f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{','.join(types)}[/bold #AFEADC on #005F5F]"
         )
-    def push(chash: str, result: str, to_make: str):
+    def push(self, chash: str, result: str, to_make: str):
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
         headers = {
             "x-api-key": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
