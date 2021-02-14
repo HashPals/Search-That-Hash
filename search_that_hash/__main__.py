@@ -10,6 +10,7 @@ from search_that_hash.cracker import cracking
 from search_that_hash import config_object
 from search_that_hash import printing
 
+
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash")
 @click.option(
@@ -22,7 +23,7 @@ from search_that_hash import printing
 @click.option("-w", "--wordlist", type=str, required=False, help="The wordlist.")
 @click.option("--timeout", type=int, help="Choose timeout time in second", default=1)
 @click.option("--hashcat", is_flag=True, help="Runs Hashcat instead of John")
-@click.option("--greppable", is_flag=True, help="Used to grep")
+@click.option("-g", "--greppable", is_flag=True, help="Used to grep")
 @click.option(
     "--hashcat_binary",
     type=str,
@@ -44,6 +45,8 @@ from search_that_hash import printing
     type=int,
     help="Turn on debugging logs. -vvv for maximum logs.",
 )
+@click.option("--accessible", is_flag=True, help="Makes the output accessible.")
+@click.option("--no-banner", is_flag=True, help="Doesn't print banner.")
 def main(**kwargs):
     """
     Search-That-Hash - The fastest way to crack any hash.
@@ -71,14 +74,14 @@ def main(**kwargs):
 
     config["hashes"] = create_hash_config(config)
 
-    if not kwargs["greppable"]:
+    if not kwargs["greppable"] and not kwargs["accessible"] and not kwargs["no_banner"]:
         printing.Prettifier.banner()
 
     searcher = cracking.Searcher(config)
     results = cracking.Searcher.main(searcher)
 
     if kwargs["greppable"]:
-        printing.Prettifier.grepable_print(results)
+        printing.Prettifier.greppable_print(results)
 
     exit(0)
 
@@ -86,6 +89,7 @@ def main(**kwargs):
 def create_hash_config(config):
     # Gets the results from name-that-hash
     return json.loads(nth.api_return_hashes_as_json(config["hashes"]))
+
 
 if __name__ == "__main__":
     main()

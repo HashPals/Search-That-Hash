@@ -52,13 +52,13 @@ class Searcher:
             try:  
                 results = online.sth_api.crack(list(config["hashes"].keys()))
                 
-                for hash, values in results['body'].items():
-                    sth_found_hashes.append(hash)
+                for chash, values in results['body'].items():
+                    sth_found_hashes.append(chash)
                     if not config["greppable"]:
                         if config["api"]:
-                            out.append({hash:values["Plaintext"]})
+                            out.append({chash:values["Plaintext"]})
                         else:
-                            printing.Prettifier.sth_print(hash, values['Plaintext'], values['Type'], values['Verified'])
+                            printing.Prettifier.sth_print(chash, values['Plaintext'], values['Type'], values['Verified'])
                 for hash_to_remove in sth_found_hashes:
                     del config["hashes"][hash_to_remove]
             except:
@@ -67,8 +67,8 @@ class Searcher:
         if not config["timeout"]:
             config["timeout"] = 1
 
-        for hash, types in config["hashes"].items():
-            hash_ctext = hash
+        for chash, types in config["hashes"].items():
+            hash_ctext = chash
 
             keys = [type["name"].lower() for type in types]
             hashcat_types = [type["hashcat"] for type in types]
@@ -76,7 +76,7 @@ class Searcher:
             types = []
 
             if keys == [] and not config["greppable"]:
-                printing.Prettifier.error_print("Could not find any types for this hash", hash_ctext)
+                printing.Prettifier.error_print("Could not find any types for this chash", hash_ctext)
                 return
 
             if not config["offline"]:

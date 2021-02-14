@@ -23,4 +23,4 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry.scripts]
 sth = "search_that_hash.__main__:main"
-name-that-hash = "search_that_hash.__main__:main"
+search-that-hash = "search_that_hash.__main__:main"

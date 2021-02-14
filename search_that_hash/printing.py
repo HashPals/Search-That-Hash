@@ -39,15 +39,16 @@ class Prettifier:
             for link in links
         ]
 
-    def grepable_print(results):
-        JSON = json.dumps(results, indent=4)
-        print(JSON)
+    def greppable_print(results):
+        json_output = json.dumps(results, indent=4)
+        print(json_output)
 
-    def one_print(result, hash):
+    def one_print(result, chash):
         # Fixes dictionary update sequence element #0 has length 1; 2 is required #1
-        console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
-        if "statusCode" in result:  # Handles STH API being given
-            data = result["body"][hash]
+        console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
+        # Handles STH API being used
+        if "statusCode" in result:  
+            data = result["body"][chash]
             result = data["Plaintext"]
             type_hash = data["Type"]
             texts = (
@@ -55,42 +56,47 @@ class Prettifier:
                 + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type_hash}[/bold #AFEADC on #005F5F]"
             )
             if not data["Verified"]:
-                texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
+                texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this chash is this plaintext."
             console.print(texts)
         else:
-            hashes = [hash]
+            hashes = [chash]
             output = json.loads(runner.api_return_hashes_as_json(hashes))
-            types = output[hash]
+            types = output[chash]
             to_make = []
             for i in types:
                 to_make.append(i["name"])
 
-            url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
-            headers = {
-                "x-api-key": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
-                "Content-Type": "application/json",
-            }
-            payload = json.dumps({"Hash": hash, "Plaintext": result, "Type": to_make})
-            requests.request("PUT", url, headers=headers, data=payload)
+            self.push(chash, result, to_make)
             console.print(
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             )
 
-    def sth_print(hash, result, type, verified):
-        console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
+    def sth_print(chash, result, type, verified):
+        console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
         texts = (
             f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type}[/bold #AFEADC on #005F5F]"
         )
         if not verified:
-            texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this hash is this plaintext."
+            texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this chash is this plaintext."
 
         console.print(texts)
 
-    def error_print(msg, hash):
-        console.print(f"\n\n[bold #011627 on #ff9f1c]{hash}[/bold #011627 on #ff9f1c]")
-        console.print(f"\n[bold underline #E71D36]Error[/bold underline #E71D36] : [bold #E71D36]{msg}[/bold #E71D36]")
+    def error_print(msg, chash):
+        console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
+        console.print(
+            f"\n[bold underline #E71D36]Error[/bold underline #E71D36] : [bold #E71D36]{msg}[/bold #E71D36]"
+        )
 
     def type_print(types):
-        console.print(f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{','.join(types)}[/bold #AFEADC on #005F5F]")
-
+        console.print(
+            f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{','.join(types)}[/bold #AFEADC on #005F5F]"
+        )
+    def push(chash: str, result: str, to_make: str):
+        url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
+        headers = {
+            "x-api-key": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
+            "Content-Type": "application/json",
+        }
+        payload = json.dumps({"Hash": chash, "Plaintext": result, "Type": to_make})
+        requests.request("PUT", url, headers=headers, data=payload)

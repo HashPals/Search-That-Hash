@@ -3,6 +3,7 @@ from search_that_hash import __main__
 
 import json
 
+
 def return_as_json(hashes):
 
     config = {}
@@ -42,4 +43,3 @@ def return_as_fast_json(hashes):
 
     searcher = cracking.Searcher(config)
     return json.dumps(cracking.Searcher.main(searcher))
-
