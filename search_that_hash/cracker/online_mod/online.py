@@ -203,6 +203,7 @@ class sth_api:
     supports = set(["all"])
 
     def crack(hashes):
+        print(kwargs)
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
         payload = json.dumps({"Hash": hashes})
         headers = {"Content-Type": "application/json"}
