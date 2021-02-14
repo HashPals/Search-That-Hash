@@ -161,6 +161,7 @@ class cmd5:
         except:
             return "Failed"
 
+
 class md5_addr:
 
     supports = set(["md5"])
@@ -198,6 +199,7 @@ class md5_addr:
         except:
             return "Failed"
 
+
 class sth_api:
     supports = set(["all"])
 
@@ -211,6 +213,7 @@ class sth_api:
             return output
         else:
             return "Failed"
+
 
 class md5_grom:
 

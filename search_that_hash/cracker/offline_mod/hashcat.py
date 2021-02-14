@@ -1,5 +1,6 @@
 import subprocess as sp
 
+
 class Hashcat:
     def crack(self, hash):
 
@@ -25,7 +26,7 @@ class Hashcat:
                         if "returned non-zero exit status 1." in e:
                             continue
                         else:
-                            return("Failed")
+                            return "Failed"
 
                     possible_output = str(
                         sp.check_output(
@@ -48,7 +49,7 @@ class Hashcat:
                         if "returned non-zero exit status 1." in e:
                             continue
                         else:
-                            return("Failed")
+                            return "Failed"
 
                     possible_output = str(
                         sp.check_output(
@@ -72,7 +73,7 @@ class Hashcat:
                         if "returned non-zero exit status 1." in e:
                             continue
                         else:
-                            return("Failed")
+                            return "Failed"
 
                     possible_output = str(
                         sp.check_output(
@@ -96,7 +97,7 @@ class Hashcat:
                         if "returned non-zero exit status 1." in e:
                             continue
                         else:
-                            return("Failed")
+                            return "Failed"
 
                     possible_output = str(
                         sp.check_output(f"{command} --show", shell=True).strip()
@@ -104,5 +105,5 @@ class Hashcat:
 
                     if not "No hashes loaded." in possible_output:
                         return possible_output.split(":")[1]
-        
+
         return "Failed"
