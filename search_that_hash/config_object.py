@@ -45,7 +45,7 @@ def cli_config(kwargs):
         print("Error. No hashes were inputted. Use the help menu --help")
         exit(0)
 
-    config["hashes"] = create_hash_config(config)
+    config["hashes"] = create_hash_config(config["hashes"])
 
     config.update(kwargs)
 
@@ -53,13 +53,13 @@ def cli_config(kwargs):
 
 def api_config(hashes):
     config = defult_config()
-    config["hashes"] = create_hash_config(config)
+    config["hashes"] = create_hash_config(hashes)
     config["api"] = True
     return config
 
 def defult_config():
     return({"api_keys": None, "hashcat": False, "api": False, "greppable": False, "hashes":None, "hashcat_binary":None, "timeout":1, "wordlist":None, "offline":False })
 
-def create_hash_config(config):
+def create_hash_config(hashes):
     # Gets the results from name-that-hash
-    return json.loads(nth.api_return_hashes_as_json(config["hashes"]))
+    return json.loads(nth.api_return_hashes_as_json(hashes))
