@@ -66,7 +66,7 @@ class Prettifier:
             for i in types:
                 to_make.append(i["name"])
 
-            self.push(chash, result, to_make)
+            Prettifier.push(chash, result, to_make)
             console.print(
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             )

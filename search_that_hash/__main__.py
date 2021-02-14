@@ -4,7 +4,6 @@ import toml
 
 import click
 from loguru import logger
-from name_that_hash import runner as nth
 
 from search_that_hash.cracker import cracking
 from search_that_hash import config_object
@@ -60,19 +59,7 @@ def main(**kwargs):
     \n
         sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
-    config = {"api_keys": None, "binary": None, "api": None}
-
-    if kwargs["text"] != None:
-        config["hashes"] = [kwargs["text"]]
-    elif kwargs["file"] != None:
-        config["hashes"] = "".join(list(kwargs["file"])).split("\n")
-    else:
-        print("Error. No hashes were inputted. Use the help menu --help")
-        exit(0)
-
-    config.update(kwargs)
-
-    config["hashes"] = create_hash_config(config)
+    config = config_object.cli_config(kwargs)
 
     if not kwargs["greppable"] and not kwargs["accessible"] and not kwargs["no_banner"]:
         printing.Prettifier.banner()
@@ -84,12 +71,6 @@ def main(**kwargs):
         printing.Prettifier.greppable_print(results)
 
     exit(0)
-
-
-def create_hash_config(config):
-    # Gets the results from name-that-hash
-    return json.loads(nth.api_return_hashes_as_json(config["hashes"]))
-
 
 if __name__ == "__main__":
     main()

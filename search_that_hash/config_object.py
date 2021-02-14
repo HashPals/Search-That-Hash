@@ -1,5 +1,7 @@
 import toml
 from appdirs import *
+from name_that_hash import runner as nth
+import json
 
 
 def read_config_file():
@@ -25,10 +27,39 @@ def read_and_parse_config_file(file):
         except:
             return None
 
-
 def read_file(file):
     try:
         with open(file, "r") as out:
             return out.read()
     except:
         return None
+
+def cli_config(kwargs):
+    config = defult_config()
+
+    if kwargs["text"] != None:
+        config["hashes"] = [kwargs["text"]]
+    elif kwargs["file"] != None:
+        config["hashes"] = "".join(list(kwargs["file"])).split("\n")
+    else:
+        print("Error. No hashes were inputted. Use the help menu --help")
+        exit(0)
+
+    config["hashes"] = create_hash_config(config)
+
+    config.update(kwargs)
+
+    return config
+
+def api_config(hashes):
+    config = defult_config()
+    config["hashes"] = create_hash_config(config)
+    config["api"] = True
+    return config
+
+def defult_config():
+    return({"api_keys": None, "hashcat": False, "api": False, "greppable": False, "hashes":None, "hashcat_binary":None, "timeout":1, "wordlist":None, "offline":False })
+
+def create_hash_config(config):
+    # Gets the results from name-that-hash
+    return json.loads(nth.api_return_hashes_as_json(config["hashes"]))
