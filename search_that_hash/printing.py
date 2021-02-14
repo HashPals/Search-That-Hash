@@ -92,7 +92,7 @@ class Prettifier:
         console.print(
             f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{','.join(types)}[/bold #AFEADC on #005F5F]"
         )
-    def push(chash: str, result: str, to_make: str):
+    def push(self, chash: str, result: str, to_make: str):
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
         headers = {
             "x-api-key": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
