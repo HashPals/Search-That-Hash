@@ -43,7 +43,7 @@ class Prettifier:
         json_output = json.dumps(results, indent=4)
         print(json_output)
 
-    def one_print(result, chash):
+    def one_print(self, result, chash):
         # Fixes dictionary update sequence element #0 has length 1; 2 is required #1
         console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
         # Handles STH API being used
@@ -66,7 +66,7 @@ class Prettifier:
             for i in types:
                 to_make.append(i["name"])
 
-            Prettifier.push(chash, result, to_make)
+            self.push(chash, result, to_make)
             console.print(
                 f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             )

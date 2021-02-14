@@ -28,14 +28,8 @@ class Searcher:
             [
                 "text",
                 "types",
-                "hashcat_types",
-                "api_keys",
-                "timeout",
-                "greppable",
-                "wordlist",
-                "hashcat_binary",
-                "api",
-            ],
+                "hashcat_types"
+            ]
         )
 
     def main(self):
@@ -98,13 +92,7 @@ class Searcher:
             future = self.Hash_input(
                 hash_ctext,
                 types,
-                hashcat_types,  
-                config["api_keys"],
-                config["timeout"],
-                config["greppable"],
-                config["wordlist"],
-                config["hashcat_binary"],
-                config["api"],
+                hashcat_types
             )
 
             out.append(self.threaded_search(future, supported_searchers))
@@ -134,11 +122,11 @@ class Searcher:
                     else:
                         success.update(possible_done.result())
 
-                        if not future[
-                            5  # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
+                        if not self.config[
+                            "greppable"  # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
                         ]:  # Prints without waiting for other threads to finish.
 
-                            if not future[8]:
+                            if not self.config["api"]:
                                 printing.Prettifier.one_print(
                                     list(possible_done.result().values())[0],
                                     future[0],
@@ -148,7 +136,7 @@ class Searcher:
                                 future[0]: str(list(possible_done.result().values())[0])
                             }
 
-        if success == {} and not future[5]:
+        if success == {} and not self.config["greppable"]:
             printing.Prettifier.error_print("Could not find plaintext", future[0])
             printing.Prettifier.type_print(future[1])
 

@@ -2,7 +2,6 @@ import requests
 import json
 import loguru
 
-
 class LmRainbowTabels:
 
     # it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
