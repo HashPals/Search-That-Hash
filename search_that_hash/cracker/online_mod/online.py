@@ -2,7 +2,6 @@ import requests
 import json
 import loguru
 
-
 class LmRainbowTabels:
 
     # it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
@@ -207,7 +206,7 @@ class sth_api:
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
         payload = json.dumps({"Hash": hashes})
         headers = {"Content-Type": "application/json"}
-        response = requests.request("GET", url, headers=headers, data=payload)
+        response = requests.request("GET", url, headers=headers, data=payload, timeout=hash[3])
         if response.status_code == 200 and response.json()["body"]:
             output = response.json()
             return output

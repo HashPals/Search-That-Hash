@@ -23,19 +23,14 @@ class Searcher:
             online.sha1_grom(),
             online.hashsorg(),
         ]
+        self.prettifier_obj = printing.Prettifier()
         self.Hash_input = namedtuple(
             "Hash_input",
             [
                 "text",
                 "types",
-                "hashcat_types",
-                "api_keys",
-                "timeout",
-                "greppable",
-                "wordlist",
-                "hashcat_binary",
-                "api",
-            ],
+                "hashcat_types"
+            ]
         )
 
     def main(self):
@@ -45,7 +40,6 @@ class Searcher:
     def perform_search(self, config):
 
         out = []
-
         sth_found_hashes = []
 
         if not config["offline"]: 
@@ -58,7 +52,7 @@ class Searcher:
                         if config["api"]:
                             out.append({chash:values["Plaintext"]})
                         else:
-                            printing.Prettifier.sth_print(chash, values['Plaintext'], values['Type'], values['Verified'])
+                            self.prettifier_obj.sth_print(chash, values['Plaintext'], values['Type'], values['Verified'])
                 for hash_to_remove in sth_found_hashes:
                     del config["hashes"][hash_to_remove]
             except:
@@ -76,7 +70,7 @@ class Searcher:
             types = []
 
             if keys == [] and not config["greppable"]:
-                printing.Prettifier.error_print("Could not find any types for this chash", hash_ctext)
+                self.prettifier_obj.error_print("Could not find any types for this chash", hash_ctext)
                 return
 
             if not config["offline"]:
@@ -98,13 +92,7 @@ class Searcher:
             future = self.Hash_input(
                 hash_ctext,
                 types,
-                hashcat_types,  
-                config["api_keys"],
-                config["timeout"],
-                config["greppable"],
-                config["wordlist"],
-                config["hashcat_binary"],
-                config["api"],
+                hashcat_types
             )
 
             out.append(self.threaded_search(future, supported_searchers))
@@ -134,13 +122,13 @@ class Searcher:
                     else:
                         success.update(possible_done.result())
 
-                        if not future[
-                            5  # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
+                        if not self.config[
+                            "greppable"  # Checks if greppable, if not then skips goes fast, if yes then returns and prints JSON.
                         ]:  # Prints without waiting for other threads to finish.
 
-                            if not future[8]:
-                                printing.Prettifier.one_print(
-                                    list(possible_done.result().values())[0],
+                            if not self.config["api"]:
+                                self.prettifier_obj.one_print(
+                                    list(possible_done.result(). values())[0],
                                     future[0],
                                 )
                                 return
@@ -148,9 +136,9 @@ class Searcher:
                                 future[0]: str(list(possible_done.result().values())[0])
                             }
 
-        if success == {} and not future[5]:
-            printing.Prettifier.error_print("Could not find plaintext", future[0])
-            printing.Prettifier.type_print(future[1])
+        if success == {} and not self.config["greppable"]:
+            self.prettifier_obj.error_print("Could not find plaintext", future[0])
+            self.prettifier_obj.type_print(future[1])
 
         return {future[0]: [success, fails]}
 
