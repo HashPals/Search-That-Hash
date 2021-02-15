@@ -17,9 +17,9 @@ def return_as_json(hashes):
         return False
 
 
-def return_as_fast_json(hashes):
+def return_as_fast_json(hashes, sth_api):
 
-    config = config_object.api_config(hashes)
+    config = config_object.api_config(hashes, sth_api)
     searcher = cracking.Searcher(config)
 
     return json.dumps(cracking.Searcher.main(searcher))

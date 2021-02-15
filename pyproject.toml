@@ -13,7 +13,6 @@ loguru = "^0.5.2"
 name-that-hash = "^1.1.1rc4"
 requests = "^2.25.1"
 rich = "^9.10.0"
-coloredlogs = "^15.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
