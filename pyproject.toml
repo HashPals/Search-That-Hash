@@ -13,7 +13,7 @@ loguru = "^0.5.2"
 name-that-hash = "^1.1.1rc4"
 requests = "^2.25.1"
 rich = "^9.10.0"
-coloredlogs = "^0.0.1"
+coloredlogs = "^7.3.2"
 
 
 [tool.poetry.dev-dependencies]
