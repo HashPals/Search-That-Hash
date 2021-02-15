@@ -3,12 +3,12 @@ import sys
 import toml
 
 import click
-from loguru import logger
 
 from search_that_hash.cracker import cracking
 from search_that_hash import config_object
 from search_that_hash import printing
 
+import logging
 
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash")
@@ -42,10 +42,11 @@ from search_that_hash import printing
     "--verbose",
     count=True,
     type=int,
-    help="Turn on debugging logs. -vvv for maximum logs.",
+    help="Turn on debugging logs. -vv for max",
 )
 @click.option("--accessible", is_flag=True, help="Makes the output accessible.")
 @click.option("--no-banner", is_flag=True, help="Doesn't print banner.")
+
 def main(**kwargs):
     """
     Search-That-Hash - The fastest way to crack any hash.
@@ -59,31 +60,30 @@ def main(**kwargs):
     \n
         sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
-    set_logger(kwargs)
-    logger.trace(kwargs)
+    
+    levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
+    try:
+        logging.basicConfig(level=levels[kwargs['verbose']])
+    except:
+        logger.propagate = False
+
+    logging.debug("Updated logging level")
+    logging.info("Called config updater")
+
     config = config_object.cli_config(kwargs)
-    logger.trace("returning from config maker")
+
     if not kwargs["greppable"] and not kwargs["accessible"] and not kwargs["no_banner"]:
-        logger.debug("Printing the banner")
+        logging.info("Printing banner")
         printing.Prettifier.banner()
     
     searcher = cracking.Searcher(config)
-    
     results = cracking.Searcher.main(searcher)
     
     if kwargs["greppable"]:
-        logger.debug("printing greppable info")
+        logging.info("Printing greppable results")
         printing.Prettifier.greppable_print(results)
 
     exit(0)
-
-
-def set_logger(kwargs):
-    logger_dict = {1: "WARNING", 2: "DEBUG", 3: "TRACE"}
-    level = logger_dict[kwargs["verbose"]]
-    logger.add(sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO")
-
-
 
 if __name__ == "__main__":
     main()

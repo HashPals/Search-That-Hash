@@ -2,10 +2,16 @@ import toml
 from appdirs import *
 import json
 
-from loguru import logger
-
 from name_that_hash import runner as nth
 
+import logging
+
+def enable_logging(kwargs):
+    levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
+    try:
+        logging.basicConfig(level=levels[kwargs['verbose']])
+    except:
+        logger.propagate = False
 
 def read_config_file():
     return read_and_parse_config_file(find_appdirs_location())
@@ -40,23 +46,24 @@ def read_file(file):
 
 
 def cli_config(kwargs):
-    logger.trace("Building CLI config")
+   
+    enable_logging(kwargs)
+
     config = default_config()
 
     if kwargs["text"] != None:
-        logger.trace("kwargs[text] is not equal to none")
         config["hashes"] = [kwargs["text"]]
     elif kwargs["file"] != None:
-        logger.trace("File input")
+        logging.debug("Hashes are from file")
         config["hashes"] = "".join(list(kwargs["file"])).split("\n")
     else:
         print("Error. No hashes were inputted. Use the help menu --help")
         exit(0)
 
     config["hashes"] = create_hash_config(config["hashes"])
-
     config.update(kwargs)
 
+    logging.info("Returning config")
     return config
 
 
@@ -84,8 +91,7 @@ def default_config():
 
 
 def create_hash_config(hashes):
-    # Gets the results from name-that-hash
-    logger.debug("Calling NTH now")
+    #Gets the results from name-that-hash
+    logging.debug("Called NTH to get hash types")
     x = json.loads(nth.api_return_hashes_as_json(hashes))
-    logger.debug("returning from nth")
     return x

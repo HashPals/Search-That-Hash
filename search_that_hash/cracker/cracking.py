@@ -8,6 +8,7 @@ from search_that_hash import printing
 from search_that_hash.cracker.offline_mod import hashcat
 from search_that_hash.cracker.online_mod import online
 
+import logging
 
 class Searcher:
     def __init__(self, config):
@@ -28,8 +29,19 @@ class Searcher:
         ]
         self.prettifier_obj = printing.Prettifier(self.config)
         self.Hash_input = namedtuple("Hash_input", ["text", "types", "hashcat_types"])
-
+    
+    def enable_logging(self, kwargs):
+        levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
+        try:
+            logging.basicConfig(level=levels[config['verbose']])
+        except:
+            logger.propagate = False
+    
     def main(self):
+
+        self.enable_logging(self.config)
+
+        logging.info("Called main cracking function")
 
         return self.perform_search(self.config)
 
@@ -57,9 +69,11 @@ class Searcher:
                 for hash_to_remove in sth_found_hashes:
                     del config["hashes"][hash_to_remove]
             except:
+                logging.warning("STH Failed")
                 pass
 
         if not config["timeout"]:
+            logging.info("Timeout set to 1")
             config["timeout"] = 1
 
         for chash, types in config["hashes"].items():
@@ -145,4 +159,5 @@ class Searcher:
         try:
             return {type(search).__name__: search.crack(future)}
         except Exception as e:
+            logging.warning(f"{type(search).__name__} failed")
             return {type(search).__name__: "Failed"}
