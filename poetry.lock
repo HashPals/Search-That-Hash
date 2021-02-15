@@ -120,15 +120,14 @@ dev = ["codecov (>=2.0.15)", "colorama (>=0.3.4)", "flake8 (>=3.7.7)", "tox (>=3
 
 [[package]]
 name = "name-that-hash"
-version = "0.8.0"
+version = "1.1.1rc4"
 description = "The Modern Hash Identifcation System"
 category = "main"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
 click = ">=7.1.2,<8.0.0"
-loguru = ">=0.5.3,<0.6.0"
 rich = ">=9.9.0,<10.0.0"
 
 [[package]]
@@ -166,7 +165,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pygments"
-version = "2.7.4"
+version = "2.8.0"
 description = "Pygments is a syntax highlighting package written in Python."
 category = "main"
 optional = false
@@ -292,7 +291,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "cc0d64068011dacdea094a259919631a7ce2b4ead61c380ecdb94bc1caa5aa17"
+content-hash = "23067cf790897f89fdf296b682c23774ef7aec8a34143b4f93536e6bb2332bf4"
 
 [metadata.files]
 appdirs = [
@@ -344,8 +343,8 @@ loguru = [
     {file = "loguru-0.5.3.tar.gz", hash = "sha256:b28e72ac7a98be3d28ad28570299a393dfcd32e5e3f6a353dec94675767b6319"},
 ]
 name-that-hash = [
-    {file = "name-that-hash-0.8.0.tar.gz", hash = "sha256:9f99fd541920152dde63b25237c03997eff0f2ed0bfdf772cc35f4c3381e7fb9"},
-    {file = "name_that_hash-0.8.0-py3-none-any.whl", hash = "sha256:383261c1c089f2ba7b24d47d017a0b59961f9ef4da6b6daccf65815dd50b2e2d"},
+    {file = "name-that-hash-1.1.1rc4.tar.gz", hash = "sha256:8184637546866c30ad83fbc02a967824dbba8b4cd31049508ccc47e43f6d95b1"},
+    {file = "name_that_hash-1.1.1rc4-py3-none-any.whl", hash = "sha256:0ec1e886006c4071d3f680d913889774a9e474bb5bef4dceb09275cb9e75f3a4"},
 ]
 packaging = [
     {file = "packaging-20.9-py2.py3-none-any.whl", hash = "sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a"},
@@ -360,8 +359,8 @@ py = [
     {file = "py-1.10.0.tar.gz", hash = "sha256:21b81bda15b66ef5e1a777a21c4dcd9c20ad3efd0b3f817e7a809035269e1bd3"},
 ]
 pygments = [
-    {file = "Pygments-2.7.4-py3-none-any.whl", hash = "sha256:bc9591213a8f0e0ca1a5e68a479b4887fdc3e75d0774e5c71c31920c427de435"},
-    {file = "Pygments-2.7.4.tar.gz", hash = "sha256:df49d09b498e83c1a73128295860250b0b7edd4c723a32e9bc0d295c7c2ec337"},
+    {file = "Pygments-2.8.0-py3-none-any.whl", hash = "sha256:b21b072d0ccdf29297a82a2363359d99623597b8a265b8081760e4d0f7153c88"},
+    {file = "Pygments-2.8.0.tar.gz", hash = "sha256:37a13ba168a02ac54cc5891a42b1caec333e59b66addb7fa633ea8a6d73445c0"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},

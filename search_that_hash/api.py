@@ -4,6 +4,7 @@ from search_that_hash import __main__
 
 import json
 
+
 def return_as_json(hashes):
 
     config = config_object.api_config(hashes)
