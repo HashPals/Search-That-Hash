@@ -1,15 +1,18 @@
 from collections import namedtuple
 from concurrent.futures import ThreadPoolExecutor
 
-from loguru import logger
+from loguru import logger as logger
 
 from search_that_hash import printing
 
 from search_that_hash.cracker.offline_mod import hashcat
 from search_that_hash.cracker.online_mod import online
 
+
 class Searcher:
     def __init__(self, config):
+        logger.trace("Initing searcher")
+        logger.debug("help")
         self.config = config
         self.searchers_offline = [hashcat.Hashcat()]
         self.searchers_online = [
@@ -23,15 +26,8 @@ class Searcher:
             online.sha1_grom(),
             online.hashsorg(),
         ]
-        self.prettifier_obj = printing.Prettifier()
-        self.Hash_input = namedtuple(
-            "Hash_input",
-            [
-                "text",
-                "types",
-                "hashcat_types"
-            ]
-        )
+        self.prettifier_obj = printing.Prettifier(self.config)
+        self.Hash_input = namedtuple("Hash_input", ["text", "types", "hashcat_types"])
 
     def main(self):
 
@@ -42,17 +38,22 @@ class Searcher:
         out = []
         sth_found_hashes = []
 
-        if not config["offline"]: 
-            try:  
+        if not config["offline"]:
+            try:
                 results = online.sth_api.crack(list(config["hashes"].keys()))
-                
-                for chash, values in results['body'].items():
+
+                for chash, values in results["body"].items():
                     sth_found_hashes.append(chash)
                     if not config["greppable"]:
                         if config["api"]:
-                            out.append({chash:values["Plaintext"]})
+                            out.append({chash: values["Plaintext"]})
                         else:
-                            self.prettifier_obj.sth_print(chash, values['Plaintext'], values['Type'], values['Verified'])
+                            self.prettifier_obj.sth_print(
+                                chash,
+                                values["Plaintext"],
+                                values["Type"],
+                                values["Verified"],
+                            )
                 for hash_to_remove in sth_found_hashes:
                     del config["hashes"][hash_to_remove]
             except:
@@ -70,7 +71,9 @@ class Searcher:
             types = []
 
             if keys == [] and not config["greppable"]:
-                self.prettifier_obj.error_print("Could not find any types for this chash", hash_ctext)
+                self.prettifier_obj.error_print(
+                    "Could not find any types for this chash", hash_ctext
+                )
                 return
 
             if not config["offline"]:
@@ -89,11 +92,7 @@ class Searcher:
 
             supported_searchers.append(hashcat.Hashcat())
 
-            future = self.Hash_input(
-                hash_ctext,
-                types,
-                hashcat_types
-            )
+            future = self.Hash_input(hash_ctext, types, hashcat_types)
 
             out.append(self.threaded_search(future, supported_searchers))
 
@@ -128,7 +127,7 @@ class Searcher:
 
                             if not self.config["api"]:
                                 self.prettifier_obj.one_print(
-                                    list(possible_done.result(). values())[0],
+                                    list(possible_done.result().values())[0],
                                     future[0],
                                 )
                                 return

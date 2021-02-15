@@ -59,18 +59,31 @@ def main(**kwargs):
     \n
         sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
+    set_logger(kwargs)
+    logger.trace(kwargs)
     config = config_object.cli_config(kwargs)
-
+    logger.trace("returning from config maker")
     if not kwargs["greppable"] and not kwargs["accessible"] and not kwargs["no_banner"]:
+        logger.debug("Printing the banner")
         printing.Prettifier.banner()
-
+    
     searcher = cracking.Searcher(config)
+    
     results = cracking.Searcher.main(searcher)
-
+    
     if kwargs["greppable"]:
+        logger.debug("printing greppable info")
         printing.Prettifier.greppable_print(results)
 
     exit(0)
+
+
+def set_logger(kwargs):
+    logger_dict = {1: "WARNING", 2: "DEBUG", 3: "TRACE"}
+    level = logger_dict[kwargs["verbose"]]
+    logger.add(sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO")
+
+
 
 if __name__ == "__main__":
     main()
