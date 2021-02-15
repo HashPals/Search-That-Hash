@@ -5,13 +5,14 @@ import json
 from name_that_hash import runner as nth
 
 import logging
+import coloredlogs
 
 def enable_logging(kwargs):
     levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
     try:
-        logging.basicConfig(level=levels[kwargs['verbose']])
+        coloredlogs.install(level=levels[kwargs['verbose']])
     except:
-        logger.propagate = False
+        logging.propagate = False
 
 def read_config_file():
     return read_and_parse_config_file(find_appdirs_location())

@@ -66,7 +66,7 @@ def main(**kwargs):
     try:
         coloredlogs.install(level=levels[kwargs['verbose']])
     except:
-        logger.propagate = False
+        coloredlogs.propagate = False
 
     logging.debug("Updated logging level")
     logging.info("Called config updater")

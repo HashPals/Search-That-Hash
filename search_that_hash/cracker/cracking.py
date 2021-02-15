@@ -9,6 +9,7 @@ from search_that_hash.cracker.offline_mod import hashcat
 from search_that_hash.cracker.online_mod import online
 
 import logging
+import coloredlogs
 
 class Searcher:
     def __init__(self, config):
@@ -33,9 +34,10 @@ class Searcher:
     def enable_logging(self, kwargs):
         levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
         try:
-            logging.basicConfig(level=levels[config['verbose']])
+            coloredlogs.install(level=levels[kwargs['verbose']])
         except:
-            logger.propagate = False
+            logging.propagate = False
+            coloredlogs.install(level=logging.CRITICAL)
     
     def main(self):
 
@@ -159,5 +161,5 @@ class Searcher:
         try:
             return {type(search).__name__: search.crack(future)}
         except Exception as e:
-            logging.warning(f"{type(search).__name__} failed")
+            logging.warning(f"{type(search).__name__} Failed")
             return {type(search).__name__: "Failed"}
