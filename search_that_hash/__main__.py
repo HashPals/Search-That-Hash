@@ -9,6 +9,7 @@ from search_that_hash import config_object
 from search_that_hash import printing
 
 import logging
+import coloredlogs
 
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash")
@@ -63,7 +64,7 @@ def main(**kwargs):
     
     levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
     try:
-        logging.basicConfig(level=levels[kwargs['verbose']])
+        coloredlogs.install(level=levels[kwargs['verbose']])
     except:
         logger.propagate = False
 
