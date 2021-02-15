@@ -7,14 +7,6 @@ from name_that_hash import runner as nth
 import logging
 import coloredlogs
 
-def enable_logging(kwargs):
-    levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
-    try:
-        coloredlogs.install(level=levels[kwargs['verbose']])
-    except:
-        # Verobosity was not given so it removes logging
-        logging.propagate = False
-
 def read_config_file():
     return read_and_parse_config_file(find_appdirs_location())
 
@@ -48,8 +40,6 @@ def read_file(file):
 
 
 def cli_config(kwargs):
-   
-    enable_logging(kwargs)
 
     config = default_config()
 

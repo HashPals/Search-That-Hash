@@ -31,18 +31,7 @@ class Searcher:
         self.prettifier_obj = printing.Prettifier(self.config)
         self.Hash_input = namedtuple("Hash_input", ["text", "types", "hashcat_types"])
     
-    def enable_logging(self, kwargs):
-        levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
-        try:
-            coloredlogs.install(level=levels[kwargs['verbose']])
-        except:
-            # Verobosity was not given so it removes logging
-            logging.propagate = False
-            coloredlogs.install(level=logging.CRITICAL)
-    
     def main(self):
-
-        self.enable_logging(self.config)
 
         logging.info("Called main cracking function")
 
