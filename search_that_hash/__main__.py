@@ -66,6 +66,7 @@ def main(**kwargs):
     try:
         coloredlogs.install(level=levels[kwargs['verbose']])
     except:
+        # Verobosity was not given so it removes logging
         coloredlogs.propagate = False
 
     logging.debug("Updated logging level")

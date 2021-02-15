@@ -12,6 +12,7 @@ def enable_logging(kwargs):
     try:
         coloredlogs.install(level=levels[kwargs['verbose']])
     except:
+        # Verobosity was not given so it removes logging
         logging.propagate = False
 
 def read_config_file():
