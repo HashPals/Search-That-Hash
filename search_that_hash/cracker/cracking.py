@@ -14,7 +14,6 @@ import coloredlogs
 class Searcher:
     def __init__(self, config):
         logger.trace("Initing searcher")
-        logger.debug("help")
         self.config = config
         self.searchers_offline = [hashcat.Hashcat()]
         self.searchers_online = [
@@ -31,7 +30,7 @@ class Searcher:
         self.prettifier_obj = printing.Prettifier(self.config)
         self.Hash_input = namedtuple("Hash_input", ["text", "types", "hashcat_types"])
     
-    def main(self):
+    def main(self) -> dict:
 
         logging.info("Called main cracking function")
 

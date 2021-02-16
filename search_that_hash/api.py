@@ -10,16 +10,17 @@ def return_as_json(hashes):
     config = config_object.api_config(hashes)
     config["greppable"] = True
 
-    try:
-        searcher = cracking.Searcher(config)
-        return json.dumps(cracking.Searcher.main(searcher))
-    except:
-        return False
+    searcher = cracking.Searcher(config)
+    x = searcher.main()
+    print(x)
+    return x
+
 
 
 def return_as_fast_json(hashes, sth_api):
 
     config = config_object.api_config(hashes, sth_api)
     searcher = cracking.Searcher(config)
+    x = searcher.main()
 
-    return json.dumps(cracking.Searcher.main(searcher))
+    return x
