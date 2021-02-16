@@ -208,9 +208,9 @@ class sth_api:
         payload = json.dumps({"Hash": hashes})
         headers = {"Content-Type": "application/json"}
         response = requests.request(
-            "GET", url, headers=headers, data=payload, timeout=hash[3]
+            "GET", url, headers=headers, data=payload, timeout=3
         )
-        if response.status_code == 200 and response.json()["body"]:
+        if response.status_code == 200 and "body" in response.json():
             output = response.json()
             return output
         else:

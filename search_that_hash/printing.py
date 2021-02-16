@@ -39,7 +39,8 @@ class Prettifier:
             for link in links
         ]
 
-    def greppable_print(self, results):
+    @staticmethod
+    def greppable_print(results):
         json_output = json.dumps(results, indent=4)
         print(json_output)
 
