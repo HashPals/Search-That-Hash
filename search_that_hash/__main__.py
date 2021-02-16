@@ -8,6 +8,7 @@ from search_that_hash.cracker import cracking
 from search_that_hash import config_object
 from search_that_hash import printing
 from concurrent.futures import ThreadPoolExecutor
+from search_that_hash.cracker.sth_mod import sth
 
 import logging
 import coloredlogs
@@ -85,7 +86,18 @@ def main(**kwargs):
         logging.info("Printing banner")
         printing.Prettifier.banner()
 
-    #### ASSIGNING VARIBLES
+    #### CALLING CRACKING
+
+    cracking_handler(config)
+
+    exit(0)
+
+def cracking_handler(config):
+
+    if config['api']:
+        coloredlogs.install(level=logging.CRITICAL)
+
+    ### SETTING VARIBLES
 
     hash_processes = []
     results = []
@@ -93,11 +105,14 @@ def main(**kwargs):
 
     #### CRACKING
 
+    sth_results, config = sth.crack(config) # I will add the sth_results later bee
+
     for chash, types in config['hashes'].items():
         if types == []:
-            if chash == '':
-                continue ## BUG - NTH or STH not sure returns a hash as '' with types of []
             if not config['greppable']:
+                if config['api']:
+                    results.append({chash:"No types found for this hash."})
+                    continue
                 printing.Prettifier.error_print("No types found for this hash.", chash)
             continue
 
@@ -109,17 +124,31 @@ def main(**kwargs):
         result = hash_processes[-1][chash]
 
         if result == None and not config['greppable']:
-             printing.Prettifier.error_print("Could not crack hash.", chash)
-             continue
+            if config['api']:
+                results.append({chash:"Could not crack hash"})
+                continue
+            printing.Prettifier.error_print("Could not crack hash.", chash)
+            continue
 
         if not config['greppable']:
+            if config['api']:
+                results.append({chash:result})
+                continue
             printing.Prettifier.one_print(chash, result)
         
-    if kwargs["greppable"]:
+    if config["greppable"]:
+        
         logging.info("Printing greppable results")
-        printing.Prettifier.greppable_print(hash_processes)
+        
+        if not config['api']:
+            printing.Prettifier.greppable_print(hash_processes)
+        
+        return(hash_processes)
 
-    exit(0)
+    return(results)
+
+
+
 
 if __name__ == "__main__":
     main()

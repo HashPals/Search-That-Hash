@@ -1,4 +1,3 @@
-from search_that_hash.cracker import cracking
 from search_that_hash import config_object
 from search_that_hash import __main__
 
@@ -7,20 +6,19 @@ import json
 
 def return_as_json(hashes):
 
-    config = config_object.api_config(hashes)
-    config["greppable"] = True
+	config = config_object.api_config(hashes)
+	config["greppable"] = True
 
-    searcher = cracking.Searcher(config)
-    x = searcher.main()
-    
-    return x
-
+	x = __main__.cracking_handler(config)
+	
+	return x
 
 
-def return_as_fast_json(hashes, sth_api):
 
-    config = config_object.api_config(hashes, sth_api)
-    searcher = cracking.Searcher(config)
-    x = searcher.main()
+def return_as_fast_json(hashes):
 
-    return x
+	config = config_object.api_config(hashes)
+	
+	x = __main__.cracking_handler(config)
+
+	return x

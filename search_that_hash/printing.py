@@ -53,3 +53,15 @@ class Prettifier:
     @staticmethod
     def type_print(types):
         console.print(f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B]: [bold #AFEADC on #005F5F]{', '.join(types)}[/bold #AFEADC on #005F5F]")
+
+    @staticmethod
+    def sth_print(chash, result, type, verified):
+        console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
+        texts = (
+            f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
+            + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type}[/bold #AFEADC on #005F5F]"
+        )
+        if not verified:
+            texts += "\n[bold underline #EC7F5B]Warning[/bold underline #EC7F5B]: This result is unverified. That means either our workers haven't verified it yet or it's very new. We cannot guarantee this chash is this plaintext."
+
+        console.print(texts)
