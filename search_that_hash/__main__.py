@@ -7,6 +7,7 @@ import click
 from search_that_hash.cracker import cracking
 from search_that_hash import config_object
 from search_that_hash import printing
+from concurrent.futures import ThreadPoolExecutor
 
 import logging
 import coloredlogs
@@ -61,6 +62,8 @@ def main(**kwargs):
     \n
         sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
+
+    #### LOGGING
     
     levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
     try:
@@ -72,18 +75,49 @@ def main(**kwargs):
     logging.debug("Updated logging level")
     logging.info("Called config updater")
 
+    #### UPDATING CONFIG
+
     config = config_object.cli_config(kwargs)
+
+    #### BANNER
 
     if not kwargs["greppable"] and not kwargs["accessible"] and not kwargs["no_banner"]:
         logging.info("Printing banner")
         printing.Prettifier.banner()
-    
+
+    #### ASSIGNING VARIBLES
+
+    hash_processes = []
+    results = []
     searcher = cracking.Searcher(config)
-    results = cracking.Searcher.main(searcher)
-    
+
+    #### CRACKING
+
+    for chash, types in config['hashes'].items():
+        if types == []:
+            if chash == '':
+                continue ## BUG - NTH or STH not sure returns a hash as '' with types of []
+            if not config['greppable']:
+                printing.Prettifier.error_print("No types found for this hash.", chash)
+            continue
+
+        hash_processes.append(cracking.Searcher.main(searcher, chash, types))
+        
+        #### OUTPUTTING
+
+        chash = list(hash_processes[-1].keys())[0]
+        result = hash_processes[-1][chash]
+
+        if result == None and not config['greppable']:
+             printing.Prettifier.error_print("Could not crack hash.", chash)
+             continue
+
+        if not config['greppable']:
+            printing.Prettifier.one_print(chash, result)
+        
     if kwargs["greppable"]:
         logging.info("Printing greppable results")
-        printing.Prettifier.greppable_print(results)
+        printing.Prettifier.greppable_print(hash_processes)
 
     exit(0)
 

@@ -12,7 +12,7 @@ def return_as_json(hashes):
 
     searcher = cracking.Searcher(config)
     x = searcher.main()
-    print(x)
+    
     return x
 
 

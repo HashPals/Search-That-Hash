@@ -1,7 +1,5 @@
 import requests
 import json
-import loguru
-
 
 class LmRainbowTabels:
 
@@ -9,11 +7,11 @@ class LmRainbowTabels:
 
     supports = set(["lm"])
 
-    def crack(self, hash):
+    def crack(self, config):
 
         url = "http://rainbowtables.it64.com:80/p3.php"
 
-        payload = f"hashe={hash[0]}&ifik=+Submit+&forma=tak"
+        payload = f"hashe={config['chash']}&ifik=+Submit+&forma=tak"
         headers = {
             "Origin": "http://rainbowtables.it64.com",
             "Cookie": "PHPSESSID=; __gads=",
@@ -31,7 +29,7 @@ class LmRainbowTabels:
         }
         try:
             response = requests.request(
-                "POST", url, data=payload, headers=headers, timeout=hash[4]
+                "POST", url, data=payload, headers=headers, timeout=config['timeout']
             ).text.split("&nbsp;")
         except:
             return "Not connected"
@@ -50,8 +48,8 @@ class md5crypt:
         ["md5", "md4", "ntlm", "sha-1", "sha-256", "sha-384", "sha-512", "ntlm"]
     )
 
-    def crack(self, hash):
-        for type in hash[1]:
+    def crack(self, config):
+        for type in config['supported_types']:
             filtered_type = type.replace(
                 "-", ""
             )  # Md5crypt uses sha256, instead of sha-256 which is what NTH gives you
@@ -67,8 +65,8 @@ class md5crypt:
 
     def search_one_type(self, hash, type):
         response = requests.get(
-            f"https://md5decrypt.net/Api/api.php?hash={hash[0]}&hash_type={type}&email=deanna_abshire@proxymail.eu&code=1152464b80a61728",
-            timeout=hash[4],
+            f"https://md5decrypt.net/Api/api.php?hash={config['chash']}&hash_type={type}&email=deanna_abshire@proxymail.eu&code=1152464b80a61728",
+            config['timeout'],
         ).text
         if len(response) != 0:
             if "CODE ERREUR : 004" in response:
@@ -85,9 +83,9 @@ class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5"])
 
-    def crack(self, hash):
+    def crack(self, config):
         response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + hash[0], timeout=hash[4]
+            "https://www.nitrxgen.net/md5db/" + config['chash'], config['timeout']
         ).text
 
         if response:
@@ -108,7 +106,7 @@ class cmd5:
 
     supports = set(["md5", "ntlm", "sha-1", "sha-256", "sha-512", "mysql", "md4"])
 
-    def crack(self, hash):
+    def crack(self, config):
 
         burp0_url = "https://www.cmd5.org:443/"
         burp0_cookies = {
@@ -138,7 +136,7 @@ class cmd5:
             "__EVENTARGUMENT": "",
             "__VIEWSTATE": "tu3WNlNyUoktOeZhTvcpBgoQNoH8wLOeqDzVGEU8XUzmvViF7uaTr0g08l0kUf5lk3qITzThnkc2nUW1yLwFIjQ47H1XJ0OGnrfH/bM7kxSAW+uqvNVB0XvbJzA7l8DxDZt9HphWM+ettS5HAmW1L2a8tdflHF4/YkDL9ZHzu78ZpQwFoo8R8S7uSLVj2rOlV68Tprep6JyNStYF5JyKlbyrIZbJgwmRl9Y1KY2qQHTRgEmYA/CUveeY2AK+AAbOBM0STCWbdvMwaGwCKR5lXpdbmWUCBhi2cFzG7blTzkUWTaorAvUNqldJ9Jrr1XB7EsbsSgQwLvif70ztu3/M0FptuoUCbuMlEOWYh1YE+im3RripucSN9SKxwO4TRfk7Y46bm2asXHDsHXDa/uWr/301DHVRiii0Rnd7XXg2TNtyuhUt+VOlye6ZQBSuQ75L8tFKMpCnWs6xMUNGxz1IICxDmbHxPBx6NUdis9RYjh1cd+xcF1I+84jz8F2nwTpEN51D+eWLKMB5ZFrb4tExNZhNtRJ6vKbX9ntv+N9Ktg0Hmq3mu43FlGRP5H7pWdhdO3a8HdyX1vs1fF8izfMidpN/Sh4jcozbUAIbXtJDjnCMo8P2vCOS8MvNntcA1pHakoDEZIaVKkD8Q9XK9Az76kgJEFG9f4mV1/3xdQDHZZOnTymz09CrB7VKb+yd1Y2jCkHPger5mYNrKdtFrnFzFNeTycln/mybXwHIXLLv/VUHUPv+m15IlomAvQggWcjOXyTGjlNRE4V+1Jn6Fsr8QdG8qV6zC8lDM0GU2++MKOxLgOfxX/TjnycruULcAbYCgfY6FCdfqXBuNp1OK+CCNvI3emhA+olMzsykpONescFHlmKuH/UUvvx5CtVw4T8aYfhpLduzMi7smG41BcPw9xjKvFCACOVGM6aa5WrHOzdWgZJd+Cpa5BUdoOfiwHZyzuvtWBbwbaWafqjsxisXhEWMODkrdN+kChxX93KGU6I5bxRIQZHJge540/Cv1mElRimxNo8IyrzFK/ek5Pezjj/TWY63ERN82kastXX/SYLGu1KkSSaUsIus8WTI+hxjhFvks8vX9IyxBsm3iWKKFomyx/BK7GeWEn9x6H+RgDpN9crDnaqc8aL/bWK5lKhglMhxOPxR0Cf0f9Mi1bi8VwzuZSpFIIbZYvNngJhz7kqGgZTwdeWhCx0WLd0T3Q74IevoMo1kj819Qgzb3XN9LfDiOkoznj3Ae8uh+HZWVRDjubd9e9PnKrsMmB39VP3LbY2qyTyUWHHNN+GXsX/nxVUrRoXkUe71Q1espbbry+lHN/dc5e/+qR8C8oGLjQ5UhCEAMDRcoXNDWLFLPcyWL2A5Kh/VCPbMUqluJw==",
             "__VIEWSTATEGENERATOR": "CA0B0334",
-            "ctl00$ContentPlaceHolder1$TextBoxInput": hash[0],
+            "ctl00$ContentPlaceHolder1$TextBoxInput": config['chash'],
             "ctl00$ContentPlaceHolder1$InputHashType": "md5",
             "ctl00$ContentPlaceHolder1$Button1": "decrypt",
             "ctl00$ContentPlaceHolder1$HiddenField1": "",
@@ -151,7 +149,7 @@ class cmd5:
                 headers=burp0_headers,
                 cookies=burp0_cookies,
                 data=burp0_data,
-                timeout=hash[3],
+                timeout=config['timeout'],
             ).text
             return "".join(
                 text.split(
@@ -166,7 +164,7 @@ class md5_addr:
 
     supports = set(["md5"])
 
-    def crack(self, hash):
+    def crack(self, config):
         burp0_url = "http://md5.my-addr.com:80/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
         burp0_cookies = {"PHPSESSID": "aki2l78uvb3hk5n1uvuhefut17"}
         burp0_headers = {
@@ -181,7 +179,7 @@ class md5_addr:
             "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
             "Connection": "open",
         }
-        burp0_data = {"md5": hash[0], "x": "13", "y": "10"}
+        burp0_data = {"md5": config['chash'], "x": "13", "y": "10"}
 
         try:
             text = requests.post(
@@ -189,7 +187,7 @@ class md5_addr:
                 headers=burp0_headers,
                 cookies=burp0_cookies,
                 data=burp0_data,
-                timeout=hash[3],
+                timeout=config['timeout'],
             ).text
             return "".join(
                 text.split(
@@ -199,32 +197,14 @@ class md5_addr:
         except:
             return "Failed"
 
-
-class sth_api:
-    supports = set(["all"])
-
-    def crack(hashes):
-        url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
-        payload = json.dumps({"Hash": hashes})
-        headers = {"Content-Type": "application/json"}
-        response = requests.request(
-            "GET", url, headers=headers, data=payload, timeout=3
-        )
-        if response.status_code == 200 and "body" in response.json():
-            output = response.json()
-            return output
-        else:
-            return "Failed"
-
-
 class md5_grom:
 
     supports = set(["md5"])
 
-    def crack(self, hash):
+    def crack(self, config):
         try:
             out = requests.get(
-                f"https://md5.gromweb.com/?md5={hash[0]}", timeout=hash[3]
+                f"https://md5.gromweb.com/?md5={config['chash']}", timeout=config['timeout']
             ).text
             text = "".join(
                 out.split(
@@ -242,10 +222,10 @@ class sha1_grom:
 
     supports = set(["sha-1"])
 
-    def crack(self, hash):
+    def crack(self, config):
         try:
             out = requests.get(
-                f"https://sha1.gromweb.com/?hash={hash[0]}", timeout=hash[3]
+                f"https://sha1.gromweb.com/?hash={config['chash']}", timeout=config['timeout']
             ).text
             text = "".join(
                 out.split(
@@ -263,7 +243,7 @@ class opcrack:
 
     supports = set(["ntlm", "lm"])
 
-    def crack(self, hash):
+    def crack(self, config):
         try:
             burp0_url = "https://cracker.okx.ch:443/crack"
             burp0_headers = {
@@ -279,10 +259,10 @@ class opcrack:
                 "Accept-Encoding": "gzip, deflate",
                 "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8",
             }
-            burp0_json = {"value": hash[0]}
+            burp0_json = {"value": config['chash']}
 
             text = requests.post(
-                burp0_url, headers=burp0_headers, json=burp0_json, timeout=hash[3]
+                burp0_url, headers=burp0_headers, json=burp0_json, timeout=config['timeout']
             ).text
 
             return "".join(text.split('":"')[1]).split('"}')[0]
@@ -294,11 +274,11 @@ class rainbow_tabels:
 
     supports = set(["sha-256", "md5", "md4", "ntlm"])
 
-    def crack(self, hash):
+    def crack(self, config):
         try:
             out = requests.get(
-                f"https://hashdecryption.com/decrypt.php?str={hash[0]}&send=Submit",
-                timeout=hash[4],
+                f"https://hashdecryption.com/decrypt.php?str={config['chash']}&send=Submit",
+                config['timeout'],
             ).text
             return "".join(out.split("</b> is <b>")[1]).split("</b><br>")[0]
         except:
@@ -314,10 +294,10 @@ class hashsorg:
     moduels = ["requests"]
     offline = False
 
-    def crack(self, hash):
+    def crack(self, config):
         try:
             request = requests.get(
-                f"https://hashes.org/api.php?key={key}&query={hash[0]}", timeout=hash[4]
+                f"https://hashes.org/api.php?key={key}&query={config['chash']}", config['timeout']
             ).text
         except:
             return "Not connected"
