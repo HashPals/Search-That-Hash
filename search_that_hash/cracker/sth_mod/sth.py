@@ -19,7 +19,7 @@ def crack(config):
     for key in output.keys():
         to_del.append(key)
 
-    if not config["greppable"]:
+    if not config["greppable"]:        
         for hash_to_del in to_del:
             del config["hashes"][hash_to_del]
 

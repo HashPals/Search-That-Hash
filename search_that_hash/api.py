@@ -1,7 +1,6 @@
 from search_that_hash import config_object
-from search_that_hash.cracker import handler
 from search_that_hash import __main__
-
+from search_that_hash.cracker import handler
 import json
 
 
