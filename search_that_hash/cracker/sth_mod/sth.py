@@ -11,11 +11,13 @@ def crack(config):
         response = requests.request(
             "GET", url, headers=headers, data=payload, timeout=config["timeout"]
         )
-    except:
+    except: # If the user cannot connect
         return False, config
 
     output = response.json()["body"]
-    [to_del.append(key) for key in output.keys()]
+    
+    for key in output.keys():
+        to_del.append(key)
 
     if not config["greppable"]:
         for hash_to_del in to_del:

@@ -80,7 +80,7 @@ def main(**kwargs):
         printing.Prettifier.banner()
 
     cracking_handler = handler.main(config)
-    return(cracking_handler.start())
+    cracking_handler.start()
 
     exit(0)
 
