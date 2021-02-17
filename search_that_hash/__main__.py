@@ -69,7 +69,7 @@ def main(**kwargs):
     
     levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
     
-    if "verbose" in kwargs or kwargs['verbose'] <= 3:
+    if kwargs['verbose'] and kwargs['verbose'] <= 3:
         coloredlogs.install(level=levels[kwargs['verbose']])
     else:
         # Verobosity was not given so it removes logging
