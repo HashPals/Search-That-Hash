@@ -64,12 +64,14 @@ def main(**kwargs):
             sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
 
-    #### LOGGING
 
-    levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
-    try:
-        coloredlogs.install(level=levels[kwargs["verbose"]])
-    except:
+    #### LOGGING
+    
+    levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
+    
+    if "verbose" in kwargs or kwargs['verbose'] <= 3:
+        coloredlogs.install(level=levels[kwargs['verbose']])
+    else:
         # Verobosity was not given so it removes logging
         coloredlogs.install(level=logging.CRITICAL)
 
