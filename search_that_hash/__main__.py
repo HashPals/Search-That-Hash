@@ -4,11 +4,9 @@ import toml
 
 import click
 
-from search_that_hash.cracker import cracking
+from search_that_hash.cracker import handler
 from search_that_hash import config_object
 from search_that_hash import printing
-from concurrent.futures import ThreadPoolExecutor
-from search_that_hash.cracker.sth_mod import sth
 
 import logging
 import coloredlogs
@@ -64,11 +62,8 @@ def main(**kwargs):
             sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
 
+    levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
 
-    #### LOGGING
-    
-    levels = {1:logging.WARNING,2:logging.INFO,3:logging.DEBUG}
-    
     if kwargs['verbose'] and kwargs['verbose'] <= 3:
         coloredlogs.install(level=levels[kwargs['verbose']])
     else:
@@ -78,149 +73,16 @@ def main(**kwargs):
     logging.debug("Updated logging level")
     logging.info("Called config updater")
 
-    #### UPDATING CONFIG
-
     config = config_object.cli_config(kwargs)
-
-    #### BANNER
 
     if not kwargs["greppable"] and not kwargs["accessible"] and not kwargs["no_banner"]:
         logging.info("Printing banner")
         printing.Prettifier.banner()
 
-    #### CALLING CRACKING
-
-    cracking_handler(config)
+    cracking_handler = handler.main(config)
+    return(cracking_handler.start())
 
     exit(0)
-
-
-def cracking_handler(config):
-
-    if config["api"]:
-        coloredlogs.install(level=logging.CRITICAL)
-
-    ### SETTING VARIBLES
-
-    hash_processes = []
-    results = []
-    searcher = cracking.Searcher(config)
-
-    #### STH CRACKING
-
-    sth_results, config = sth.crack(config)
-
-    if not sth_results == False:
-        for result in sth_results.values():
-            if not config["greppable"]:
-                if not config["api"]:
-                    printing.Prettifier.sth_print(
-                        result["Hash"],
-                        result["Plaintext"],
-                        result["Type"],
-                        result["Verified"],
-                    )
-                else:
-                    results.append({result["Hash"]: result["Plaintext"]})
-
-    #### MAIN CRACKING
-
-    for chash, types in config["hashes"].items():
-        if types == []:
-            if not config["greppable"]:
-                if config["api"]:
-                    results.append({chash: "No types found for this hash."})
-                    continue
-                printing.Prettifier.error_print("No types found for this hash.", chash)
-            continue
-
-        hash_processes.append(cracking.Searcher.main(searcher, chash, types))
-
-        #### OUTPUTTING
-
-        chash = list(hash_processes[-1].keys())[0]
-        result = hash_processes[-1][chash]
-
-        if result == None and not config["greppable"]:
-            if config["api"]:
-                results.append({chash: "Could not crack hash"})
-                continue
-            printing.Prettifier.error_print("Could not crack hash.", chash)
-            continue
-
-        if not config["greppable"]:
-            if config["api"]:
-                results.append({chash: result})
-                continue
-            printing.Prettifier.one_print(chash, result)
-
-    if config["greppable"]:
-
-        #### ADDING STH RESULTS
-
-        for hash in hash_processes:
-            base_results = list(hash.values())[0]
-            try:
-                base = sth_results[list(hash.keys())[0]]
-
-                base_results[0].update({"STH_API": base["Plaintext"]})
-                base_results.append(
-                    {"Type": base["Type"], "Verified": base["Verified"]}
-                )
-                """ 
-
-				Firstly this takes the hash from the loop and gets is values
-
-				{hash:[{COMPLETED},{FAILED}]}
-
-				The [0] index is for the main list
-
-				The next [0] index is for the successful dicts
-
-				Then it updates it with STH which:
-
-				Gets all hashes in a list and indexs the hash which its looking for
-
-				Then it takes that plaintext and updates the successfull dict with
-
-				{'STH_API':'Result'}
-				"""
-
-            except:
-                base_results[1].update({"STH_API": "Failed"})
-                base_results.append({"Type": "Unkown", "Verified": "N/A"})
-
-                #### CHECKING IF HASH SHOULD BE PUSHED TO STH
-
-                types = []
-
-                for type_ in config["hashes"][list(hash.keys())[0]]:
-                    types.append(type_["name"])
-                    if len(types) == 4:
-                        break
-
-                if (
-                    "STH_API" not in list(base_results[0].keys())
-                    and base_results[0] != {}
-                ):
-                    sth.push(
-                        config,
-                        list(hash.keys())[0],
-                        list(base_results[0].values())[0],
-                        types,
-                    )
-                    # This pushes the config, hash, plaintext and types
-
-            # This is here in case STH does not crack it, in that case it does the exact same but refers to the fail list index (0 and not 1)
-
-        if not config["api"]:
-            logging.info("Printing greppable results")
-            printing.Prettifier.greppable_print(hash_processes)
-
-        return hash_processes
-
-    return results
-
 
 if __name__ == "__main__":
     main()
