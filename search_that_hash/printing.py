@@ -3,6 +3,7 @@ from rich.console import Console
 
 console = Console(highlighter=False)
 
+
 class Prettifier:
     """
     This prints our output
@@ -43,16 +44,22 @@ class Prettifier:
     @staticmethod
     def one_print(chash, result):
         console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
-        console.print(f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]")
+        console.print(
+            f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
+        )
 
     @staticmethod
     def error_print(msg, chash):
         console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
-        console.print(f"\n[bold underline #E71D36]Error[/bold underline #E71D36]: [bold #E71D36]{msg}[/bold #E71D36]")
-    
+        console.print(
+            f"\n[bold underline #E71D36]Error[/bold underline #E71D36]: [bold #E71D36]{msg}[/bold #E71D36]"
+        )
+
     @staticmethod
     def type_print(types):
-        console.print(f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B]: [bold #AFEADC on #005F5F]{', '.join(types)}[/bold #AFEADC on #005F5F]")
+        console.print(
+            f"\n[bold underline #EC7F5B]Possible Type(s)[/bold underline #EC7F5B]: [bold #AFEADC on #005F5F]{', '.join(types)}[/bold #AFEADC on #005F5F]"
+        )
 
     @staticmethod
     def sth_print(chash, result, type, verified):

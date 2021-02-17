@@ -7,6 +7,7 @@ from search_that_hash.cracker.online_mod import online
 import logging
 import coloredlogs
 
+
 class Searcher:
     def __init__(self, config):
         logging.debug("Initing searcher")
@@ -45,7 +46,7 @@ class Searcher:
                         config["supported_searchers"].append(search)
                         config["supported_types"].append(hashtype)
                         continue
-                        
+
                     if hashtype.lower() in search.supports:
                         if not search in config["supported_searchers"]:
                             config["supported_searchers"].append(search)
@@ -63,7 +64,7 @@ class Searcher:
         fails = {}
 
         with ThreadPoolExecutor(max_workers=6) as executor:
-            for search in config['supported_searchers']:
+            for search in config["supported_searchers"]:
                 processes.append(executor.submit(self.call_searcher, search, config))
                 for (
                     possible_done
@@ -79,18 +80,18 @@ class Searcher:
                     else:
                         success.update(possible_done.result())
 
-                        if not self.config[
-                            "greppable" 
-                        ]: 
+                        if not self.config["greppable"]:
 
                             return {
-                                config['chash']: str(list(possible_done.result().values())[0])
+                                config["chash"]: str(
+                                    list(possible_done.result().values())[0]
+                                )
                             }
 
         if success == {} and not self.config["greppable"]:
-            return {config['chash'] : None}
+            return {config["chash"]: None}
 
-        return {config['chash']: [success, fails]}
+        return {config["chash"]: [success, fails]}
 
     def call_searcher(self, search, future):
         try:
