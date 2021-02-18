@@ -17,7 +17,13 @@ def test_password_in_md5():
 
     hashes = ["5f4dcc3b5aa765d61d8327deb882cf99"]
 
-    x = set(list(api.return_as_json(hashes)[0]['5f4dcc3b5aa765d61d8327deb882cf99'][0].values()))
+    x = set(
+        list(
+            api.return_as_json(hashes)[0]["5f4dcc3b5aa765d61d8327deb882cf99"][
+                0
+            ].values()
+        )
+    )
 
     assert "password" in x
 
@@ -28,7 +34,13 @@ def test_password_in_sha512():
         "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
     ]
 
-    x = set(list(api.return_as_json(hashes)[0]['b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'][0].values()))
+    x = set(
+        list(
+            api.return_as_json(hashes)[0][
+                "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
+            ][0].values()
+        )
+    )
 
     assert "password" in x
 

@@ -64,8 +64,8 @@ def main(**kwargs):
 
     levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
 
-    if kwargs['verbose'] and kwargs['verbose'] <= 3:
-        coloredlogs.install(level=levels[kwargs['verbose']])
+    if kwargs["verbose"] and kwargs["verbose"] <= 3:
+        coloredlogs.install(level=levels[kwargs["verbose"]])
     else:
         # Verobosity was not given so it removes logging
         coloredlogs.install(level=logging.CRITICAL)
@@ -83,6 +83,7 @@ def main(**kwargs):
     cracking_handler.start()
 
     exit(0)
+
 
 if __name__ == "__main__":
     main()

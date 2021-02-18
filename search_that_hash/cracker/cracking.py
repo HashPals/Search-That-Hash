@@ -6,6 +6,7 @@ from search_that_hash.cracker.online_mod import online
 import logging
 import coloredlogs
 
+
 class Searcher:
     def __init__(self, config):
         logging.debug("Initing searcher")
