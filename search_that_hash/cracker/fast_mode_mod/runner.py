@@ -16,10 +16,12 @@ class FastClass:
         self.hash_processes = []
         self.searcher = cracking.Searcher(config)
         self.sth = sth.Sth_api(self.config, self.hash_processes, sth_results)
+        self.results = []
 
     def fast_crack(self):
 
-        self.sth.sth_output()
+        results = self.sth.sth_output()
+        self.results.extend(results)
 
         for chash, types in self.config["hashes"].items():
 
@@ -49,3 +51,5 @@ class FastClass:
                 continue
 
             printing.Prettifier.one_print(chash, result)
+
+        return self.results
