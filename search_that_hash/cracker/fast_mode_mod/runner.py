@@ -4,16 +4,16 @@ from search_that_hash import printing
 
 class FastClass:
     """
-
     This class handles the cracking and prints the results as it goes a long,
     it also checks for if the API is enabled and returns it
-    
+
+    https://github.com/HashPals/Search-That-Hash/wiki/The-API-return-object
     """
     def __init__(self, config, sth_results):
         self.config = config
         self.hash_processes = []
         self.searcher = cracking.Searcher(config)
-        self.sth = sth.sth_api(self.config, self.hash_processes, sth_results)
+        self.sth = sth.Sth_api(self.config, self.hash_processes, sth_results)
 
     def fast_crack(self):
 

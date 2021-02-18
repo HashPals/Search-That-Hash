@@ -10,9 +10,9 @@ def return_as_json(hashes):
     config["greppable"] = True
     cracking_handler = handler.handler(config)
 
-    json = cracking_handler.start()
+    json_result = cracking_handler.start()
 
-    return json
+    return json_result
 
 
 def return_as_fast_json(hashes):
@@ -20,6 +20,6 @@ def return_as_fast_json(hashes):
     config = config_object.api_config(hashes)
     cracking_handler = handler.handler(config)
 
-    json = cracking_handler.start()
+    json_result = cracking_handler.start()
 
-    return json
+    return json_result

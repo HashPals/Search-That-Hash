@@ -3,7 +3,7 @@ import requests
 from search_that_hash import printing
 
 
-class sth_api:
+class Sth_api:
     def __init__(self, config, hash_processes, sth_results):
         self.hash_processes = hash_processes
         self.config = config
