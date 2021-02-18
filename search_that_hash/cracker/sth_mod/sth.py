@@ -14,12 +14,13 @@ class sth_api:
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
         payload = json.dumps({"Hash": list(config["hashes"].keys())})
         headers = {"Content-Type": "application/json"}
+        
         try:
             response = requests.request(
                 "GET", url, headers=headers, data=payload, timeout=config["timeout"]
             )
-        except:  # If the user cannot connect
-            return False, config
+        except requests.exceptions.ConnectionError:
+            return(False, config)
 
         output = response.json()["body"]
 
@@ -45,17 +46,18 @@ class sth_api:
             pass
 
     def sth_output(self):
-        if self.sth_results:
-            for result in self.sth_results.values():
-                if not self.config["api"]:
-                    printing.Prettifier.sth_print(
-                        result["Hash"],
-                        result["Plaintext"],
-                        result["Type"],
-                        result["Verified"],
-                    )
-                else:
-                    self.results.append({result["Hash"]: result["Plaintext"]})
+        if not self.sth_results:
+            return
+        for result in self.sth_results.values():
+            if not self.config["api"]:
+                printing.Prettifier.sth_print(
+                    result["Hash"],
+                    result["Plaintext"],
+                    result["Type"],
+                    result["Verified"],
+                )
+            else:
+                self.results.append({result["Hash"]: result["Plaintext"]})
 
     def append_sth(self):
         for hash in self.hash_processes:
@@ -68,7 +70,7 @@ class sth_api:
                     {"Type": base["Type"], "Verified": base["Verified"]}
                 )
 
-            except Exception as e:
+            except KeyError: # Not found in STH
                 base_results[1].update({"STH_API": "Failed"})
                 base_results.append({"Type": "Unkown", "Verified": "N/A"})
 
@@ -77,11 +79,11 @@ class sth_api:
                 for type in self.config["hashes"][list(hash.keys())[0]]:
                     types.append(type["name"])
                     if len(types) == 4:
-                        break
+                        break # We dont want to add all 100 possible types
 
                 if (
                     "STH_API" not in list(base_results[0].keys())
-                    and base_results[0] != {}
+                    and not base_results[0]
                 ):
                     self.push(
                         list(hash.keys())[0],

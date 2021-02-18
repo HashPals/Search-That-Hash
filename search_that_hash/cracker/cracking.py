@@ -8,6 +8,12 @@ import coloredlogs
 
 
 class Searcher:
+    """
+
+    This class is the one which multi threads and calls all
+    the websites / API to search from
+    
+    """
     def __init__(self, config):
         logging.debug("Initing searcher")
         self.config = config

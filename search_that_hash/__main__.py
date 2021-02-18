@@ -79,7 +79,7 @@ def main(**kwargs):
         logging.info("Printing banner")
         printing.Prettifier.banner()
 
-    cracking_handler = handler.main(config)
+    cracking_handler = handler.handler(config)
     cracking_handler.start()
 
     exit(0)
