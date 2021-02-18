@@ -8,6 +8,7 @@ class Sth_api:
         self.hash_processes = hash_processes
         self.config = config
         self.sth_results = sth_results
+        self.results = []
 
     def crack(config):
         to_del = []
@@ -46,6 +47,7 @@ class Sth_api:
             pass
 
     def sth_output(self):
+        results = []
         if not self.sth_results:
             return
         for result in self.sth_results.values():
@@ -57,7 +59,8 @@ class Sth_api:
                     result["Verified"],
                 )
             else:
-                self.results.append({result["Hash"]: result["Plaintext"]})
+                results.append({result["Hash"]: result["Plaintext"]})
+        return(results)
 
     def append_sth(self):
         for hash in self.hash_processes:
