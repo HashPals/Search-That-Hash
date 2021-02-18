@@ -14,13 +14,13 @@ class Sth_api:
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
         payload = json.dumps({"Hash": list(config["hashes"].keys())})
         headers = {"Content-Type": "application/json"}
-        
+
         try:
             response = requests.request(
                 "GET", url, headers=headers, data=payload, timeout=config["timeout"]
             )
         except ReadTimeout:
-            return(False, config)
+            return (False, config)
 
         output = response.json()["body"]
 
@@ -70,7 +70,7 @@ class Sth_api:
                     {"Type": base["Type"], "Verified": base["Verified"]}
                 )
 
-            except KeyError: # Not found in STH
+            except KeyError:  # Not found in STH
                 base_results[1].update({"STH_API": "Failed"})
                 base_results.append({"Type": "Unkown", "Verified": "N/A"})
 
@@ -79,7 +79,7 @@ class Sth_api:
                 for type in self.config["hashes"][list(hash.keys())[0]]:
                     types.append(type["name"])
                     if len(types) == 4:
-                        break # We dont want to add all 100 possible types
+                        break  # We dont want to add all 100 possible types
 
                 if (
                     "STH_API" not in list(base_results[0].keys())

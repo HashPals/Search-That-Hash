@@ -2,14 +2,16 @@ from search_that_hash.cracker.sth_mod import sth
 from search_that_hash.cracker import cracking
 import json
 
+
 class GreppableClass:
     """
-    This class is in charge of handling the cracking, and formatting 
+    This class is in charge of handling the cracking, and formatting
     the output into JSON. It then checks for if the API is enabled
     and returns the results
 
-    https://github.com/HashPals/Search-That-Hash/wiki/The-API-return-object    
+    https://github.com/HashPals/Search-That-Hash/wiki/The-API-return-object
     """
+
     def __init__(self, config, sth_results):
         self.sth_results = sth_results
         self.config = config

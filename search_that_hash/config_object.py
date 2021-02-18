@@ -87,4 +87,4 @@ def create_hash_config(hashes):
     # Gets the results from name-that-hash
     logging.debug("Called NTH to get hash types")
     nth_result_types = json.loads(nth.api_return_hashes_as_json(hashes))
-    return nth_result_types 
+    return nth_result_types

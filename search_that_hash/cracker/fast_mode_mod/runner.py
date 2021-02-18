@@ -2,6 +2,7 @@ from search_that_hash.cracker.sth_mod import sth
 from search_that_hash.cracker import cracking
 from search_that_hash import printing
 
+
 class FastClass:
     """
     This class handles the cracking and prints the results as it goes a long,
@@ -9,6 +10,7 @@ class FastClass:
 
     https://github.com/HashPals/Search-That-Hash/wiki/The-API-return-object
     """
+
     def __init__(self, config, sth_results):
         self.config = config
         self.hash_processes = []
