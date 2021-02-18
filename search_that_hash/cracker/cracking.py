@@ -1,4 +1,3 @@
-from collections import namedtuple
 from concurrent.futures import ThreadPoolExecutor
 
 from search_that_hash.cracker.offline_mod import hashcat
