@@ -8,7 +8,7 @@ def return_as_json(hashes):
 
     config = config_object.api_config(hashes)
     config["greppable"] = True
-    cracking_handler = handler.handler(config)
+    cracking_handler = handler.Handler(config)
 
     json_result = cracking_handler.start()
 
@@ -18,7 +18,7 @@ def return_as_json(hashes):
 def return_as_fast_json(hashes):
 
     config = config_object.api_config(hashes)
-    cracking_handler = handler.handler(config)
+    cracking_handler = handler.Handler(config)
 
     json_result = cracking_handler.start()
 
