@@ -7,6 +7,7 @@ from name_that_hash import runner as nth
 import logging
 import coloredlogs
 
+
 def read_config_file():
     return read_and_parse_config_file(find_appdirs_location())
 
@@ -83,7 +84,7 @@ def default_config():
 
 
 def create_hash_config(hashes):
-    #Gets the results from name-that-hash
+    # Gets the results from name-that-hash
     logging.debug("Called NTH to get hash types")
-    x = json.loads(nth.api_return_hashes_as_json(hashes))
-    return x
+    nth_result_types = json.loads(nth.api_return_hashes_as_json(hashes))
+    return nth_result_types
