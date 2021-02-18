@@ -19,7 +19,7 @@ class sth_api:
             response = requests.request(
                 "GET", url, headers=headers, data=payload, timeout=config["timeout"]
             )
-        except requests.exceptions.ConnectionError:
+        except ReadTimeout:
             return(False, config)
 
         output = response.json()["body"]
