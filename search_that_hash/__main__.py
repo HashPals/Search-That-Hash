@@ -62,6 +62,10 @@ def main(**kwargs):
             sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
 
+    if not len(sys.argv) > 1:
+        with click.Context(main) as ctx:
+            click.echo(ctx.get_help())
+            ctx.exit()
     levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
 
     if kwargs["verbose"] and kwargs["verbose"] <= 3:
