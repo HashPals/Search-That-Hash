@@ -18,6 +18,9 @@ coloredlogs = "^15.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
+coverage = {extras = ["toml"], version = "^5.4"}
+pytest-cov = "^2.11.1"
+codecov = "^2.1.11"
 
 [build-system]
 requires = ["poetry>=0.12"]
@@ -26,3 +29,14 @@ build-backend = "poetry.masonry.api"
 [tool.poetry.scripts]
 sth = "search_that_hash.__main__:main"
 search-that-hash = "search_that_hash.__main__:main"
+
+[tool.coverage.paths]
+source = ["search_that_hash", "*/site-packages"]
+
+[tool.coverage.run]
+branch = true
+source = ["search_that_hash"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
