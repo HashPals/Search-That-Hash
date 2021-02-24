@@ -21,11 +21,9 @@ class FastClass:
     def fast_crack(self):
 
         results = self.sth.sth_output()
-
-        try:
+        
+        if not results == None:
             self.results.extend(results)
-        except TypeError:
-            pass
 
         for chash, types in self.config["hashes"].items():
 
