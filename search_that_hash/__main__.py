@@ -66,6 +66,7 @@ def main(**kwargs):
         with click.Context(main) as ctx:
             click.echo(ctx.get_help())
             ctx.exit()
+            
     levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
 
     if kwargs["verbose"] and kwargs["verbose"] <= 3:

@@ -1,7 +1,8 @@
 import toml
 from appdirs import *
 import json
-
+from loguru import logger
+logger.remove()
 from name_that_hash import runner as nth
 
 import logging
