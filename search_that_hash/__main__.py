@@ -49,7 +49,6 @@ import coloredlogs
 @click.option("--accessible", is_flag=True, help="Makes the output accessible.")
 @click.option("--no-banner", is_flag=True, help="Doesn't print banner.")
 def main(**kwargs):
-    print(kwargs)
     """
     Search-That-Hash - The fastest way to crack any hash.
     \n

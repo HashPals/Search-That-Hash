@@ -22,7 +22,7 @@ class FastClass:
 
         results = self.sth.sth_output()
         
-        if not results == None:
+        if results:
             self.results.extend(results)
 
         for chash, types in self.config["hashes"].items():
