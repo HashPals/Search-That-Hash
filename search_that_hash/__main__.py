@@ -49,6 +49,7 @@ import coloredlogs
 @click.option("--accessible", is_flag=True, help="Makes the output accessible.")
 @click.option("--no-banner", is_flag=True, help="Doesn't print banner.")
 def main(**kwargs):
+    print(kwargs)
     """
     Search-That-Hash - The fastest way to crack any hash.
     \n
@@ -61,7 +62,7 @@ def main(**kwargs):
     \n
             sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
-
+            
     levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
 
     if kwargs["verbose"] and kwargs["verbose"] <= 3:

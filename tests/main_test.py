@@ -49,6 +49,7 @@ def test_cli():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99"])
     assert result.exit_code == 0
+    print(result.output)
     assert "password" in result.output
 
 
