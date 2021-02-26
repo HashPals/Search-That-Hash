@@ -13,7 +13,7 @@ import coloredlogs
 
 
 @click.command()
-@click.option("--text", "-t", type=str, help="Crack a single hash")
+@click.option("--text", "-t", type=str, help="Crack a single hash.")
 @click.option(
     "-f",
     "--file",
@@ -21,15 +21,14 @@ import coloredlogs
     required=False,
     help="The file of hashes, seperated by newlines.",
 )
-@click.option("-w", "--wordlist", type=str, required=False, help="The wordlist.")
-@click.option("--timeout", type=int, help="Choose timeout time in second", default=2)
-@click.option("--hashcat", is_flag=True, help="Runs Hashcat instead of John")
-@click.option("-g", "--greppable", is_flag=True, help="Used to grep")
+@click.option("-w", "--wordlist", type=str, required=False, help="The wordlist you want to use for Hashcat.")
+@click.option("--timeout", type=int, help="Choose timeout in seconds.", default=2)
+@click.option("-g", "--greppable", is_flag=True, help="Prints as JSON, use this to grep.")
 @click.option(
     "--hashcat_binary",
     type=str,
     required=False,
-    help="Location of hashcat / john folder (if using windows)",
+    help="Location of hashcat folder (if using windows).",
 )
 @click.option(
     "--offline",
@@ -37,14 +36,14 @@ import coloredlogs
     is_flag=True,
     default=False,
     type=bool,
-    help="Use offline mode. Does not search for hashes.",
+    help="Use offline mode. Does not search for hashes in APIs.",
 )
 @click.option(
     "-v",
     "--verbose",
     count=True,
     type=int,
-    help="Turn on debugging logs. -vv for max",
+    help="Turn on debugging logs. -vv for max.",
 )
 @click.option("--accessible", is_flag=True, help="Makes the output accessible.")
 @click.option("--no-banner", is_flag=True, help="Doesn't print banner.")
