@@ -21,7 +21,9 @@ class FastClass:
     def fast_crack(self):
 
         results = self.sth.sth_output()
-        self.results.extend(results)
+        
+        if results:
+            self.results.extend(results)
 
         for chash, types in self.config["hashes"].items():
 
