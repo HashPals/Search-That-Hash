@@ -7,7 +7,7 @@ from nox.sessions import Session
 
 
 package = "hypermodern_python"
-nox.options.sessions = "tests"
+nox.options.sessions = "lint", "tests"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
@@ -65,10 +65,10 @@ def lint(session: Session) -> None:
 @nox.session(python=["3.8", "3.7"])
 def tests(session: Session) -> None:
     """Run the test suite."""
-    args = session.posargs or ["-m", "not e2e"]
+    args = session.posargs or ["--cov", "-m", "not e2e"]
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(
-        session, "pytest", "pytest-cov"
+        session, "coverage[toml]", "pytest", "pytest-cov"
     )
     session.run("pytest", *args)
 
