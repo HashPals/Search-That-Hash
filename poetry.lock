@@ -171,7 +171,7 @@ dev = ["codecov (>=2.0.15)", "colorama (>=0.3.4)", "flake8 (>=3.7.7)", "tox (>=3
 
 [[package]]
 name = "name-that-hash"
-version = "1.1.5"
+version = "1.1.6"
 description = "The Modern Hash Identifcation System"
 category = "main"
 optional = false
@@ -296,7 +296,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
 name = "rich"
-version = "9.12.0"
+version = "9.12.2"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "main"
 optional = false
@@ -366,7 +366,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "658fde9141bd72fb9fbe53b16ab4d9f8dcea200e99d3c5819df3fa9f80c5e547"
+content-hash = "bf6aa73d2d6c6bcb23d9b000eb240fcef657056f61a85583859091b956d210ca"
 
 [metadata.files]
 appdirs = [
@@ -482,8 +482,8 @@ loguru = [
     {file = "loguru-0.5.3.tar.gz", hash = "sha256:b28e72ac7a98be3d28ad28570299a393dfcd32e5e3f6a353dec94675767b6319"},
 ]
 name-that-hash = [
-    {file = "name-that-hash-1.1.5.tar.gz", hash = "sha256:0591588d954b2805e83d1cbf0c0218b43ff5468bcd3146d03e7af1a98d7bddf6"},
-    {file = "name_that_hash-1.1.5-py3-none-any.whl", hash = "sha256:c51b1c90c42bf5cc2bf2f0cc6363966f5871ca6a1db4820642203f18a00557b4"},
+    {file = "name-that-hash-1.1.6.tar.gz", hash = "sha256:a78136dded9aceb87da405b68570c6c000f6858a8c4e79490f48318a5b901c1d"},
+    {file = "name_that_hash-1.1.6-py3-none-any.whl", hash = "sha256:f8848d9590bf0a890fa753629cd2dbfb010d73f1fa4ce5a6cff3f30882f945bc"},
 ]
 packaging = [
     {file = "packaging-20.9-py2.py3-none-any.whl", hash = "sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a"},
@@ -523,8 +523,8 @@ requests = [
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
 ]
 rich = [
-    {file = "rich-9.12.0-py3-none-any.whl", hash = "sha256:dc2499772c96bd2c488b34739425d1cdfa433bf394f4f2f5af5ca6f399171df0"},
-    {file = "rich-9.12.0.tar.gz", hash = "sha256:27e3deb24555d7dad554afa871c7e77f16a0336a625ed78dd10de21193b4ec11"},
+    {file = "rich-9.12.2-py3-none-any.whl", hash = "sha256:df6d9921358c159d638763349bb023af75e9bf3486b1b8a0baba640f4fb60a48"},
+    {file = "rich-9.12.2.tar.gz", hash = "sha256:493b4288273aa46475230733358696457e5df9215c898b164a324b7d9d694e88"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
