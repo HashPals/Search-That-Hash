@@ -7,7 +7,7 @@ from nox.sessions import Session
 
 
 package = "hypermodern_python"
-nox.options.sessions = "lint", "tests"
+nox.options.sessions = "tests"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
