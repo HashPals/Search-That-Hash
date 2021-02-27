@@ -74,7 +74,7 @@ class Sth_api:
                     {"Type": base["Type"], "Verified": base["Verified"]}
                 )
 
-            except KeyError:  # Not found in STH
+            except (KeyError, TypeError):  # Not found in STH
                 base_results[1].update({"STH_API": "Failed"})
                 base_results.append({"Type": "Unknown", "Verified": "N/A"})
 

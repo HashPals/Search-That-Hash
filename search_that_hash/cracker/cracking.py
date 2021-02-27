@@ -41,7 +41,7 @@ class Searcher:
 
         config["chash"] = chash
         keys = [type["name"].lower() for type in types]
-        hashcat_types = [type["hashcat"] for type in types]
+        self.config["hashcat_types"] = [type["hashcat"] for type in types]
         config["supported_searchers"] = []
         config["supported_types"] = []
 
@@ -102,6 +102,6 @@ class Searcher:
     def call_searcher(self, search, future):
         try:
             return {type(search).__name__: search.crack(future)}
-        except Exception as e:
+        except:
             logging.warning(f"{type(search).__name__} Failed")
             return {type(search).__name__: "Failed"}

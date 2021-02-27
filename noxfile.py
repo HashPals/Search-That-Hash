@@ -50,6 +50,7 @@ def lint(session: Session) -> None:
     pass
 
 
+
 @nox.session(python=["3.8", "3.7"])
 def tests(session: Session) -> None:
     """Run the test suite."""
