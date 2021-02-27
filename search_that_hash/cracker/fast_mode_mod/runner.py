@@ -21,7 +21,11 @@ class FastClass:
     def fast_crack(self):
 
         results = self.sth.sth_output()
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> ff79c8d806e2ee3906fcb5ed0ebc313fda94ce7b
         if results:
             self.results.extend(results)
 
