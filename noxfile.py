@@ -53,9 +53,11 @@ def lint(session: Session) -> None:
 @nox.session(python=["3.8", "3.7"])
 def tests(session: Session) -> None:
     """Run the test suite."""
-    args = session.posargs or ["-m", "not e2e"]
+    args = session.posargs or ["--cov", "--cov-fail-under=50", "-m", "not e2e"]
     session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(session, "coverage[toml]", "pytest")
+    install_with_constraints(
+        session, "coverage[toml]", "pytest", "pytest-cov"
+    )
     session.run("pytest", *args)
 
 
@@ -72,5 +74,5 @@ def typeguard(session: Session) -> None:
 def coverage(session: Session) -> None:
     """Upload coverage data."""
     install_with_constraints(session, "coverage[toml]", "codecov")
-    session.run("coverage", "xml")
+    session.run("coverage", "xml", "--fail-under=0")
     session.run("codecov", *session.posargs)

@@ -1,6 +1,4 @@
+
 ignore:
-<<<<<<< HEAD
   - "search_that_hash/cracker/"
-=======
   - "search_that_hash/cracker/offline_mod"
->>>>>>> ff79c8d806e2ee3906fcb5ed0ebc313fda94ce7b
