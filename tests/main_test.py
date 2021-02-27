@@ -119,3 +119,9 @@ def test_sth_api_key():
     x = api.return_as_fast_json(hashes, "meow")
 
     assert x is not None
+    
+    
+def test_cli_fail_on_grep():
+    runner = CliRunner()
+    result = runner.invoke(main, ["-t", "jadjsjhd9239uh80dahjdah8isdh90wq90hj0j9fj9023j0-12j-j-0fasj0a", "-g"])
+    assert result.exit_code == 0
