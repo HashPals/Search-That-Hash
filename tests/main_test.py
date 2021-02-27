@@ -94,4 +94,11 @@ def test_cli_verbose():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99", "-vv"])
     assert result.exit_code == 0
-    assert "DEBUG" in result.output
+    assert "INFO" in result.output
+
+def test_cli_output():
+    runner = CliRunner()
+    result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99"])
+    assert result.exit_code == 0
+    assert "password\nType" in result.output
+    assert "MD5\n" in result.output
