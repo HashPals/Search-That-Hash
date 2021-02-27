@@ -18,7 +18,7 @@ class Handler:
             coloredlogs.install(level=logging.CRITICAL)
 
         if not config["offline"]:
-            self.sth_results, self.config = sth.Sth_api.crack(config)
+            self.sth_results, self.config = sth.Sth_api.crack(self, config)
         else:
             self.config = config
             self.sth_results = []
