@@ -12,6 +12,7 @@ def test_it_works():
 
     assert x is not None
 
+
 def test_it_works_fast():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
@@ -99,6 +100,7 @@ def test_cli_greppable_no_text():
     assert "_____" not in result.output
     assert "https://twitter.com/bee_sec_san" not in result.output
 
+
 def test_cli_verbose():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99", "-vv"])
@@ -119,7 +121,8 @@ def test_cli_no_hashes():
     result = runner.invoke(main, [])
     assert result.exit_code == 0
     assert "Error." in result.output
- 
+
+
 def test_sth_api_key():
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
 
