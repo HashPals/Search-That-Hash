@@ -21,14 +21,13 @@ class Searcher:
         self.searchers_offline = [hashcat.Hashcat()]
         self.searchers_online = [
             online.md5crypt(),
-            online.rainbow_tabels(),
+            online.hashdecryption(),
             online.nitrxgen(),
             online.cmd5(),
-            online.LmRainbowTabels(),
+            online.LmRainbowTables(),
             online.md5_addr(),
             online.md5_grom(),
             online.sha1_grom(),
-            online.hashsorg(),
         ]
 
     def main(self, chash, types) -> dict:
