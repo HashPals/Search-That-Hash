@@ -12,7 +12,7 @@ toml = "^0.10.2"
 loguru = "^0.5.3"
 name-that-hash = "^1.1.6"
 requests = "^2.25.1"
-rich = "^9.12.2"
+rich = "^9.10.0"
 coloredlogs = "^15.0"
 
 
