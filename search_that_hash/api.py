@@ -4,7 +4,7 @@ from search_that_hash.cracker import handler
 import json
 
 
-def return_as_json(hashes, api_key = None):
+def return_as_json(hashes, api_key=None):
 
     config = config_object.api_config(hashes, api_key)
     config["greppable"] = True
@@ -15,7 +15,7 @@ def return_as_json(hashes, api_key = None):
     return json_result
 
 
-def return_as_fast_json(hashes, api_key = None):
+def return_as_fast_json(hashes, api_key=None):
 
     config = config_object.api_config(hashes, api_key)
     cracking_handler = handler.Handler(config)

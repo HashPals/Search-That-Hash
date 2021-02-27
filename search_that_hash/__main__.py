@@ -21,9 +21,17 @@ import coloredlogs
     required=False,
     help="The file of hashes, seperated by newlines.",
 )
-@click.option("-w", "--wordlist", type=str, required=False, help="The wordlist you want to use for Hashcat.")
+@click.option(
+    "-w",
+    "--wordlist",
+    type=str,
+    required=False,
+    help="The wordlist you want to use for Hashcat.",
+)
 @click.option("--timeout", type=int, help="Choose timeout in seconds.", default=2)
-@click.option("-g", "--greppable", is_flag=True, help="Prints as JSON, use this to grep.")
+@click.option(
+    "-g", "--greppable", is_flag=True, help="Prints as JSON, use this to grep."
+)
 @click.option(
     "--hashcat_binary",
     type=str,
@@ -60,7 +68,7 @@ def main(**kwargs):
     \n
             sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
-            
+
     levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
 
     if kwargs["verbose"] and kwargs["verbose"] <= 3:
@@ -85,4 +93,4 @@ def main(**kwargs):
 
 
 if __name__ == "__main__":
-    main() # pragma: no cover
+    main()  # pragma: no cover

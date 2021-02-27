@@ -60,7 +60,7 @@ class Sth_api:
                 )
             else:
                 results.append({result["Hash"]: result["Plaintext"]})
-        return(results)
+        return results
 
     def append_sth(self):
         for hash in self.hash_processes:

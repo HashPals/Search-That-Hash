@@ -21,7 +21,7 @@ class FastClass:
     def fast_crack(self):
 
         results = self.sth.sth_output()
-        
+
         if results:
             self.results.extend(results)
 
