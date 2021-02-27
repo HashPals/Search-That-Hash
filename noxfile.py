@@ -24,17 +24,16 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Non
         args: Command-line arguments for pip.
         kwargs: Additional keyword arguments for Session.install.
     """
-    with tempfile.NamedTemporaryFile() as requirements:
-        session.run(
-            "poetry",
-            "export",
-            "--without-hashes",
-            "--dev",
-            "--format=requirements.txt",
-            f"--output={requirements.name}",
-            external=True,
-        )
-        session.install(f"--constraint={requirements.name}", *args, **kwargs)
+    session.run(
+        "poetry",
+        "export",
+        "--without-hashes",
+        "--dev",
+        "--format=requirements.txt",
+        "--output=requirements.txt",
+        external=True,
+    )
+    session.install("--constraint=requirements.txt", *args, **kwargs)
 
 
 @nox.session(python="3.8")
