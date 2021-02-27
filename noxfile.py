@@ -7,7 +7,7 @@ from nox.sessions import Session
 
 
 package = "hypermodern_python"
-nox.options.sessions = "tests"
+nox.options.sessions = "lint", "tests"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
@@ -47,20 +47,7 @@ def black(session: Session) -> None:
 
 @nox.session(python=["3.8", "3.7"])
 def lint(session: Session) -> None:
-    """Lint using flake8."""
-    args = session.posargs or locations
-    install_with_constraints(
-        session,
-        "flake8",
-        "flake8-annotations",
-        "flake8-bandit",
-        "flake8-black",
-        "flake8-bugbear",
-        "flake8-docstrings",
-        "flake8-import-order",
-        "darglint",
-    )
-    session.run("flake8", *args)
+    pass
 
 
 @nox.session(python=["3.8", "3.7"])
