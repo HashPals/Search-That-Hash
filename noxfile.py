@@ -66,9 +66,9 @@ def lint(session: Session) -> None:
 @nox.session(python=["3.8", "3.7"])
 def tests(session: Session) -> None:
     """Run the test suite."""
-    args = session.posargs or ["--cov", "-m", "not e2e"]
+    args = session.posargs or ["-m", "not e2e"]
     session.run("poetry", "install", "--no-dev", external=True)
-    install_with_constraints(session, "coverage[toml]", "pytest", "pytest-cov")
+    install_with_constraints(session, "coverage[toml]", "pytest")
     session.run("pytest", *args)
 
 
