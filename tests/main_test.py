@@ -95,9 +95,6 @@ def test_cli_verbose():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99", "-vv"])
     assert result.exit_code == 0
-<<<<<<< HEAD
-    assert "DEBUG" in result.output
-=======
     assert "INFO" in result.output
 
 
@@ -122,4 +119,3 @@ def test_sth_api_key():
     x = api.return_as_fast_json(hashes, "meow")
 
     assert x is not None
->>>>>>> bee-fix-ci
