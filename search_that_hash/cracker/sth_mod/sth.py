@@ -60,7 +60,7 @@ class Sth_api:
                 )
             else:
                 results.append({result["Hash"]: result["Plaintext"]})
-        return(results)
+        return results
 
     def append_sth(self):
         for hash in self.hash_processes:
@@ -73,7 +73,7 @@ class Sth_api:
                     {"Type": base["Type"], "Verified": base["Verified"]}
                 )
 
-            except KeyError:  # Not found in STH
+            except (KeyError, TypeError):  # Not found in STH
                 base_results[1].update({"STH_API": "Failed"})
                 base_results.append({"Type": "Unkown", "Verified": "N/A"})
 

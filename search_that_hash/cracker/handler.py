@@ -17,7 +17,11 @@ class Handler:
         if config["api"]:
             coloredlogs.install(level=logging.CRITICAL)
 
-        self.sth_results, self.config = sth.Sth_api.crack(config)
+        if not config["offline"]:
+            self.sth_results, self.config = sth.Sth_api.crack(config)
+        else:
+            self.config = config
+            self.sth_results = []
 
         self.greppable = greppable.GreppableClass(self.config, self.sth_results)
         self.fast = fast.FastClass(self.config, self.sth_results)
