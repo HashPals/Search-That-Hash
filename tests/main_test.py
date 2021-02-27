@@ -90,8 +90,32 @@ def test_cli_greppable_no_text():
     assert "_____" not in result.output
     assert "https://twitter.com/bee_sec_san" not in result.output
 
+
 def test_cli_verbose():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99", "-vv"])
     assert result.exit_code == 0
-    assert "DEBUG" in result.output
+    assert "INFO" in result.output
+
+
+def test_cli_output():
+    runner = CliRunner()
+    result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99"])
+    assert result.exit_code == 0
+    assert "password\nType" in result.output
+    assert "MD5\n" in result.output
+
+
+def test_cli_no_hashes():
+    runner = CliRunner()
+    result = runner.invoke(main, [])
+    assert result.exit_code == 0
+    assert "Error." in result.output
+
+
+def test_sth_api_key():
+    hashes = ["5d41402abc4b2a76b9719d911017c592"]
+
+    x = api.return_as_fast_json(hashes, "meow")
+
+    assert x is not None

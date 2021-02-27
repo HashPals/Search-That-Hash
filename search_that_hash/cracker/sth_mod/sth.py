@@ -1,4 +1,5 @@
 import json
+
 import requests
 from search_that_hash import printing
 
@@ -10,7 +11,7 @@ class Sth_api:
         self.sth_results = sth_results
         self.results = []
 
-    def crack(config):
+    def crack(self, config):
         to_del = []
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/lookup"
         payload = json.dumps({"Hash": list(config["hashes"].keys())})
@@ -20,7 +21,7 @@ class Sth_api:
             response = requests.request(
                 "GET", url, headers=headers, data=payload, timeout=config["timeout"]
             )
-        except ReadTimeout:
+        except requests.exceptions.Timeout:
             return (False, config)
 
         output = response.json()["body"]
@@ -43,7 +44,7 @@ class Sth_api:
         payload = json.dumps({"Hash": chash, "Plaintext": result, "Type": types})
         try:
             requests.request("PUT", url, headers=headers, data=payload)
-        except:
+        except Exception:
             pass
 
     def sth_output(self):
@@ -60,7 +61,7 @@ class Sth_api:
                 )
             else:
                 results.append({result["Hash"]: result["Plaintext"]})
-        return(results)
+        return results
 
     def append_sth(self):
         for hash in self.hash_processes:
@@ -73,9 +74,9 @@ class Sth_api:
                     {"Type": base["Type"], "Verified": base["Verified"]}
                 )
 
-            except KeyError:  # Not found in STH
+            except (KeyError, TypeError):  # Not found in STH
                 base_results[1].update({"STH_API": "Failed"})
-                base_results.append({"Type": "Unkown", "Verified": "N/A"})
+                base_results.append({"Type": "Unknown", "Verified": "N/A"})
 
                 types = []
 

@@ -2,23 +2,23 @@ import subprocess as sp
 
 
 class Hashcat:
-    def crack(self, hash):
+    def crack(self, config):
 
         hashcat_dict = str.maketrans({"$": "\\$"})
 
-        hash_formatted = hash[0].translate(hashcat_dict)
+        hash_formatted = config["chash"].translate(hashcat_dict)
 
-        for possible_type in hash[2]:
+        for possible_type in config["hashcat_types"]:
 
             # If its greppable then silence.
-            if hash[5]:
-                if hash[7]:  # If on windows run from binary folder
-                    command = f".\\hashcat64.exe -a 0 -m {possible_type} {hash_formatted} {hash[6]}"
+            if config["greppable"]:
+                if config["hashcat_binary"]:  # If on windows run from binary folder
+                    command = f".\\hashcat64.exe -a 0 -m {possible_type} {hash_formatted} {config['wordlist']}"
                     try:
                         sp.check_call(
                             command,
                             shell="True",
-                            cwd=hash[7],
+                            cwd=config["hashcat_binary"],
                             stdout=sp.DEVNULL,
                             stderr=sp.STDOUT,
                         )
@@ -30,7 +30,9 @@ class Hashcat:
 
                     possible_output = str(
                         sp.check_output(
-                            f"{command} --show", shell=True, cwd=hash[7]
+                            f"{command} --show",
+                            shell=True,
+                            cwd=config["hashcat_binary"],
                         ).strip()
                     ).strip("'")
 
@@ -38,9 +40,7 @@ class Hashcat:
                         return possible_output.split(":")[1]
 
                 else:
-                    command = (
-                        f"hashcat -a 0 -m {possible_type} {hash_formatted} {hash[6]}"
-                    )
+                    command = f"hashcat -a 0 -m {possible_type} {hash_formatted} {config['wordlist']}"
                     try:
                         sp.check_call(
                             command, shell="True", stdout=sp.DEVNULL, stderr=sp.STDOUT
@@ -53,7 +53,9 @@ class Hashcat:
 
                     possible_output = str(
                         sp.check_output(
-                            f"{command} --show", shell=True, cwd=hash[7]
+                            f"{command} --show",
+                            shell=True,
+                            cwd=config["hashcat_binary"],
                         ).strip()
                     ).strip("'")
 
@@ -61,13 +63,13 @@ class Hashcat:
                         return possible_output.split(":")[1]
 
             else:
-                if hash[7]:  # On windows? Run from binary folder
-                    command = f"./hashcat64.exe -a 0 -m {possible_type} {hash_formatted} {hash[6]}"
+                if config["hashcat_binary"]:  # On windows? Run from binary folder
+                    command = f"./hashcat64.exe -a 0 -m {possible_type} {hash_formatted} {config['wordlist']}"
                     try:
                         sp.check_call(
                             command,
                             shell="True",
-                            cwd=hash[7],
+                            cwd=config["hashcat_binary"],
                         )
                     except Exception as e:
                         if "returned non-zero exit status 1." in e:
@@ -77,7 +79,9 @@ class Hashcat:
 
                     possible_output = str(
                         sp.check_output(
-                            f"{command} --show", shell=True, cwd=hash[7]
+                            f"{command} --show",
+                            shell=True,
+                            cwd=config["hashcat_binary"],
                         ).strip()
                     ).strip("'")
 
@@ -85,9 +89,7 @@ class Hashcat:
                         return possible_output.split(":")[1]
 
                 else:
-                    command = (
-                        f"hashcat -a 0 -m {possible_type} {hash_formatted} {hash[6]}"
-                    )
+                    command = f"hashcat -a 0 -m {possible_type} {hash_formatted} {config['wordlist']}"
                     try:
                         sp.check_call(
                             command,

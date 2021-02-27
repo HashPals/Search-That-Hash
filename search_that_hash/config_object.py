@@ -2,11 +2,13 @@ import toml
 from appdirs import *
 import json
 from loguru import logger
+
 logger.remove()
 from name_that_hash import runner as nth
 
 import logging
 import coloredlogs
+
 
 def cli_config(kwargs):
 
@@ -32,7 +34,7 @@ def api_config(hashes: str, sth_api: str = None):
     config = default_config()
     config["hashes"] = create_hash_config(hashes)
     config["api"] = True
-    if not sth_api:
+    if sth_api:
         config["api_keys"]["STH"] = sth_api
     return config
 

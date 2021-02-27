@@ -1,18 +1,19 @@
 [tool.poetry]
 name = "search-that-hash"
-version = "0.1.7"
+version = "0.2.0"
 description = "Search hashes quickly before cracking them"
-authors = ["Jayy", "bee"]
+authors = ["brandon <brandon@skerritt.blog>"]
+license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
 python = "^3.7"
 click = "^7.1.2"
 appdirs = "^1.4.4"
-toml = "^0.10.1"
-loguru = "^0.5.2"
-name-that-hash = "^1.1.5"
+toml = "^0.10.2"
+loguru = "^0.5.3"
+name-that-hash = "^1.1.6"
 requests = "^2.25.1"
-rich = "^9.10.0"
+rich = "^9.12.2"
 coloredlogs = "^15.0"
 
 
