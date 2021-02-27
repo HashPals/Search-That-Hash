@@ -12,19 +12,6 @@ def test_it_works():
 
     assert x is not None
 
-
-<<<<<<< HEAD
-=======
-def test_it_works_fast():
-
-    hashes = ["5d41402abc4b2a76b9719d911017c592"]
-
-    x = api.return_as_fast_json(hashes)
-
-    assert x is not None
-
-
->>>>>>> bee-fix-ci
 def test_it_works_fast():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
