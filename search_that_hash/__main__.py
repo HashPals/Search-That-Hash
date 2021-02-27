@@ -28,7 +28,7 @@ import coloredlogs
     required=False,
     help="The wordlist you want to use for Hashcat.",
 )
-@click.option("--timeout", type=int, help="Choose timeout in seconds.", default=2)
+@click.option("--timeout", type=int, help="Choose timeout in seconds.", default=3)
 @click.option(
     "-g", "--greppable", is_flag=True, help="Prints as JSON, use this to grep."
 )
