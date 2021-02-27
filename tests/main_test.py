@@ -112,3 +112,10 @@ def test_cli_no_hashes():
     result = runner.invoke(main, [])
     assert result.exit_code == 0
     assert "Error." in result.output
+ 
+def test_sth_api_key():
+    hashes = ["5d41402abc4b2a76b9719d911017c592"]
+
+    x = api.return_as_fast_json(hashes, "meow")
+
+    assert x is not None
