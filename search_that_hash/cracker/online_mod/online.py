@@ -1,8 +1,7 @@
 import requests
-import json
 
 
-class LmRainbowTabels:
+class LmRainbowTables:
 
     # it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
 
@@ -32,7 +31,7 @@ class LmRainbowTabels:
             response = requests.request(
                 "POST", url, data=payload, headers=headers, timeout=config["timeout"]
             ).text.split("&nbsp;")
-        except:
+        except Exception:
             return "Not connected"
 
         if "CRACKED" in response[3]:
@@ -57,14 +56,14 @@ class md5crypt:
             if type not in self.supports:
                 continue
 
-            result = self.search_one_type(hash, filtered_type)
+            result = self.search_one_type(hash, config, filtered_type)
 
             if result:
                 return result
 
         return "Failed"
 
-    def search_one_type(self, hash, type):
+    def search_one_type(self, config, type):
         response = requests.get(
             f"https://md5decrypt.net/Api/api.php?hash={config['chash']}&hash_type={type}&email=deanna_abshire@proxymail.eu&code=1152464b80a61728",
             config["timeout"],
@@ -157,7 +156,7 @@ class cmd5:
                     '<span id="LabelAnswer" class="LabelAnswer" onmouseover="toggle();">'
                 )[1]
             ).split("<")[0]
-        except:
+        except Exception:
             return "Failed"
 
 
@@ -195,7 +194,7 @@ class md5_addr:
                     "<div class='white_bg_title'><span class='middle_title'>Hashed string</span>: "
                 )[1]
             ).split("</div")[0]
-        except:
+        except Exception:
             return "Failed"
 
 
@@ -217,7 +216,7 @@ class md5_grom:
             if not text:
                 return "Failed"
             return text
-        except:
+        except Exception:
             return "Not connected"
 
 
@@ -239,7 +238,7 @@ class sha1_grom:
             if not text:
                 return "Failed"
             return text
-        except:
+        except Exception:
             return "Not connected"
 
 
@@ -273,11 +272,11 @@ class opcrack:
             ).text
 
             return "".join(text.split('":"')[1]).split('"}')[0]
-        except:
+        except Exception:
             return "Not connected"
 
 
-class rainbow_tabels:
+class hashdecryption:
 
     supports = set(["sha-256", "md5", "md4", "ntlm"])
 
@@ -288,41 +287,5 @@ class rainbow_tabels:
                 config["timeout"],
             ).text
             return "".join(out.split("</b> is <b>")[1]).split("</b><br>")[0]
-        except:
+        except Exception:
             return "Failed"
-
-
-# Bug Fixing - API / Domain is currently down
-
-
-class hashsorg:
-
-    supports = set(["md5", "ntlm", "sha-1", "md4"])
-    moduels = ["requests"]
-    offline = False
-
-    def crack(self, config):
-        try:
-            request = requests.get(
-                f"https://hashes.org/api.php?key={key}&query={config['chash']}",
-                config["timeout"],
-            ).text
-        except:
-            return "Not connected"
-
-        # Check for false positive
-
-        if "null" in request:
-            return "Not connected"
-        if not request:
-            return "Hash seems to be a plain'"
-
-        output = request.split('":"')[2].split('","')[0]
-
-        # Check for Hex
-
-        if "$HEX[" in output:
-            return bytearray.fromhex(final_output[5 : len(final_output) - 1]).decode()
-            # Partions it so that it only contains hex and then decodes it into ASCII
-
-        return output

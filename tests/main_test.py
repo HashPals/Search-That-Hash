@@ -13,6 +13,18 @@ def test_it_works():
     assert x is not None
 
 
+<<<<<<< HEAD
+=======
+def test_it_works_fast():
+
+    hashes = ["5d41402abc4b2a76b9719d911017c592"]
+
+    x = api.return_as_fast_json(hashes)
+
+    assert x is not None
+
+
+>>>>>>> bee-fix-ci
 def test_it_works_fast():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
@@ -96,4 +108,31 @@ def test_cli_verbose():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99", "-vv"])
     assert result.exit_code == 0
+<<<<<<< HEAD
     assert "DEBUG" in result.output
+=======
+    assert "INFO" in result.output
+
+
+def test_cli_output():
+    runner = CliRunner()
+    result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99"])
+    assert result.exit_code == 0
+    assert "password\nType" in result.output
+    assert "MD5\n" in result.output
+
+
+def test_cli_no_hashes():
+    runner = CliRunner()
+    result = runner.invoke(main, [])
+    assert result.exit_code == 0
+    assert "Error." in result.output
+
+
+def test_sth_api_key():
+    hashes = ["5d41402abc4b2a76b9719d911017c592"]
+
+    x = api.return_as_fast_json(hashes, "meow")
+
+    assert x is not None
+>>>>>>> bee-fix-ci
