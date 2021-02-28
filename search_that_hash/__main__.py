@@ -69,6 +69,22 @@ def main(**kwargs):
             sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
 
+    if kwargs == {  # pragma: no cover
+        "text": None,
+        "file": None,
+        "wordlist": None,
+        "timeout": 3,
+        "greppable": False,
+        "hashcat_binary": None,
+        "offline": False,
+        "verbose": 0,
+        "accessible": False,
+        "no_banner": False,
+    }:
+        with click.Context(main) as ctx:
+            click.echo(ctx.get_help())
+            ctx.exit()
+
     levels = {1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
 
     if kwargs["verbose"] and kwargs["verbose"] <= 3:

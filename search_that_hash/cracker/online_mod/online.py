@@ -1,4 +1,5 @@
 import requests
+import cloudscraper
 
 
 class LmRainbowTables:
@@ -40,6 +41,29 @@ class LmRainbowTables:
             return "Failed"
         if "Uncrackable with this charset" in response[3]:
             return "Failed"
+
+
+class hashtoolkit:
+    supports = set(["md5", "sha-1", "sha-256", "sha-512", "sha-384"])
+
+    def crack(self, config):
+        try:
+            Scraper = cloudscraper.create_scraper()
+            HTML = Scraper.get(
+                f"https://hashtoolkit.com/decrypt-hash/?hash={config['chash']}",
+                timeout=config["timeout"],
+            ).text.splitlines()
+        except:
+            return "Failed"
+
+        for i in range(len(HTML)):
+            if "/generate-hash/?text=" in HTML[i]:
+                output = HTML[i].partition("?text=")[2].split('">')[0]
+                if "</a></span>" in output or 'title="' in output:
+                    return "Failed"
+                else:
+                    return output
+        return "Failed"
 
 
 class md5crypt:

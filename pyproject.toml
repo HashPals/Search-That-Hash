@@ -15,6 +15,7 @@ name-that-hash = "^1.1.6"
 requests = "^2.25.1"
 rich = "^9.12.2"
 coloredlogs = "^15.0"
+cloudscraper = "^1.2.56"
 
 
 [tool.poetry.dev-dependencies]
