@@ -90,8 +90,9 @@ class Sth_api:
 
                 if (
                     "STH_API" not in list(base_results[0].keys())
-                    and not base_results[0]
+                    and base_results[0]
                 ):
+                    print(hash) ; exit(0)
                     self.push(
                         list(hash.keys())[0],
                         list(base_results[0].values())[0],
