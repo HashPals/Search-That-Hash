@@ -68,7 +68,7 @@ def test_help_menu_shows_on_no_input():
 
 def test_gives_timeout_and_other_args_but_not_hash():
     runner = CliRunner()
-    result = runner.invoke(main, ["--vvv","--timeout",1])
+    result = runner.invoke(main, ["-vvv","--timeout",1])
     assert result.exit_code == 0
     assert "Error" in result.output
 
