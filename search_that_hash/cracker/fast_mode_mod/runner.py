@@ -55,12 +55,12 @@ class FastClass:
                 continue
 
             for type in types:
-                types_to_push.append(type['name'])
+                types_to_push.append(type["name"])
                 if len(types_to_push) == 5:
                     break
 
-            self.sth.push(chash,result,types_to_push)
-            
+            self.sth.push(chash, result, types_to_push)
+
             printing.Prettifier.one_print(chash, result)
 
         return self.results

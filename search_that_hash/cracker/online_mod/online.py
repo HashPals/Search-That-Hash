@@ -1,6 +1,7 @@
 import requests
 import cloudscraper
 
+
 class LmRainbowTables:
 
     # it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
@@ -41,15 +42,16 @@ class LmRainbowTables:
         if "Uncrackable with this charset" in response[3]:
             return "Failed"
 
+
 class hashtoolkit:
-    supports = set(
-        ['md5','sha-1','sha-256','sha-512','sha-384']
-        )
+    supports = set(["md5", "sha-1", "sha-256", "sha-512", "sha-384"])
+
     def crack(self, config):
         try:
             Scraper = cloudscraper.create_scraper()
             HTML = Scraper.get(
-                f"https://hashtoolkit.com/decrypt-hash/?hash={config['chash']}", timeout=config['timeout']
+                f"https://hashtoolkit.com/decrypt-hash/?hash={config['chash']}",
+                timeout=config["timeout"],
             ).text.splitlines()
         except:
             return "Failed"
@@ -62,6 +64,8 @@ class hashtoolkit:
                 else:
                     return output
         return "Failed"
+
+
 class md5crypt:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(

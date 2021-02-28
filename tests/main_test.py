@@ -113,6 +113,7 @@ def test_cli_output():
     assert "password\nType" in result.output
     assert "MD5\n" in result.output
 
+
 def test_sth_api_key():
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
 
