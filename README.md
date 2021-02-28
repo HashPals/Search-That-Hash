@@ -54,6 +54,32 @@ To run.
 
 **Note**: We can't guarantee all of the APIs provide perfect privacy due to being closed source. If you need to crack sensitive, personal information please use the offline mode or Hashcat directly.
 
+# 👪 Project Family
+
+Like Search-That-Hash? We have 2 other projects you'll **love**!
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Project Family</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><b>Name-That-Hash</b></td>
+          <td><b>Ciphey</b></td>
+        </tr>
+      <tr>
+        <td><img src="/Pictures/demo_nth.gif"></img></td>
+        <td><img src="https://raw.githubusercontent.com/Ciphey/Ciphey/master/Pictures_for_README/index.gif"></img></td>
+      </tr>
+      <tr>
+        <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
+        <td>
+          Automatically decodes encodings, cracks ciphers without the key, cracks hashes, esolangs and more. Use this when you have some sort of encoded text and you're not sure what it is.</td>
+      
+    </tbody>
+</table>
 
 # 📖 Documentation
 
