@@ -20,6 +20,7 @@ class Searcher:
         self.config = config
         self.searchers_offline = [hashcat.Hashcat()]
         self.searchers_online = [
+            online.hashtoolkit(),
             online.md5crypt(),
             online.hashdecryption(),
             online.nitrxgen(),
