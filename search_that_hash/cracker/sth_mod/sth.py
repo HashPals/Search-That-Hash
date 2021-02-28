@@ -38,7 +38,7 @@ class Sth_api:
 
         return output, config
 
-    def push(self, chash: str, result: str, types: list):
+    def push(self, chash: str, result: str, types: list):  # pragma: no cover
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
         headers = {
             "x-api-key": f"{self.config['api_keys']['STH']}",
