@@ -66,8 +66,8 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
     </thead>
     <tbody>
         <tr>
-          <td><b>Name-That-Hash</b></td>
-          <td><b>Ciphey</b></td>
+          <td align="center"><b><a href="https://github.com/HashPals/Name-That-Hash">Name-That-Hash</a></b></td>
+          <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
         </tr>
       <tr>
         <td><img src="/Pictures/demo_nth.gif"></img></td>
