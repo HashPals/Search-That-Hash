@@ -54,10 +54,9 @@ def test_password_in_sha512():
     assert "password" in x
 
 
-def test_help_menu():
+def test_help_menu_shows_on_no_input():
     runner = CliRunner()
     result = runner.invoke(main)
-    print(result.output)
     assert "Search-That-Hash - The fastest way to crack any hash." in result.output
 
 
@@ -65,7 +64,6 @@ def test_cli():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99"])
     assert result.exit_code == 0
-    print(result.output)
     assert "password" in result.output
 
 
@@ -122,7 +120,7 @@ def test_sth_api_key():
     assert x is not None
 
 
-def test_cli_fail_on_grep():
+def test_cli_fail_on_grep(): # Fixes #63 issue
     runner = CliRunner()
     result = runner.invoke(
         main,

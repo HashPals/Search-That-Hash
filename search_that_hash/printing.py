@@ -53,7 +53,7 @@ class Prettifier:
         console.print(texts)
 
     @staticmethod
-    def one_print(chash, result):  # pragma: no cover
+    def one_print(chash, result):  
         console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
         console.print(
             f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"

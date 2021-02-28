@@ -10,7 +10,7 @@ import logging
 import coloredlogs
 
 
-def cli_config(kwargs):  # pragma: no cover
+def cli_config(kwargs):
 
     config = default_config()
 
