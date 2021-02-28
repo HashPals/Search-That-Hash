@@ -76,9 +76,9 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
       <tr>
         <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
         <td>
-          Automatically decodes encodings, cracks ciphers without the key, cracks hashes, esolangs and more. Use this when you have some sort of encoded text and you're not sure what it is.</td>
-      
-    </tbody>
+          Automatically decodes encodings, cracks ciphers without the key, cracks hashes, esolangs and more. Use this when you have some sort of encoded text and you're not sure what it is.
+      </td>
+
 </table>
 
 # 📖 Documentation
