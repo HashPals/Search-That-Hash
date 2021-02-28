@@ -24,6 +24,9 @@ class Sth_api:
         except requests.exceptions.Timeout:
             return (False, config)
 
+        if "errorMessage" in response.json():
+            return (False, config)
+
         output = response.json()["body"]
 
         for key in output.keys():
@@ -87,7 +90,7 @@ class Sth_api:
 
                 if (
                     "STH_API" not in list(base_results[0].keys())
-                    and not base_results[0]
+                    and base_results[0]
                 ):
                     self.push(
                         list(hash.keys())[0],

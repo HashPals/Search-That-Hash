@@ -18,7 +18,7 @@ def cli_config(kwargs):
         config["hashes"] = [kwargs["text"]]
     elif kwargs["file"] != None:
         logging.debug("Hashes are from file")
-        config["hashes"] = "".join(list(kwargs["file"])).split("\n")
+        config["hashes"] = "".join(list(kwargs["file"])).strip().split("\n")
     else:
         print("Error. No hashes were inputted. Use the help menu --help")
         exit(0)
@@ -51,7 +51,6 @@ def default_config():
         "wordlist": None,
         "offline": False,
     }
-
 
 def create_hash_config(hashes):
     # Gets the results from name-that-hash

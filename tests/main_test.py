@@ -12,6 +12,7 @@ def test_it_works():
 
     assert x is not None
 
+
 def test_it_works_fast():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
@@ -52,6 +53,11 @@ def test_password_in_sha512():
 
     assert "password" in x
 
+
+def test_help_menu():
+    runner = CliRunner()
+    result = runner.invoke(main)
+    assert "Search-That-Hash - The fastest way to crack any hash." in result.output
 
 def test_cli():
     runner = CliRunner()
@@ -119,8 +125,7 @@ def test_sth_api_key():
     x = api.return_as_fast_json(hashes, "meow")
 
     assert x is not None
-    
-    
+
 def test_cli_fail_on_grep():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "jadjsjhd9239uh80dahjdah8isdh90wq90hj0j9fj9023j0-12j-j-0fasj0a", "-g"])
