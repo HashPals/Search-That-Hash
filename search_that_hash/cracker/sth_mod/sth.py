@@ -24,6 +24,9 @@ class Sth_api:
         except requests.exceptions.Timeout:
             return (False, config)
 
+        if "errorMessage" in response.json():
+            return (False, config)
+
         output = response.json()["body"]
 
         for key in output.keys():

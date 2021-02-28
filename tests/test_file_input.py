@@ -18,8 +18,9 @@ def test_cli_file_password_in_output():
     print(result.output)
     assert "password" in result.output
 
-'''def test_cli_file_password_in_b64_output():
+
+"""def test_cli_file_password_in_b64_output():
     runner = CliRunner()
     result = runner.invoke(main, ["-f", "tests/mocks/hashes.txt", "--base64"])
     assert result.exit_code == 0
-    assert "password" not in result.output'''
+    assert "password" not in result.output"""

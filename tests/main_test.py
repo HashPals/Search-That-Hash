@@ -12,6 +12,7 @@ def test_it_works():
 
     assert x is not None
 
+
 def test_it_works_fast():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
