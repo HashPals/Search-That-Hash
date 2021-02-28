@@ -54,6 +54,11 @@ def test_password_in_sha512():
     assert "password" in x
 
 
+def test_help_menu():
+    runner = CliRunner()
+    result = runner.invoke(main)
+    assert "Search-That-Hash - The fastest way to crack any hash." in result.output
+
 def test_cli():
     runner = CliRunner()
     result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99"])
