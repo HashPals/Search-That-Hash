@@ -53,6 +53,13 @@ def test_password_in_sha512():
 
     assert "password" in x
 
+def test_cli_config_works():
+    from search_that_hash import config_object
+    assert 'api_key' in str(config_object.cli_config({'text':'98B243DC240F6D21AAD3B435B51404EE','file':None}))
+
+def test_one_print():
+    from search_that_hash import printing
+    printing.Prettifier.one_print("Test","Test")
 
 def test_help_menu_shows_on_no_input():
     runner = CliRunner()
