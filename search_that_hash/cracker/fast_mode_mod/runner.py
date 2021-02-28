@@ -50,16 +50,16 @@ class FastClass:
                 printing.Prettifier.error_print("Could not crack hash.", chash)
                 continue
 
-            if self.config["api"]:
-                self.results.append({chash: result})
-                continue
-
             for type in types:
                 types_to_push.append(type["name"])
                 if len(types_to_push) == 5:
                     break
 
             self.sth.push(chash, result, types_to_push)
+
+            if self.config["api"]:
+                self.results.append({chash: result})
+                continue
 
             printing.Prettifier.one_print(chash, result)
 

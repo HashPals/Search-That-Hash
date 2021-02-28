@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "search-that-hash"
-version = "0.2.0"
+version = "0.2.2"
 description = "Search hashes quickly before cracking them"
-authors = ["brandon <brandon@skerritt.blog>"]
+authors = ["brandon <brandon@skerritt.blog>","jayy <jayy2004@gmx.co.uk>"]
 license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
