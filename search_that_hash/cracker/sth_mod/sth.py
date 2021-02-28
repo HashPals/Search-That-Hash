@@ -46,8 +46,8 @@ class Sth_api:
         }
         payload = json.dumps({"Hash": chash, "Plaintext": result, "Type": types})
         try:
-            r = requests.request("PUT", url, headers=headers, data=payload)
-        except:
+            requests.request("PUT", url, headers=headers, data=payload)
+        except Exception:
             pass
 
     def sth_output(self):
@@ -85,8 +85,8 @@ class Sth_api:
 
                 for type in self.config["hashes"][list(hash.keys())[0]]:
                     types.append(type["name"])
-                    if len(types) == 5:
-                        break  # We dont want to add all 100 possible types
+                    if len(types) == 5:  # We dont want to add all 100 possible types
+                        break
 
                 if "STH_API" not in list(base_results[0].keys()) and base_results[0]:
                     self.push(

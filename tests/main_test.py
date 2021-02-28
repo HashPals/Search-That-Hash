@@ -53,24 +53,35 @@ def test_password_in_sha512():
 
     assert "password" in x
 
+
 def test_cli_config_works():
     from search_that_hash import config_object
-    assert 'api_key' in str(config_object.cli_config({'text':'98B243DC240F6D21AAD3B435B51404EE','file':None}))
+
+    assert "api_key" in str(
+        config_object.cli_config(
+            {"text": "98B243DC240F6D21AAD3B435B51404EE", "file": None}
+        )
+    )
+
 
 def test_one_print():
     from search_that_hash import printing
-    printing.Prettifier.one_print("Test","Test")
+
+    printing.Prettifier.one_print("Test", "Test")
+
 
 def test_help_menu_shows_on_no_input():
     runner = CliRunner()
     result = runner.invoke(main)
     assert "Search-That-Hash - The fastest way to crack any hash." in result.output
 
+
 def test_gives_timeout_and_other_args_but_not_hash():
     runner = CliRunner()
-    result = runner.invoke(main, ["-vvv","--timeout",1])
+    result = runner.invoke(main, ["-vvv", "--timeout", 1])
     assert result.exit_code == 0
     assert "Error" in result.output
+
 
 def test_cli():
     runner = CliRunner()
@@ -132,7 +143,7 @@ def test_sth_api_key():
     assert x is not None
 
 
-def test_cli_fail_on_grep(): # Fixes #63 issue
+def test_cli_fail_on_grep():  # Fixes #63 issue
     runner = CliRunner()
     result = runner.invoke(
         main,
