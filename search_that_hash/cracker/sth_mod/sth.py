@@ -24,9 +24,6 @@ class Sth_api:
         except requests.exceptions.Timeout:
             return (False, config)
 
-        if "errorMessage" in response.json():
-            return (False, config)
-
         output = response.json()["body"]
 
         for key in output.keys():
@@ -38,7 +35,7 @@ class Sth_api:
 
         return output, config
 
-    def push(self, chash: str, result: str, types: list):  # pragma: no cover
+    def push(self, chash: str, result: str, types: list):
         url = "https://av5b81zg3k.execute-api.us-east-2.amazonaws.com/prod/insert"
         headers = {
             "x-api-key": f"{self.config['api_keys']['STH']}",
@@ -85,10 +82,13 @@ class Sth_api:
 
                 for type in self.config["hashes"][list(hash.keys())[0]]:
                     types.append(type["name"])
-                    if len(types) == 5:  # We dont want to add all 100 possible types
-                        break
+                    if len(types) == 4:
+                        break  # We dont want to add all 100 possible types
 
-                if "STH_API" not in list(base_results[0].keys()) and base_results[0]:
+                if (
+                    "STH_API" not in list(base_results[0].keys())
+                    and not base_results[0]
+                ):
                     self.push(
                         list(hash.keys())[0],
                         list(base_results[0].values())[0],

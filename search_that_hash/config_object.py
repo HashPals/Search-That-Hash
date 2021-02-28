@@ -18,7 +18,7 @@ def cli_config(kwargs):
         config["hashes"] = [kwargs["text"]]
     elif kwargs["file"] != None:
         logging.debug("Hashes are from file")
-        config["hashes"] = "".join(list(kwargs["file"])).strip().split("\n")
+        config["hashes"] = "".join(list(kwargs["file"])).split("\n")
     else:
         print("Error. No hashes were inputted. Use the help menu --help")
         exit(0)
