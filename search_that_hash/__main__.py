@@ -73,7 +73,7 @@ def main(**kwargs):
         "text": None,
         "file": None,
         "wordlist": None,
-        "timeout": 2,
+        "timeout": 3,
         "greppable": False,
         "hashcat_binary": None,
         "offline": False,

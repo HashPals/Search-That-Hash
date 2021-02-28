@@ -52,6 +52,7 @@ def default_config():
         "offline": False,
     }
 
+
 def create_hash_config(hashes):
     # Gets the results from name-that-hash
     logging.debug("Called NTH to get hash types")

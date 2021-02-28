@@ -88,10 +88,7 @@ class Sth_api:
                     if len(types) == 4:
                         break  # We dont want to add all 100 possible types
 
-                if (
-                    "STH_API" not in list(base_results[0].keys())
-                    and base_results[0]
-                ):
+                if "STH_API" not in list(base_results[0].keys()) and base_results[0]:
                     self.push(
                         list(hash.keys())[0],
                         list(base_results[0].values())[0],
