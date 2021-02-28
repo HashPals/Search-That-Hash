@@ -69,7 +69,7 @@ def main(**kwargs):
             sth --text "5f4dcc3b5aa765d61d8327deb882cf99"
     """
 
-    if kwargs == {
+    if kwargs == {  # pragma: no cover
         "text": None,
         "file": None,
         "wordlist": None,
