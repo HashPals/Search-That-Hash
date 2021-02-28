@@ -27,6 +27,8 @@ class FastClass:
 
         for chash, types in self.config["hashes"].items():
 
+            types_to_push = []
+
             self.hash_processes.append(
                 cracking.Searcher.main(self.searcher, chash, types)
             )
@@ -51,6 +53,13 @@ class FastClass:
             if self.config["api"]:
                 self.results.append({chash: result})
                 continue
+
+            for type in types:
+                types_to_push.append(type["name"])
+                if len(types_to_push) == 5:
+                    break
+
+            self.sth.push(chash, result, types_to_push)
 
             printing.Prettifier.one_print(chash, result)
 
