@@ -1,7 +1,7 @@
 
 <p align="center">
 <img src="Pictures/logo.gif">
-<p align="center">➡️ <a href="https://discord.gg/zYTM3rZM4T">Discord</a> | <a href="https://nth.skerrittt.blog">Website</a> ⬅️</p>
+<p align="center">➡️ <a href="discord.skerritt.blog">Discord</a></p>
   <p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/></p>
 
 <p align="center">The Fastest Hash Cracking System<br>
@@ -91,7 +91,7 @@ Thats why we have documentation!
 
 | 📚 **Documentation** | 🐦 **My Twitter (@ me for questions)** | 🎳 **Discord** 
 | --------------- | ----------------------------------- | ---------------- | 
-| [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](https://discord.gg/zYTM3rZM4T) | 
+| [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](discord.skerritt.blog) | 
 
 
 # ✍️ Contributing
