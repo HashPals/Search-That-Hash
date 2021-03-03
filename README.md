@@ -1,7 +1,7 @@
 
 <p align="center">
 <img src="Pictures/logo.gif">
-<p align="center">➡️ <a href="https://discord.gg/zYTM3rZM4T">Discord</a> | <a href="https://nth.skerrittt.blog">Website</a> ⬅️</p>
+<p align="center">➡️ <a href="http://discord.skerritt.blog">Discord</a> ⬅️</p>
   <p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/></p>
 
 <p align="center">The Fastest Hash Cracking System<br>
@@ -69,8 +69,8 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
           <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
         </tr>
       <tr>
-        <td><img src="/Pictures/demo_nth.gif"></img></td>
-        <td><img src="https://raw.githubusercontent.com/Ciphey/Ciphey/master/Pictures_for_README/index.gif"></img></td>
+        <td><img src="/Pictures/demo_nth.gif" width="500" height="500"></img></td>
+        <td><img src="https://raw.githubusercontent.com/Ciphey/Ciphey/master/Pictures_for_README/index.gif" width="500" height="500"></img></td>
       </tr>
       <tr>
         <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
