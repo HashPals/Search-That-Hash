@@ -10,8 +10,7 @@
 
 # 🤔 Overview
 
-<img src="Pictures/speedrunning.gif">
-<p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 2.13 seconds</i></p>
+<img src="Pictures/main_demo.gif">
 
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less than 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
@@ -80,6 +79,14 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
       </td>
 
 </table>
+
+# 📼 Demos
+
+<img src="Pictures/speedrunning.gif">
+<p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 2.13 seconds</i></p>
+
+<img src="Pictures/password_grep.gif">
+<p align="center">Greppable mode</p>
 
 # 📖 Documentation
 
