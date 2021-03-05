@@ -69,7 +69,7 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
           <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
         </tr>
       <tr>
-        <td><img src="https://raw.githubusercontent.com/HashPals/Name-That-Hash/main/logo.gif"></img></td>
+        <td><img src="https://nth.skerritt.blog/static/media/name.2642f1af.png"></img></td>
           <td>
             <p align="center">
               <img src="Pictures/ciphey_logo.PNG"></img>
