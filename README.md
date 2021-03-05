@@ -71,7 +71,11 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
         </tr>
       <tr>
         <td><img src="https://raw.githubusercontent.com/HashPals/Name-That-Hash/main/logo.gif"></img></td>
-        <td><img src="Pictures/ciphey_logo.PNG"></img></td>
+          <td>
+            <p align="center">
+              <img src="Pictures/ciphey_logo.PNG"></img>
+            </p>
+          </td>
       </tr>
       <tr>
         <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
