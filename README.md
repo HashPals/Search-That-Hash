@@ -82,9 +82,6 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
 
 # 📼 Demos
 
-<img src="Pictures/speedrunning.gif">
-<p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 2.13 seconds</i></p>
-
 <img src="Pictures/password_grep.gif">
 <p align="center">Greppable mode</p>
 
