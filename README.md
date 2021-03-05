@@ -81,6 +81,9 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
         <td>
           Automatically decrypt ciphers, decode encodings, crack hashes, and more. Not sure what the text is? Use this!
       </td>
+    </tbody>
+    </thead>
+</table>
 
 # 🎥 Demos
 
