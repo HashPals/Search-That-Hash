@@ -97,7 +97,6 @@ Thats why we have documentation!
 | --------------- | ----------------------------------- | ---------------- | 
 | [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](https://discord.gg/zYTM3rZM4T) | 
 
-
 # ✍️ Contributing
 
 We would love any contributions to search-that-hash, thats why we've made it as simple and as easy as we can to contribute! Simply follow the docs on "Contributing" 😇
