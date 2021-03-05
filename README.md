@@ -57,7 +57,7 @@ To run.
 
 Like Search-That-Hash? We have 2 other projects you'll **love**!
 
-<table>
+<table width="300" cellspacing="0" cellpadding="0">
     <thead>
         <tr>
             <th colspan="2">Project Family</th>
