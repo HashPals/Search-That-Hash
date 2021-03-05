@@ -55,14 +55,29 @@ To run.
 
 # 👪 Project Family
 
+
 Like Search-That-Hash? We have 2 other projects you'll **love**!
 
-| **Name That Hash** | **Ciphey** | 
-| --------------- | ----------------------------------- |
-| https://github.com/HashPals/Name-That-Hash | https://github.com/ciphey/ciphey | 
-| https://github.com/HashPals/Name-That-Hash/raw/main/logo.gif | https://github.com/ciphey/ciphey |
-
-# 📼 Demos
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Project Family</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td align="center"><b><a href="https://github.com/HashPals/Name-That-Hash/raw/main/logo.gif">Name-That-Hash</a></b></td>
+          <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
+        </tr>
+      <tr>
+        <td><img src="/Pictures/demo_nth.gif"></img></td>
+        <td><img src="Pictures/ciphey_logo.PNG"></img></td>
+      </tr>
+      <tr>
+        <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
+        <td>
+          Automatically decrypt ciphers, decode encodings, crack hashes, and more. Not sure what the text is? Use this!
+      </td>
 
 <img src="Pictures/password_grep.gif">
 <p align="center">Greppable mode</p>
