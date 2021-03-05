@@ -10,7 +10,7 @@
 
 # 🤔 Overview
 
-<img src="Pictures/main_demo.gif">
+<img src="Pictures/thm_speedrun.gif">
 
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less than 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
