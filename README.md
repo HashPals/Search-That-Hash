@@ -66,11 +66,11 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
     </thead>
     <tbody>
         <tr>
-          <td align="center"><b><a href="https://github.com/HashPals/Name-That-Hash/raw/main/logo.gif">Name-That-Hash</a></b></td>
+          <td align="center"><b><a href="https://github.com/HashPals/Name-That-Hash">Name-That-Hash</a></b></td>
           <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
         </tr>
       <tr>
-        <td><img src="/Pictures/demo_nth.gif"></img></td>
+        <td><img src="https://raw.githubusercontent.com/HashPals/Name-That-Hash/main/logo.gif"></img></td>
         <td><img src="Pictures/ciphey_logo.PNG"></img></td>
       </tr>
       <tr>
