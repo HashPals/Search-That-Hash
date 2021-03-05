@@ -69,8 +69,8 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
           <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
         </tr>
         <tr>
-          <td><img src="/Pictures/NTH.PNG"></img></td>
-          <td><img src="/Pictures/ciphey_example.PNG"></img></td>
+          <td><img src="https://github.com/HashPals/Name-That-Hash/raw/main/logo.gif"></img></td>
+          <td><img src="https://github.com/Ciphey/Ciphey/raw/master/Pictures_for_README/binoculars.png"></img></td>
         </tr>
       <tr>
         <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
