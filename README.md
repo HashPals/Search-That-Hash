@@ -57,28 +57,10 @@ To run.
 
 Like Search-That-Hash? We have 2 other projects you'll **love**!
 
-<table width="300" cellspacing="0" cellpadding="0">
-    <thead>
-        <tr>
-            <th colspan="2">Project Family</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td align="center"><b><a href="https://github.com/HashPals/Name-That-Hash">Name-That-Hash</a></b></td>
-          <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
-        </tr>
-        <tr>
-          <td><img src="https://github.com/HashPals/Name-That-Hash/raw/main/logo.gif"></img></td>
-          <td><img src="Pictures/ciphey_logo.PNG" align="center"></img></td>
-        </tr>
-      <tr>
-        <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
-        <td>
-          Automatically decrypt ciphers without knowing the key, decode encodings, crack hashes, and more.
-      </td>
-
-</table>
+| **Name That Hash** | **Ciphey** | 
+| --------------- | ----------------------------------- |
+| https://github.com/HashPals/Name-That-Hash | https://github.com/ciphey/ciphey | 
+| https://github.com/HashPals/Name-That-Hash/raw/main/logo.gif | https://github.com/ciphey/ciphey |
 
 # 📼 Demos
 
