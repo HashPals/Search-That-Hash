@@ -82,6 +82,8 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
           Automatically decrypt ciphers, decode encodings, crack hashes, and more. Not sure what the text is? Use this!
       </td>
 
+# 🎥 Demos
+
 <img src="Pictures/password_grep.gif">
 <p align="center">Greppable mode</p>
 
