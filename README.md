@@ -10,7 +10,7 @@
 
 # 🤔 Overview
 
-<img src="Pictures/speedrunning.gif">
+<img src="Pictures/thm_speedrun.gif">
 <p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 2.13 seconds</i></p>
 
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less than 2 seconds.
