@@ -68,6 +68,10 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
           <td align="center"><b><a href="https://github.com/HashPals/Name-That-Hash">Name-That-Hash</a></b></td>
           <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
         </tr>
+        <tr>
+          <td><img src="/Pictures/NTH.gif"></img></td>
+          <td><img src="/Pictures/ciphey.gif"></img></td>
+        </tr>
       <tr>
         <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
         <td>
