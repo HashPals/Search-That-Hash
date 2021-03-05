@@ -70,7 +70,7 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
         </tr>
         <tr>
           <td><img src="/Pictures/NTH.PNG"></img></td>
-          <td><img src="/Pictures/ciphey.PNG"></img></td>
+          <td><img src="/Pictures/ciphey_example.PNG"></img></td>
         </tr>
       <tr>
         <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
