@@ -1,8 +1,9 @@
 
 <p align="center">
 <img src="Pictures/logo.gif">
+ 
 <p align="center">➡️ <a href="http://discord.skerritt.blog">Discord</a> ⬅️</p>
-  <p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/></p>
+<p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/></p>
 
 <p align="center">The Fastest Hash Cracking System<br>
 <code>pip3 install search-that-hash && sth</code>
@@ -100,7 +101,7 @@ Thats why we have documentation!
 
 | 📚 **Documentation** | 🐦 **My Twitter (@ me for questions)** | 🎳 **Discord** 
 | --------------- | ----------------------------------- | ---------------- | 
-| [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](https://discord.gg/zYTM3rZM4T) | 
+| [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](http://discord.com/invite/zYTM3rZM4T) | 
 
 # ✍️ Contributing
 
