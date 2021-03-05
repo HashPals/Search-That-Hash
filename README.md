@@ -1,8 +1,9 @@
 
 <p align="center">
 <img src="Pictures/logo.gif">
-<p align="center">➡️ <a href="http://discord.com/invite/zYTM3rZM4T">Discord</a> ⬅️</p>
-  <p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/></p>
+ 
+<p align="center">➡️ <a href="http://discord.skerritt.blog">Discord</a> ⬅️</p>
+<p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/></p>
 
 <p align="center">The Fastest Hash Cracking System<br>
 <code>pip3 install search-that-hash && sth</code>
@@ -10,8 +11,7 @@
 
 # 🤔 Overview
 
-<img src="Pictures/speedrunning.gif">
-<p align="center"><i>100% Speedrun <a href="https://tryhackme.com/room/crackthehash">TryHackMe Crack the Hashes</a> 2.13 seconds</i></p>
+<img src="Pictures/thm_speedrun.gif">
 
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less than 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
@@ -70,16 +70,26 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
           <td align="center"><b><a href="https://github.com/ciphey/ciphey">Ciphey</a></b></td>
         </tr>
       <tr>
-        <td><img src="/Pictures/demo_nth.gif"></img></td>
-        <td><img src="https://raw.githubusercontent.com/Ciphey/Ciphey/master/Pictures_for_README/index.gif"></img></td>
+        <td><img src="https://nth.skerritt.blog/static/media/name.2642f1af.png"></img></td>
+          <td>
+            <p align="center">
+              <img src="Pictures/ciphey_logo.PNG"></img>
+            </p>
+          </td>
       </tr>
       <tr>
         <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
         <td>
           Automatically decrypt ciphers, decode encodings, crack hashes, and more. Not sure what the text is? Use this!
       </td>
-
+    </tbody>
+    </thead>
 </table>
+
+# 🎥 Demos
+
+<img src="Pictures/password_grep.gif">
+<p align="center">Greppable mode</p>
 
 # 📖 Documentation
 
@@ -92,7 +102,6 @@ Thats why we have documentation!
 | 📚 **Documentation** | 🐦 **My Twitter (@ me for questions)** | 🎳 **Discord** 
 | --------------- | ----------------------------------- | ---------------- | 
 | [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](http://discord.com/invite/zYTM3rZM4T) | 
-
 
 # ✍️ Contributing
 
