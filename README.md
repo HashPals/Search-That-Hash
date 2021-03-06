@@ -3,7 +3,7 @@
 <img src="Pictures/logo.gif">
  
 <p align="center">➡️ <a href="http://discord.skerritt.blog">Discord</a> ⬅️</p>
-<p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/></p>
+<p align="center"><img src="https://codecov.io/gh/HashPals/Search-That-Hash/branch/main/graph/badge.svg?token=5CYVJ15U4T"/> <img src="https://pepy.tech/badge/search-that-hash/month"> <img alt="Discord" src="https://img.shields.io/discord/754001738184392704"></p>
 
 <p align="center">The Fastest Hash Cracking System<br>
 <code>pip3 install search-that-hash && sth</code>
