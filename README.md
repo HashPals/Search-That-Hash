@@ -33,7 +33,7 @@ Search-That-Hash searches the most popular hash cracking sites and automatically
 
 Couldn't find it in any API? 😢 STH automatically pipes your input into Hashcat 🥳
 
-Make sure to specifcy a wordlist if you want it to use hashcat with `-w /path/to/wordlist`, on windows? No worries, just add the arg `-hashcat_binary /path/to/hashcat/exe` as shown above😊 
+Make sure to specify a wordlist if you want STH to use HashCat with `-w /path/to/wordlist`. If you are on Windows you must specify the path to your HashCat binary with the arg `-hashcat_binary /path/to/hashcat/exe` as shown above. 😊
 
 # 🔨 Installation
 
