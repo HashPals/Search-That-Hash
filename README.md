@@ -33,6 +33,8 @@ Search-That-Hash searches the most popular hash cracking sites and automatically
 
 Couldn't find it in any API? 😢 STH automatically pipes your input into Hashcat 🥳
 
+Make sure to specifcy a wordlist if you want it to use hashcat with `-w /path/to/wordlist`, on windows? No worries, just add the arg `-hashcat_binary /path/to/hashcat/exe` as shown above😊 
+
 # 🔨 Installation
 
 Install Search-That-Hash as fast as you can read this README. No, seriously -- it's that easy  😎
