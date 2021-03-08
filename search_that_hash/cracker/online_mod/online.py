@@ -1,7 +1,5 @@
 import requests
 import cloudscraper
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning) # Used to disable console warning for using nitrxgen with verify=False
 
 class LmRainbowTables:
 
@@ -106,7 +104,7 @@ class nitrxgen:
 
     def crack(self, config):
         response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + config["chash"], timeout=config["timeout"], verify=False
+            "https://www.nitrxgen.net/md5db/" + config["chash"], timeout=config["timeout"], verify="nitrxgen.pem"
         ).text
 
         if response:
