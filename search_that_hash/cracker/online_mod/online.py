@@ -5,8 +5,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning) # Used to di
 
 class LmRainbowTables:
 
-    # it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
-
     supports = set(["lm"])
 
     def crack(self, config):
