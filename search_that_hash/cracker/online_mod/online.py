@@ -1,6 +1,7 @@
 import requests
 import cloudscraper
-
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class LmRainbowTables:
 
@@ -107,7 +108,7 @@ class nitrxgen:
 
     def crack(self, config):
         response = requests.get(
-            "http://www.nitrxgen.net/md5db/" + config["chash"], timeout=config["timeout"]
+            "https://www.nitrxgen.net/md5db/" + config["chash"], timeout=config["timeout"], verify=False
         ).text
 
         if response:
