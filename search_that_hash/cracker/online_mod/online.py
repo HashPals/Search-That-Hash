@@ -101,15 +101,13 @@ class md5crypt:
         else:
             return None
 
-
-# Bug fixing, should be all good
 class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5"])
 
     def crack(self, config):
         response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + config["chash"], config["timeout"]
+            "http://www.nitrxgen.net/md5db/" + config["chash"], timeout=config["timeout"]
         ).text
 
         if response:
