@@ -22,7 +22,7 @@ class Prettifier:
 
         links = [
             "https://twitter.com/bee_sec_san",
-            "https://github.com/HashPals/Name-That-Hash",
+            "https://github.com/HashPals/Search-That-Hash",
             "https://twitter.com/Jayy_2004",
         ]
 
