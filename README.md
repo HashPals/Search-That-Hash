@@ -92,7 +92,7 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
 
 # ✨ Google Colab
 
-We now have support for running STH on google colab for faster hashcat cracking, no need to worry about running hashcat on your machine anymore! Many thanks to vaishnavpardhi for making this :-)
+We now have support for running STH on google colab for faster hashcat cracking, no need to worry about running hashcat on your machine anymore! Many thanks to [Drago](https://twitter.com/vaishnavpardhi) for making this :-)
 
 https://github.com/vaishnavpardhi/colabsth/
 
