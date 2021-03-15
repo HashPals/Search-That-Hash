@@ -90,6 +90,12 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
 <img src="Pictures/password_grep.gif">
 <p align="center">Greppable mode</p>
 
+# ✨ Google Colab
+
+We now have support for running STH on google colab for faster hashcat cracking, no need to worry about running hashcat on your machine anymore! Many thanks to vaishnavpardhi for making this :-)
+
+https://github.com/vaishnavpardhi/colabsth/
+
 # 📖 Documentation
 
 Want to know how everything works? 
