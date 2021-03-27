@@ -7,6 +7,7 @@ from name_that_hash import runner as nth
 
 import logging
 import coloredlogs
+import os.path
 
 
 def cli_config(kwargs):
@@ -50,7 +51,28 @@ def default_config():
         "wordlist": None,
         "offline": False,
     }
-    with open("config.json") as json_file:
+
+    defults = {
+    
+        "hashes_dot_org":"test",
+        "sth_api":"test",
+        "hashcat_exe_name":"hashcat",
+        "hashcat_folder":""
+    
+    }
+
+    appname = "Search-That-Hash"
+    appauthor = "HashPals"
+
+    config_json = user_data_dir(appname, appauthor) + "\\config.json"
+
+    if not os.path.isfile(config_json):
+        os.makedirs(user_data_dir(appname, appauthor))
+        file = open(config_json, "w+")
+        file.write(json.dumps(defults))
+        file.close()
+
+    with open(config_json) as json_file:
         json_contents = json.load(json_file)
         json_file.close()
 
