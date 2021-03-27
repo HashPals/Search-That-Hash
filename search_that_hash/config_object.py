@@ -1,4 +1,3 @@
-import toml
 from appdirs import *
 import json
 from loguru import logger
@@ -40,7 +39,7 @@ def api_config(hashes: str, sth_api: str = None):
 
 
 def default_config():
-    return {
+    config = {
         "api_keys": {"STH": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa"},
         "hashcat": False,
         "api": False,
@@ -51,7 +50,13 @@ def default_config():
         "wordlist": None,
         "offline": False,
     }
+    with open("config.json") as json_file:
+        json_contents = json.load(json_file)
+        json_file.close()
 
+    config.update(json_contents)
+
+    return config
 
 def create_hash_config(hashes):
     # Gets the results from name-that-hash
