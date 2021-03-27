@@ -55,7 +55,7 @@ def default_config():
     defults = {
     
         "hashes_dot_org":"test",
-        "sth_api":"test",
+        "sth_api":"rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
         "hashcat_exe_name":"hashcat",
         "hashcat_folder":""
     

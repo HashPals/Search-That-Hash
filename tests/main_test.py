@@ -2,7 +2,7 @@ from search_that_hash import api
 from click.testing import CliRunner
 
 from search_that_hash.__main__ import main
-
+import os.path
 
 def test_it_works():
 
@@ -150,3 +150,6 @@ def test_cli_fail_on_grep():  # Fixes #63 issue
         ["-t", "jadjsjhd9239uh80dahjdah8isdh90wq90hj0j9fj9023j0-12j-j-0fasj0a", "-g"],
     )
     assert result.exit_code == 0
+
+def test_if_config_file():
+    assert os.path.isfile(config_json) == True
