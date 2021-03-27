@@ -68,9 +68,9 @@ def default_config():
 
     if not os.path.isfile(config_json):
         os.makedirs(user_data_dir(appname, appauthor))
-        file = open(config_json, "w+")
-        file.write(json.dumps(defults))
-        file.close()
+        with open(config_json, "w+") as file:
+            file.write(json.dumps(defults))
+            file.close()
 
     with open(config_json) as json_file:
         json_contents = json.load(json_file)
