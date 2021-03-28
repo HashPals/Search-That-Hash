@@ -58,7 +58,7 @@ class FastClass:
             self.sth.push(chash, result, types_to_push)
 
             if self.config["api"]:
-                self.results.append({chash: result})
+                self.results.append({chash: {"plaintext":result, "types":types_to_push, "verified":False}})
                 continue
 
             printing.Prettifier.one_print(chash, result)
