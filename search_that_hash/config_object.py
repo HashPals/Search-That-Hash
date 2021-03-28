@@ -40,7 +40,7 @@ def api_config(hashes: str, sth_api: str = None):
 
 
 def default_config():
-    config = {
+    defaults = {
         "api_keys": {"STH": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa"},
         "hashcat": False,
         "api": False,
@@ -50,10 +50,6 @@ def default_config():
         "timeout": 1,
         "wordlist": None,
         "offline": False,
-    }
-
-    defults = {
-    
         "hashes_dot_org":"test",
         "sth_api":"rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
         "hashcat_exe_name":"hashcat",
@@ -69,16 +65,15 @@ def default_config():
     if not os.path.isfile(config_json):
         os.makedirs(user_data_dir(appname, appauthor))
         with open(config_json, "w+") as file:
-            file.write(json.dumps(defults))
+            file.write(json.dumps(defaults))
             file.close()
 
     with open(config_json) as json_file:
         json_contents = json.load(json_file)
         json_file.close()
 
-    config.update(json_contents)
+    return json_contents
 
-    return config
 
 def create_hash_config(hashes):
     # Gets the results from name-that-hash

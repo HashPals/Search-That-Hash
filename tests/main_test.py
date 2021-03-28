@@ -1,6 +1,6 @@
 from search_that_hash import api
 from click.testing import CliRunner
-
+from appdirs import *
 from search_that_hash.__main__ import main
 import os.path
 
@@ -151,5 +151,10 @@ def test_cli_fail_on_grep():  # Fixes #63 issue
     )
     assert result.exit_code == 0
 
-def test_if_config_file():
+def test_config_is_there():
+    appname = "Search-That-Hash"
+    appauthor = "HashPals"
+
+    config_json = user_data_dir(appname, appauthor) + "\\config.json"
+
     assert os.path.isfile(config_json) == True
