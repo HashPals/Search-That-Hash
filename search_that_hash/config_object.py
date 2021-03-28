@@ -1,4 +1,3 @@
-import toml
 from appdirs import *
 import json
 from loguru import logger
@@ -8,6 +7,7 @@ from name_that_hash import runner as nth
 
 import logging
 import coloredlogs
+import os.path
 
 
 def cli_config(kwargs):
@@ -40,7 +40,7 @@ def api_config(hashes: str, sth_api: str = None):
 
 
 def default_config():
-    return {
+    config = {
         "api_keys": {"STH": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa"},
         "hashcat": False,
         "api": False,
@@ -52,6 +52,33 @@ def default_config():
         "offline": False,
     }
 
+    defults = {
+    
+        "hashes_dot_org":"test",
+        "sth_api":"rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
+        "hashcat_exe_name":"hashcat",
+        "hashcat_folder":""
+    
+    }
+
+    appname = "Search-That-Hash"
+    appauthor = "HashPals"
+
+    config_json = user_data_dir(appname, appauthor) + "\\config.json"
+
+    if not os.path.isfile(config_json):
+        os.makedirs(user_data_dir(appname, appauthor))
+        with open(config_json, "w+") as file:
+            file.write(json.dumps(defults))
+            file.close()
+
+    with open(config_json) as json_file:
+        json_contents = json.load(json_file)
+        json_file.close()
+
+    config.update(json_contents)
+
+    return config
 
 def create_hash_config(hashes):
     # Gets the results from name-that-hash
