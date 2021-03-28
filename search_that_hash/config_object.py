@@ -73,7 +73,7 @@ def default_config():
         json_contents = json.load(json_file)
         json_file.close()
 
-    return json_file
+    return json_contents
 
 def create_hash_config(hashes):
     # Gets the results from name-that-hash
