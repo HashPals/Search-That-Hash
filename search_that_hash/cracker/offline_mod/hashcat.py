@@ -5,7 +5,6 @@ class Hashcat:
     def crack(self, config):
 
         hashcat_dict = str.maketrans({"$": "\\$"})
-
         hash_formatted = config["chash"].translate(hashcat_dict)
 
         for possible_type in config["hashcat_types"]:
