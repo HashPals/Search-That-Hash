@@ -41,11 +41,6 @@ def api_config(hashes: str, sth_api: str = None):
 
 def default_config():
     defults = {
-    
-        "hashes_dot_org":"test",
-        "sth_api":"rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
-        "hashcat_exe_name":"hashcat",
-        "hashcat_folder":"",
         "api_keys": {"STH": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa"},
         "hashcat": False,
         "api": False,
@@ -55,6 +50,10 @@ def default_config():
         "timeout": 1,
         "wordlist": None,
         "offline": False
+        "hashes_dot_org":"test",
+        "sth_api":"rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
+        "hashcat_exe_name":"hashcat",
+        "hashcat_folder":""
     
     }
 
@@ -74,6 +73,7 @@ def default_config():
         json_file.close()
 
     return json_contents
+
 
 def create_hash_config(hashes):
     # Gets the results from name-that-hash

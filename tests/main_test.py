@@ -4,7 +4,6 @@ from appdirs import *
 from search_that_hash.__main__ import main
 import os.path
 
-
 def test_it_works():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
