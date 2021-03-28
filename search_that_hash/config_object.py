@@ -49,7 +49,7 @@ def default_config():
         "hashcat_binary": None,
         "timeout": 1,
         "wordlist": None,
-        "offline": False
+        "offline": False,
         "hashes_dot_org":"test",
         "sth_api":"rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
         "hashcat_exe_name":"hashcat",
