@@ -1,0 +1,19 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: urllib3
+    versions:
+    - 1.26.4
+  - dependency-name: name-that-hash
+    versions:
+    - 1.1.5
+    - 1.5.0
+  - dependency-name: rich
+    versions:
+    - 9.11.1
+    - 9.12.0
