@@ -76,7 +76,7 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
           </td>
       </tr>
       <tr>
-        <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
+        <td>Instantly identify what type of hash it is. With support for over 300 hashes, descriptions and popularity ratings!</td>
         <td>
           Automatically decrypt ciphers, decode encodings, crack hashes, and more. Not sure what the text is? Use this!
       </td>
