@@ -39,9 +39,10 @@ class FastClass:
                     continue
                 printing.Prettifier.error_print("No types found for this hash.", chash)
                 continue
-
+            
             chash: str = list(self.hash_processes[-1].keys())[0]
             result: str = self.hash_processes[-1][chash]
+            site: str = self.hash_processes[-1][chash][1]
 
             if not result:
                 if self.config["api"]:
@@ -58,9 +59,9 @@ class FastClass:
             self.sth.push(chash, result, types_to_push)
 
             if self.config["api"]:
-                self.results.append({chash: {"plaintext":result, "types":types_to_push, "verified":False}})
+                self.results.append({chash: {"plaintext":result, "types":types_to_push, "verified":False, "site":site}})
                 continue
 
-            printing.Prettifier.one_print(chash, result)
+            printing.Prettifier.one_print(chash, result, site)
 
         return self.results
