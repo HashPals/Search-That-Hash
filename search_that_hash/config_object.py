@@ -50,11 +50,10 @@ def default_config():
         "timeout": 1,
         "wordlist": None,
         "offline": False,
-        "hashes_dot_org":"test",
-        "sth_api":"rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
-        "hashcat_exe_name":"hashcat",
-        "hashcat_folder":""
-    
+        "hashes_dot_org": "test",
+        "sth_api": "rGFbPbSXMF5ldzid2eyA81i6aCa497Z25MNgi8sa",
+        "hashcat_exe_name": "hashcat",
+        "hashcat_folder": "",
     }
 
     appname = "Search-That-Hash"

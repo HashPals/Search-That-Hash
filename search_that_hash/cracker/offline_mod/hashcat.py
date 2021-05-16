@@ -1,15 +1,16 @@
 import subprocess as sp
 
+
 class Hashcat:
     def crack(self, config):
 
         hashcat_dict = str.maketrans({"$": "\\$"})
         hash_formatted = config["chash"].translate(hashcat_dict)
-        
+
         for possible_type in config["hashcat_types"]:
-            
+
             command = f"cd {config['hashcat_folder']} && {config['hashcat_exe_name']} -a 0 -m {possible_type} {hash_formatted} {config['wordlist']}"
-            
+
             if config["greppable"]:
                 config["greppable"] = sp.DEVNULL
             else:

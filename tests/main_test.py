@@ -4,6 +4,7 @@ from appdirs import *
 from search_that_hash.__main__ import main
 import os.path
 
+
 def test_it_works():
 
     hashes = ["5d41402abc4b2a76b9719d911017c592"]
@@ -150,6 +151,7 @@ def test_cli_fail_on_grep():  # Fixes #63 issue
         ["-t", "jadjsjhd9239uh80dahjdah8isdh90wq90hj0j9fj9023j0-12j-j-0fasj0a", "-g"],
     )
     assert result.exit_code == 0
+
 
 def test_config_is_there():
     appname = "Search-That-Hash"

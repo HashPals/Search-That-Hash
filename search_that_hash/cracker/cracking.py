@@ -91,15 +91,13 @@ class Searcher:
                                 config["chash"]: str(
                                     list(possible_done.result().values())[0]
                                 ),
-                                "site": str(
-                                    list(possible_done.result().keys())[0]
-                                )
+                                "site": str(list(possible_done.result().keys())[0]),
                             }
 
-        if success == {} and not self.config["greppable"]: # Returning None
+        if success == {} and not self.config["greppable"]:  # Returning None
             return {config["chash"]: None}
 
-        return {config["chash"]: [success, fails]} # Returning the greppable API
+        return {config["chash"]: [success, fails]}  # Returning the greppable API
 
     def call_searcher(self, search, future):
         try:

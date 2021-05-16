@@ -39,7 +39,8 @@ class LmRainbowTables:
             return "Failed"
         if "Uncrackable with this charset" in response[3]:
             return "Failed"
-    
+
+
 class hashtoolkit:
     supports = set(["md5", "sha-1", "sha-256", "sha-512", "sha-384"])
 
