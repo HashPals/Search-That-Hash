@@ -55,6 +55,13 @@ def test_password_in_sha512():
     assert "password" in x
 
 
+def test_if_site_cli():
+    runner = CliRunner()
+    result = runner.invoke(main, ["-t", "5f4dcc3b5aa765d61d8327deb882cf99"])
+    assert result.exit_code == 0
+    assert "\nSite : STH DB\n" in result.output
+
+
 def test_cli_config_works():
     from search_that_hash import config_object
 
@@ -68,7 +75,7 @@ def test_cli_config_works():
 def test_one_print():
     from search_that_hash import printing
 
-    printing.Prettifier.one_print("Test", "Test")
+    printing.Prettifier.one_print("Test", "Test", "Test")
 
 
 def test_help_menu_shows_on_no_input():
