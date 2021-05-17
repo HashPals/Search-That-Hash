@@ -63,7 +63,16 @@ class Sth_api:
                     result["Verified"],
                 )
             else:
-                results.append({result["Hash"]: {"plaintext":result["Plaintext"], "types":[result["Type"]], "verified":result["Verified"]}})
+                results.append(
+                    {
+                        result["Hash"]: {
+                            "plaintext": result["Plaintext"],
+                            "types": [result["Type"]],
+                            "verified": result["Verified"],
+                            "site": "STH DB",
+                        }
+                    }
+                )
         return results
 
     def append_sth(self):
