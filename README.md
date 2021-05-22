@@ -15,9 +15,6 @@
 Tired of going to every website to crack your hash? Search-That-Hash automates this process in less than 2 seconds.
 Search-That-Hash searches the most popular hash cracking sites and automatically inputs your hash(s) for cracking
 
-**Please note that this in alpha stage so do not expect it to be perfect 🙂
-For bugs please open an issue.**
-
 # 🔍 Features
 
 * **⌨️ Auto-Type Identification** - No need to know the hash type, Search-That-Hash uses [Name-That-Hash](https://github.com/HashPals/Name-That-Hash) to get accurate results on the type of the hash.
@@ -35,6 +32,7 @@ For bugs please open an issue.**
 
 Couldn't find it in any API? 😢 STH automatically pipes your input into Hashcat 🥳
 
+Make sure to specify a wordlist if you want STH to use HashCat with `-w /path/to/wordlist`. If you are on Windows you must specify the path to your HashCat binary and folder in config.json 🙂
 # 🔨 Installation
 
 Install Search-That-Hash as fast as you can read this README. No, seriously -- it's that easy  😎
@@ -73,11 +71,12 @@ Like Search-That-Hash? We have 2 other projects you'll **love**!
         <td><img src="https://raw.githubusercontent.com/Ciphey/Ciphey/master/Pictures_for_README/index.gif" width="500" height="500"></img></td>
       </tr>
       <tr>
-        <td>Instantly identify what type of hash it is. With support for over 3000 hashes, descriptions and popularity ratings!</td>
+        <td>Instantly identify what type of hash it is. With support for over 300 hashes, descriptions and popularity ratings!</td>
         <td>
-          Automatically decrypt ciphers without knowing the key, decode encodings, crack hashes, and more. Use this when you have some sort of encoded/encrypted text and you're not sure what it is. With support for over 50+ encryptions/encodings!
+          Automatically decrypt ciphers, decode encodings, crack hashes, and more. Not sure what the text is? Use this!
       </td>
-
+    </tbody>
+    </thead>
 </table>
 
 # 📼 Demos
@@ -98,8 +97,7 @@ Thats why we have documentation!
 
 | 📚 **Documentation** | 🐦 **My Twitter (@ me for questions)** | 🎳 **Discord** 
 | --------------- | ----------------------------------- | ---------------- | 
-| [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](https://discord.gg/zYTM3rZM4T) | 
-
+| [Wiki](https://github.com/HashPals/Search-That-Hash/wiki) | [JaySec](https://twitter.com/Jayy_2004) | [Discord](http://discord.com/invite/zYTM3rZM4T) | 
 
 # ✍️ Contributing
 

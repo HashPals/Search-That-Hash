@@ -11,6 +11,8 @@ from search_that_hash import printing
 import logging
 import coloredlogs
 
+from appdirs import *
+
 
 @click.command()
 @click.option("--text", "-t", type=str, help="Crack a single hash.")

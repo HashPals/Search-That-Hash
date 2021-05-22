@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "search-that-hash"
-version = "0.2.2"
+version = "0.2.8"
 description = "Search hashes quickly before cracking them"
 authors = ["brandon <brandon@skerritt.blog>","jayy <jayy2004@gmx.co.uk>"]
 license = "GPL-3.0-or-later"
@@ -13,15 +13,15 @@ toml = "^0.10.2"
 loguru = "^0.5.3"
 name-that-hash = "^1.1.6"
 requests = "^2.25.1"
-rich = "^9.12.2"
+rich = ">=9.12.2,<11.0.0"
 coloredlogs = "^15.0"
 cloudscraper = "^1.2.56"
 
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.2"
-coverage = {extras = ["toml"], version = "^5.4"}
-pytest-cov = "^2.11.1"
+pytest = "^6.2.4"
+coverage = {extras = ["toml"], version = "^5.5"}
+pytest-cov = "^2.12.0"
 codecov = "^2.1.11"
 
 [build-system]

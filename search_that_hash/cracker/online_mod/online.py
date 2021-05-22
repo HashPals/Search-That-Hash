@@ -1,10 +1,8 @@
-import requests
 import cloudscraper
+import requests
 
 
 class LmRainbowTables:
-
-    # it doesnt like any word longer then 7 charcters :*(, also it for some reason puts it ALL in caps wtf?
 
     supports = set(["lm"])
 
@@ -53,7 +51,7 @@ class hashtoolkit:
                 f"https://hashtoolkit.com/decrypt-hash/?hash={config['chash']}",
                 timeout=config["timeout"],
             ).text.splitlines()
-        except:
+        except Exception:
             return "Failed"
 
         for i in range(len(HTML)):
@@ -102,14 +100,15 @@ class md5crypt:
             return None
 
 
-# Bug fixing, should be all good
 class nitrxgen:
     # From HashBuster https://github.com/s0md3v/Hash-Buster/blob/master/hash.py
     supports = set(["md5"])
 
     def crack(self, config):
         response = requests.get(
-            "https://www.nitrxgen.net/md5db/" + config["chash"], config["timeout"]
+            "https://www.nitrxgen.net/md5db/" + config["chash"],
+            timeout=config["timeout"],
+            verify="nitrxgen.pem",
         ).text
 
         if response:

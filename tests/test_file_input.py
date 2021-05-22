@@ -15,5 +15,4 @@ def test_cli_file_password_in_output():
     runner = CliRunner()
     result = runner.invoke(main, ["-f", "tests/mocks/hashes.txt"])
     assert result.exit_code == 0
-    print(result.output)
     assert "password" in result.output
