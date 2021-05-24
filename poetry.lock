@@ -184,14 +184,14 @@ dev = ["codecov (>=2.0.15)", "colorama (>=0.3.4)", "flake8 (>=3.7.7)", "tox (>=3
 
 [[package]]
 name = "name-that-hash"
-version = "1.8.0"
+version = "1.9.0"
 description = "The Modern Hash Identification System"
 category = "main"
 optional = false
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
-click = ">=7.1.2,<8.0.0"
+click = ">=7.1.2,<9.0.0"
 rich = ">=9.9,<11.0"
 
 [[package]]
@@ -512,8 +512,8 @@ loguru = [
     {file = "loguru-0.5.3.tar.gz", hash = "sha256:b28e72ac7a98be3d28ad28570299a393dfcd32e5e3f6a353dec94675767b6319"},
 ]
 name-that-hash = [
-    {file = "name-that-hash-1.8.0.tar.gz", hash = "sha256:f1f11dce70e0baf7521245abb4eb3a1563dac637791369561c5daba1aeb7fc97"},
-    {file = "name_that_hash-1.8.0-py3-none-any.whl", hash = "sha256:b3c1a0a1623649eac9fa2a149d0d277f244b46b4a533472eec53eedacde4dcb5"},
+    {file = "name-that-hash-1.9.0.tar.gz", hash = "sha256:77f848196b339ec2ae8dc7f2ec1197401eb7cb9605f880c7813b342251e5cf89"},
+    {file = "name_that_hash-1.9.0-py3-none-any.whl", hash = "sha256:2be2d8aaf5191be6017dfd40987644589955bc1d64e776801a3e6d8dc3fe5ce5"},
 ]
 packaging = [
     {file = "packaging-20.9-py2.py3-none-any.whl", hash = "sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a"},
