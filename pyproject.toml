@@ -17,7 +17,6 @@ rich = ">=9.12.2,<11.0.0"
 coloredlogs = "^15.0"
 cloudscraper = "^1.2.56"
 
-
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 coverage = {extras = ["toml"], version = "^5.5"}
