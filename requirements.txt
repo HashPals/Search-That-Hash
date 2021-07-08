@@ -15,18 +15,18 @@ idna==2.10; python_version >= "2.7" and python_full_version < "3.0.0" or python_
 importlib-metadata==3.7.0; python_version < "3.8" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.4.0" and python_version >= "3.6" and python_version < "3.8") and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6")
 iniconfig==1.1.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 loguru==0.5.3; python_version >= "3.5"
-name-that-hash==1.8.0; python_version >= "3.6" and python_version < "4.0"
+name-that-hash==1.10.0; python_version >= "3.6" and python_version < "4.0"
 packaging==20.9; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 pluggy==0.13.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 py==1.10.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 pygments==2.8.0; python_version >= "3.6" and python_version < "4.0"
 pyparsing==2.4.7; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 pyreadline==2.1; python_version >= "2.7" and python_full_version < "3.0.0" and sys_platform == "win32" or python_full_version >= "3.5.0" and sys_platform == "win32"
-pytest-cov==2.11.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
+pytest-cov==2.12.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
 pytest==6.2.4; python_version >= "3.6"
 requests-toolbelt==0.9.1
 requests==2.25.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
-rich==10.1.0; python_version >= "3.6" and python_version < "4.0"
+rich==10.2.1; python_version >= "3.6" and python_version < "4.0"
 toml==0.10.2; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.3.0")
 typing-extensions==3.7.4.3; python_version >= "3.6" and python_version < "3.8"
 urllib3==1.26.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4"
