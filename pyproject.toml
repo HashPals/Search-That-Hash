@@ -21,7 +21,7 @@ cloudscraper = "^1.2.56"
 pytest = "^6.2.4"
 coverage = {extras = ["toml"], version = "^5.5"}
 pytest-cov = "^2.12.1"
-codecov = "^2.1.11"
+codecov = "^2.1.12"
 
 [build-system]
 requires = ["poetry>=0.12"]
