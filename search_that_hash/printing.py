@@ -35,14 +35,14 @@ class Prettifier:
 
     @staticmethod
     def error_print(msg, chash):
-        console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
+        console.print(f"\n\n[bold #ffffff on #f08400]{chash}[/bold #ffffff on #ed0010]")
         console.print(
             f"\n[bold underline #E71D36]Error[/bold underline #E71D36]: [bold #E71D36]{msg}[/bold #E71D36]"
         )
 
     @staticmethod
     def sth_print(chash, result, type, verified):
-        console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
+        console.print(f"\n\n[bold #ffffff on #ed0010]{chash}[/bold #ffffff on #ed0010]")
         texts = (
             f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             + f"\n[bold underline #EC7F5B]Type[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{type}[/bold #AFEADC on #005F5F]"
@@ -55,7 +55,7 @@ class Prettifier:
 
     @staticmethod
     def one_print(chash, result, site):
-        console.print(f"\n\n[bold #011627 on #ff9f1c]{chash}[/bold #011627 on #ff9f1c]")
+        console.print(f"\n\n[bold #ffffff on #ed0010]{chash}[/bold #ffffff on #ed0010]")
         console.print(
             f"\n[bold underline #EC7F5B]Text[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]{result}[/bold #AFEADC on #005F5F]"
             + f"\n[bold underline #EC7F5B]Site[/bold underline #EC7F5B] : [bold #AFEADC on #005F5F]Hashtoolkit[/bold #AFEADC on #005F5F]"
