@@ -61,7 +61,7 @@ importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "cloudscraper"
-version = "1.2.58"
+version = "1.2.60"
 description = "A Python module to bypass Cloudflare's anti-bot page."
 category = "main"
 optional = false
@@ -425,8 +425,8 @@ click = [
     {file = "click-8.0.1.tar.gz", hash = "sha256:8c04c11192119b1ef78ea049e0a6f0463e4c48ef00a30160c704337586f3ad7a"},
 ]
 cloudscraper = [
-    {file = "cloudscraper-1.2.58-py2.py3-none-any.whl", hash = "sha256:674fd739f9412188aae8d6614e3e6316939fc0670ef5646abd3d316f1a59d3c2"},
-    {file = "cloudscraper-1.2.58.tar.gz", hash = "sha256:dda29028c5628b5ba3e4dc43816ed38fd46bd945ef938c420f185586a6d8dff2"},
+    {file = "cloudscraper-1.2.60-py2.py3-none-any.whl", hash = "sha256:37afe061dee27c6ee1524ff3ca779ef0cc1d63298c3b65ec25f86d1e4b4a2eb9"},
+    {file = "cloudscraper-1.2.60.tar.gz", hash = "sha256:0d3413b2fff9f7cf79513b0c9aac58b527c5a2c5163d1c7cc0c4f8cca1d0f4e7"},
 ]
 codecov = [
     {file = "codecov-2.1.12-py2.py3-none-any.whl", hash = "sha256:585dc217dc3d8185198ceb402f85d5cb5dbfa0c5f350a5abcdf9e347776a5b47"},
