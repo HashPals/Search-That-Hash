@@ -30,5 +30,5 @@ rich==10.2.1; python_version >= "3.6" and python_version < "4.0"
 toml==0.10.2; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.3.0")
 typing-extensions==3.7.4.3; python_version >= "3.6" and python_version < "3.8"
 urllib3==1.26.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4"
-win32-setctime==1.0.3; sys_platform == "win32" and python_version >= "3.5"
+win32-setctime==1.1.0; sys_platform == "win32" and python_version >= "3.5"
 zipp==3.4.0; python_version < "3.8" and python_version >= "3.6"
