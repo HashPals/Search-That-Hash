@@ -19,7 +19,7 @@ cloudscraper = "^1.2.56"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
-coverage = {extras = ["toml"], version = "^5.5"}
+coverage = {extras = ["toml"], version = "^7.2"}
 pytest-cov = "^2.12.1"
 codecov = "^2.1.12"
 
